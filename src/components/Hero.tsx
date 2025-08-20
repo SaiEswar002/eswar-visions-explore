@@ -54,13 +54,7 @@ const Hero = () => {
                 <Download className="w-4 h-4" />
                 Download Resume
               </Button>
-              <Button 
-                className="btn-secondary flex items-center gap-2"
-                onClick={scrollToContact}
-              >
-                <Mail className="w-4 h-4" />
-                Contact Me
-              </Button>
+
             </div>
           </div>
         </div>
