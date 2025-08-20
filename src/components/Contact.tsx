@@ -69,7 +69,7 @@ const Contact = () => {
             onClick={() => window.open("#", "_blank")}
           >
             <Download className="w-5 h-5" />
-            Download CV
+            Download Resume
           </Button>
         </div>
 

@@ -20,7 +20,7 @@ const Experience = () => {
     },
     {
       type: "Club Activity",
-      title: "Member - Mayavi Club",
+      title: "Vice President - Mayavi Club",
       organization: "College Organization",
       period: "Current",
       description: "Actively participated in organizing SIL events and worked on innovative 3D modeling and AR/VR projects.",

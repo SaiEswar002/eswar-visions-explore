@@ -33,11 +33,11 @@ const Footer = () => {
               "Explorer of possibilities"
             </p>
             <p className="text-primary-foreground/80 text-sm">
-              Copyright ©2025 All rights reserved | This template is made with ❤️ by Eswar
+              Copyright ©2025 All rights reserved | This template is made with ❤️ by Sai Eswar
             </p>
           </div>
           
-          <div className="flex gap-4">
+          {/* <div className="flex gap-4">
             {socialLinks.map((link) => (
               <a
                 key={link.name}
@@ -50,7 +50,7 @@ const Footer = () => {
                 <link.icon className="w-5 h-5" />
               </a>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>

@@ -30,7 +30,7 @@ const Hero = () => {
           {/* Right side - Content */}
           <div className="order-1 lg:order-2 text-center lg:text-left animate-slide-in-right">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-wider">
-              <span className="text-primary">ESWAR</span>
+              <span className="text-primary">SAI ESWAR</span>
             </h1>
             
             <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-muted-foreground">
@@ -52,7 +52,7 @@ const Hero = () => {
                 onClick={() => window.open("#", "_blank")}
               >
                 <Download className="w-4 h-4" />
-                Download CV
+                Download Resume
               </Button>
               <Button 
                 className="btn-secondary flex items-center gap-2"
