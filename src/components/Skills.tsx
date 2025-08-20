@@ -6,7 +6,7 @@ const Skills = () => {
       title: "Frontend Development",
       icon: Code,
       description: "Proficient in HTML, CSS, JavaScript, and React.js for building interactive, responsive user interfaces.",
-      skills: ["HTML", "CSS", "JavaScript", "React.js"]
+      skills: ["C","Java","HTML", "CSS", "JavaScript", "React.js"]
     },
     {
       title: "Software Applications & Tools",
@@ -18,7 +18,7 @@ const Skills = () => {
       title: "Creative & Analytical",
       icon: Palette,
       description: "Strong in problem-solving, logical reasoning, teamwork, and delivering visually engaging content.",
-      skills: ["Adobe Illustrator", "Blender", "DaVinci Resolve"]
+      skills: ["Adobe Illustrator", "Blender", "DaVinci Resolve"," Figma", "Canva","Capcut"]
     }
   ];
 

@@ -14,7 +14,7 @@ const Experience = () => {
       type: "Freelance",
       title: "Book Cover Designer",
       organization: "VGS Publishers",
-      period: "Intermediate 1st-year",
+      period: "Jun 2025",
       description: "Designed engaging book covers for educational materials, combining creativity with educational publishing standards.",
       icon: Award
     },

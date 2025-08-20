@@ -14,14 +14,14 @@ const About = () => {
       degree: "Diploma",
       period: "2021 - 2024",
       field: "Computer Science and Engineering",
-      institution: "NTIT, Electronic City, Bangalore",
+      institution: "NTTF, Electronic City, Bangalore",
       link: "#"
     },
     {
       degree: "SSC (10th Grade)",
       period: "2021",
       field: "Secondary School Certificate",
-      institution: "Sri Chaitanya High School, Gooty, Vijayawada",
+      institution: "Sri Chaitanya High School, Gosala, Vijayawada",
       link: "#"
     }
   ];
