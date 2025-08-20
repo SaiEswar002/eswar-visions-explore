@@ -2,41 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* E.N.V.B. Sai Eswar Portfolio Design System
+Japanese Red (#9B1C1C), Beige (#F5F5DC), White (#FFFFFF)
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
+    /* Brand Colors */
+    --japanese-red: 0 67% 36%;
+    --beige: 60 56% 91%;
+    --cream: 48 67% 96%;
+    --deep-red: 0 75% 25%;
+    --dark-brown: 25 25% 15%;
+    
+    /* System Colors */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 25 25% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 25 25% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 25 25% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 0 67% 36%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 60 56% 91%;
+    --secondary-foreground: 25 25% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 60 56% 91%;
+    --muted-foreground: 25 25% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 0 67% 36%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 60 25% 85%;
+    --input: 60 25% 85%;
+    --ring: 0 67% 36%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +109,124 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-['Poppins',sans-serif] scroll-smooth;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Portfolio specific styles */
+@layer components {
+  .hero-section {
+    @apply bg-secondary min-h-screen;
+  }
+  
+  .red-section {
+    @apply bg-primary text-primary-foreground;
+  }
+  
+  .beige-section {
+    @apply bg-secondary text-secondary-foreground;
+  }
+  
+  .portfolio-card {
+    @apply bg-card rounded-xl p-6 shadow-sm border border-border/50 transition-all duration-300 hover:shadow-lg hover:scale-[1.02];
+  }
+  
+  .skill-icon {
+    @apply w-12 h-12 mx-auto mb-3 text-primary;
+  }
+  
+  .section-title {
+    @apply text-3xl font-bold text-center mb-12 text-foreground relative;
+  }
+  
+  .section-title::after {
+    content: '';
+    @apply absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-primary rounded-full;
+  }
+  
+  .timeline-item {
+    @apply relative pl-8 pb-8 border-l-2 border-border last:border-l-0;
+  }
+  
+  .timeline-item::before {
+    content: '';
+    @apply absolute -left-2 top-0 w-4 h-4 bg-primary rounded-full border-4 border-background;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:scale-105;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-semibold border-2 border-primary transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:shadow-lg;
+  }
+  
+  .navbar-link {
+    @apply text-foreground hover:text-primary transition-colors duration-300 font-medium relative;
+  }
+  
+  .navbar-link::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+  }
+  
+  .navbar-link:hover::after {
+    @apply w-full;
+  }
+  
+  .floating-btn {
+    @apply fixed bottom-8 right-8 w-12 h-12 bg-primary text-primary-foreground rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 z-50 flex items-center justify-center;
+  }
+}
+
+/* Animations */
+@layer utilities {
+  .animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+  
+  .animate-slide-in-left {
+    animation: slideInLeft 0.8s ease-out forwards;
+  }
+  
+  .animate-slide-in-right {
+    animation: slideInRight 0.8s ease-out forwards;
+  }
+  
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 }
