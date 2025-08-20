@@ -5,19 +5,19 @@ const Hobbies = () => {
     {
       name: "Video Editing",
       icon: Film,
-      emoji: "🎬",
+      // emoji: "🎬",
       description: "Creating engaging visual content and storytelling through editing"
     },
     {
       name: "PC Gaming",
       icon: Gamepad2,
-      emoji: "🎮",
+      // emoji: "🎮",
       description: "Exploring virtual worlds and strategic gameplay experiences"
     },
     {
       name: "Podcasts",
       icon: Headphones,
-      emoji: "🎧",
+      // emoji: "🎧",
       description: "Learning from industry experts and staying updated with trends"
     }
   ];
