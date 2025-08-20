@@ -49,7 +49,7 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button 
                 className="btn-primary flex items-center gap-2"
-                onClick={() => window.open("#", "_blank")}
+                onClick={() => window.open("/portfolio.pdf", "_blank")}
               >
                 <Download className="w-4 h-4" />
                 Download Resume
