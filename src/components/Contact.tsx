@@ -40,19 +40,19 @@ const Contact = () => {
     {
       name: "GitHub",
       icon: Github,
-      url: "https://github.com",
+      url: "https://github.com/SaiEswar002",
       label: "GitHub Profile"
     },
     {
       name: "LinkedIn",
       icon: Linkedin,
-      url: "https://linkedin.com",
+      url: "https://www.linkedin.com/in/sai-eswar-b04240286/",
       label: "LinkedIn Profile"
     },
     {
       name: "Instagram",
       icon: Instagram,
-      url: "https://instagram.com",
+      url: "https://www.instagram.com/sai._.eswar/",
       label: "Instagram Profile"
     }
   ];
@@ -61,7 +61,7 @@ const Contact = () => {
     <section id="contact" className="red-section py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6" data-aos="fade-up">
             Do you want to know more about me?
           </h2>
           <Button
