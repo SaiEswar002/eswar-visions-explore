@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -13,14 +14,44 @@ const Contact = () => {
     subject: "",
     message: ""
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. I'll get back to you soon.",
-    });
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    setIsSubmitting(true);
+
+    try {
+      // Initialize EmailJS with your public key
+      emailjs.init('tKQGIweSmVXzZbzKj');
+
+      // Send email using EmailJS
+      await emailjs.send(
+        'service_zrd6rue',
+        'template_jo3q4uc',
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          to_email: 'edapalapatisaieswar2005@gmail.com'
+        }
+      );
+
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for reaching out. I'll get back to you soon.",
+      });
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again or email me directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -77,7 +108,7 @@ const Contact = () => {
           {/* Contact Info */}
           <div className="animate-slide-in-left">
             <h3 className="text-2xl font-semibold mb-8">Contact Me</h3>
-            
+
             <div className="space-y-6 mb-8">
               <div>
                 <h4 className="font-semibold mb-2">Email</h4>
@@ -133,7 +164,7 @@ const Contact = () => {
                   />
                 </div>
               </div>
-              
+
               <div>
                 <Input
                   type="text"
@@ -145,7 +176,7 @@ const Contact = () => {
                   className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60"
                 />
               </div>
-              
+
               <div>
                 <Textarea
                   name="message"
@@ -157,13 +188,14 @@ const Contact = () => {
                   className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60 resize-none"
                 />
               </div>
-              
+
               <Button
                 type="submit"
-                className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90 py-3 text-lg font-semibold rounded-lg flex items-center justify-center gap-2"
+                disabled={isSubmitting}
+                className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90 py-3 text-lg font-semibold rounded-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Send className="w-5 h-5" />
-                Send Message
+                {isSubmitting ? "Sending..." : "Send Message"}
               </Button>
             </form>
           </div>

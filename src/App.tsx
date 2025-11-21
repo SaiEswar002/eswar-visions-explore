@@ -6,12 +6,18 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { useAnimations } from "./hooks/useAnimations";
+import { useState } from "react";
 
 const queryClient = new QueryClient();
 
 const App = () => {
   // Initialize animations
   useAnimations();
+  const [showIntro, setShowIntro] = useState(true);
+
+  const handleIntroComplete = () => {
+    setShowIntro(false);
+  };
 
   return (
     <QueryClientProvider client={queryClient}>
