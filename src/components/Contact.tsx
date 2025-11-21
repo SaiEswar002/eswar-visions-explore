@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Mail, Github, Linkedin, Instagram, Download, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,16 +16,20 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Initialize EmailJS once when component mounts
+  useEffect(() => {
+    emailjs.init('tKQGIweSmVXzZbzKj');
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      // Initialize EmailJS with your public key
-      emailjs.init('tKQGIweSmVXzZbzKj');
+      console.log('Sending email with EmailJS...');
 
       // Send email using EmailJS
-      await emailjs.send(
+      const response = await emailjs.send(
         'service_zrd6rue',
         'template_jo3q4uc',
         {
@@ -33,20 +37,24 @@ const Contact = () => {
           from_email: formData.email,
           subject: formData.subject,
           message: formData.message,
-          to_email: 'edapalapatisaieswar2005@gmail.com'
         }
       );
+
+      console.log('EmailJS Response:', response);
 
       toast({
         title: "Message Sent!",
         description: "Thank you for reaching out. I'll get back to you soon.",
       });
+
       setFormData({ name: "", email: "", subject: "", message: "" });
-    } catch (error) {
+    } catch (error: any) {
       console.error('EmailJS Error:', error);
+      console.error('Error details:', error.text || error.message);
+
       toast({
         title: "Error",
-        description: "Failed to send message. Please try again or email me directly.",
+        description: error.text || "Failed to send message. Please try again or email me directly.",
         variant: "destructive",
       });
     } finally {
