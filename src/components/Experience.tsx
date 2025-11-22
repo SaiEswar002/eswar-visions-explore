@@ -514,7 +514,7 @@ const Experience = () => {
                                                 initial={{ opacity: 0 }}
                                                 animate={{ opacity: 1 }}
                                                 transition={{ duration: 0.5 }}
-                                                className="w-full h-[400px] md:h-[500px] object-cover"
+                                                className="w-full h-[400px] md:h-[500px] object-contain"
                                             />
 
                                             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
