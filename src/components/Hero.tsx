@@ -20,7 +20,7 @@ const Hero = () => {
     <section id="home" className="hero-section flex items-center" ref={heroRef}>
       {/* Animated gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/30 to-background/50 animate-gradient"></div>
-      
+
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
           {/* Left side - Image */}
@@ -43,30 +43,30 @@ const Hero = () => {
                 SAI ESWAR
               </span>
             </h1>
-            
+
             <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-muted-foreground" data-aos="fade-up" data-aos-delay="200">
               Frontend Developer
             </h2>
-            
+
             <p className="text-lg mb-6 text-muted-foreground max-w-xl" data-aos="fade-up" data-aos-delay="300">
               "Explorer of possibilities | Passionate towards work"
             </p>
-            
+
             <div className="text-sm mb-8 text-muted-foreground" data-aos="fade-up" data-aos-delay="400">
               <p>Pursuing BTech in Computer Science and Engineering with DevOps Specialization</p>
               <p>at KL University (2024-2027)</p>
             </div>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start" data-aos="fade-up" data-aos-delay="500">
-              <Button 
+              <Button
                 className="btn-primary flex items-center gap-2 transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
-                onClick={() => window.open("/portfolio.pdf", "_blank")}
+                onClick={() => window.open("/Eswar_Resume.pdf", "_blank")}
               >
                 <Download className="w-4 h-4" />
                 Download Resume
               </Button>
 
-              <Button 
+              <Button
                 variant="outline"
                 className="flex items-center gap-2 transform transition-all duration-300 hover:scale-105 hover:bg-primary hover:text-primary-foreground"
                 onClick={scrollToContact}

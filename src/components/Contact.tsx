@@ -105,7 +105,7 @@ const Contact = () => {
           </h2>
           <Button
             className="bg-secondary text-secondary-foreground hover:bg-secondary/90 px-8 py-3 text-lg font-semibold rounded-lg flex items-center gap-2 mx-auto"
-            onClick={() => window.open("/portfolio.pdf", "_blank")}
+            onClick={() => window.open("/Eswar_Resume.pdf", "_blank")}
           >
             <Download className="w-5 h-5" />
             Download Resume

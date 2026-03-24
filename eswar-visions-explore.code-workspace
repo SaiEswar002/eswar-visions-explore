@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "../../PSCMR/Skill-Matcher"
+		},
+		{
+			"path": "."
 		}
 	],
 	"settings": {}
