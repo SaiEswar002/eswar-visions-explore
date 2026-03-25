@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Briefcase, Award, Users, X, ChevronLeft, ChevronRight, Calendar, Lightbulb, Palette } from "lucide-react";
+import { Briefcase, Award, Users, X, ChevronLeft, ChevronRight, Calendar, Lightbulb, Palette, Trophy, ExternalLink, Eye, Zap, Brain, GraduationCap, Gamepad2, PartyPopper, BookOpen, Image as ImageIcon, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Import IGDC images
@@ -40,10 +40,77 @@ import physics3 from "@/assets/VGS/Physics coverpage sample - 3.png";
 import physics4 from "@/assets/VGS/Physics coverpage sample - 4.png";
 import social1 from "@/assets/VGS/SocialStudies coverpage sample -1].png";
 
+// Import Hackathon images – PSCMR
+import pscmr1 from "@/assets/Hackathons/H_1-PSCMR/1766551286827.jpg";
+import pscmr2 from "@/assets/Hackathons/H_1-PSCMR/1766551287146.jpg";
+import pscmr3 from "@/assets/Hackathons/H_1-PSCMR/1766551287271.jpg";
+import pscmr4 from "@/assets/Hackathons/H_1-PSCMR/1766551287820.jpg";
+import pscmr5 from "@/assets/Hackathons/H_1-PSCMR/1766551287916.jpg";
+import pscmr6 from "@/assets/Hackathons/H_1-PSCMR/1766551287967.jpg";
+import pscmrCert from "@/assets/Hackathons/H_1-PSCMR/certificate.jpg";
+
+// Import Hackathon images – IIIT
+import iiit1 from "@/assets/Hackathons/H_2-IIIT/1766918664227.jpg";
+import iiit2 from "@/assets/Hackathons/H_2-IIIT/1766918664235.jpg";
+import iiit3 from "@/assets/Hackathons/H_2-IIIT/1766918669087.jpg";
+import iiit4 from "@/assets/Hackathons/H_2-IIIT/1767455548345.jpg";
+import iiit5 from "@/assets/Hackathons/H_2-IIIT/1767455552880.jpg";
+import iiit6 from "@/assets/Hackathons/H_2-IIIT/1767455554746.jpg";
+
+// Import Hackathon images – Anuragh
+import anuragh1 from "@/assets/Hackathons/H_3-Anuragh/1767356107404.jpg";
+import anuragh2 from "@/assets/Hackathons/H_3-Anuragh/1767356109037.jpg";
+import anuragh3 from "@/assets/Hackathons/H_3-Anuragh/1767356110730.jpg";
+import anuragh4 from "@/assets/Hackathons/H_3-Anuragh/1767608461127.jpg";
+import anuragh5 from "@/assets/Hackathons/H_3-Anuragh/1767608461133.jpg";
+import anuragh6 from "@/assets/Hackathons/H_3-Anuragh/1767608461240.jpg";
+import anuragh7 from "@/assets/Hackathons/H_3-Anuragh/1767608461298.jpg";
+import anuragh8 from "@/assets/Hackathons/H_3-Anuragh/1767608461568.jpg";
+import anuragh9 from "@/assets/Hackathons/H_3-Anuragh/1767608461671.jpg";
+import anuragh10 from "@/assets/Hackathons/H_3-Anuragh/1767608461728.jpg";
+import anuragh11 from "@/assets/Hackathons/H_3-Anuragh/1767608462004.jpg";
+import anuraghCert from "@/assets/Hackathons/H_3-Anuragh/certificate.jpg";
+
+const hackathonGalleries = {
+    anuragh: [
+        { src: anuragh1, caption: "Anuragh Hackathon" },
+        { src: anuragh2, caption: "Anuragh Hackathon" },
+        { src: anuragh3, caption: "Anuragh Hackathon" },
+        { src: anuragh4, caption: "Anuragh Hackathon" },
+        { src: anuragh5, caption: "Anuragh Hackathon" },
+        { src: anuragh6, caption: "Anuragh Hackathon" },
+        { src: anuragh7, caption: "Anuragh Hackathon" },
+        { src: anuragh8, caption: "Anuragh Hackathon" },
+        { src: anuragh9, caption: "Anuragh Hackathon" },
+        { src: anuragh10, caption: "Anuragh Hackathon" },
+        { src: anuragh11, caption: "Anuragh Hackathon" },
+        { src: anuraghCert, caption: "Certificate – Anuragh" },
+    ],
+    iiit: [
+        { src: iiit1, caption: "IIIT TechZite 2025" },
+        { src: iiit2, caption: "IIIT TechZite 2025" },
+        { src: iiit3, caption: "IIIT TechZite 2025" },
+        { src: iiit4, caption: "IIIT TechZite 2025" },
+        { src: iiit5, caption: "IIIT TechZite 2025" },
+        { src: iiit6, caption: "IIIT TechZite 2025" },
+    ],
+    pscmr: [
+        { src: pscmr1, caption: "PSCMR Hackathon" },
+        { src: pscmr2, caption: "PSCMR Hackathon" },
+        { src: pscmr3, caption: "PSCMR Hackathon" },
+        { src: pscmr4, caption: "PSCMR Hackathon" },
+        { src: pscmr5, caption: "PSCMR Hackathon" },
+        { src: pscmr6, caption: "PSCMR Hackathon" },
+        { src: pscmrCert, caption: "Certificate – PSCMR" },
+    ],
+};
+
 const Experience = () => {
     const [selectedExperience, setSelectedExperience] = useState<string | null>(null);
     const [selectedSubExperience, setSelectedSubExperience] = useState<string | null>(null);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [hackathonGallery, setHackathonGallery] = useState<keyof typeof hackathonGalleries | null>(null);
+    const [hackathonImageIndex, setHackathonImageIndex] = useState(0);
 
     const experiences = [
         {
@@ -81,9 +148,9 @@ const Experience = () => {
         igdc: {
             id: "igdc",
             title: "IGDC 2025 Journey",
-            emoji: "🎮",
+            Icon: Gamepad2,
             summary: "An incredible 3-day immersion into India's gaming ecosystem from November 5-7, 2025 in Hyderabad.",
-            gradient: "from-purple-600 to-blue-600",
+            gradient: "from-[#6b0f0f] to-[#9B1C1C]",
             images: [
                 { src: igdcGroup, caption: "IGDC 2025 Group Photo" },
                 { src: igdc1, caption: "IGDC Conference" },
@@ -137,19 +204,19 @@ const Experience = () => {
                         </h3>
                         <ul className="space-y-4">
                             <li className="flex items-start gap-3">
-                                <span className="text-2xl">✅</span>
+                                <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                                 <div>
                                     <strong className="text-cyan-200">Deep insights into the gaming ecosystem</strong>
                                 </div>
                             </li>
                             <li className="flex items-start gap-3">
-                                <span className="text-2xl">✅</span>
+                                <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                                 <div>
                                     <strong className="text-cyan-200">AI and emerging technologies in gaming</strong>
                                 </div>
                             </li>
                             <li className="flex items-start gap-3">
-                                <span className="text-2xl">✅</span>
+                                <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                                 <div>
                                     <strong className="text-cyan-200">Valuable networking opportunities</strong>
                                 </div>
@@ -162,9 +229,9 @@ const Experience = () => {
         samyak: {
             id: "samyak",
             title: "Samyak College Fest",
-            emoji: "🎉",
+            Icon: PartyPopper,
             summary: "Organized and conducted innovative AR/VR and 3D modeling events for our college fest.",
-            gradient: "from-orange-600 to-pink-600",
+            gradient: "from-[#7a1010] to-[#c0392b]",
             images: [
                 { src: samyak1, caption: "Samyak Event 1" },
                 { src: samyak2, caption: "Samyak Event 2" },
@@ -205,9 +272,9 @@ const Experience = () => {
         vgscovers: {
             id: "vgscovers",
             title: "Book Cover Portfolio",
-            emoji: "📚",
+            Icon: BookOpen,
             summary: "Educational book cover designs for VGS Publishers across multiple subjects including Physics, Chemistry, Mathematics, and more.",
-            gradient: "from-indigo-600 to-violet-600",
+            gradient: "from-[#3d0a0a] to-[#7a1010]",
             images: [
                 { src: botany1, caption: "Botany Cover Design" },
                 { src: chemistry1, caption: "Chemistry Cover - Design 1" },
@@ -347,6 +414,153 @@ const Experience = () => {
                                     </motion.div>
                                 ))}
                             </div>
+
+                            {/* ── Hackathons ── */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.4 }}
+                                className="mt-16"
+                            >
+                                <div className="flex items-center gap-3 mb-8">
+                                    <div className="p-2 bg-primary/10 rounded-lg">
+                                        <Trophy className="w-6 h-6 text-primary" />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-foreground">Hackathons</h3>
+                                </div>
+
+                                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                    {/* Anuragh */}
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.5 }}
+                                        className="portfolio-card relative"
+                                    >
+                                        <button
+                                            onClick={() => { setHackathonGallery("anuragh"); setHackathonImageIndex(0); }}
+                                            className="absolute top-4 right-4 p-1.5 rounded-full bg-primary/10 hover:bg-primary/20 text-primary transition-colors"
+                                            title="View Gallery"
+                                        >
+                                            <Eye className="w-4 h-4" />
+                                        </button>
+                                        <div className="flex items-center gap-3 mb-4">
+                                            <div className="p-2 bg-primary/10 rounded-lg shrink-0">
+                                                <Zap className="w-6 h-6 text-primary" />
+                                            </div>
+                                            <div>
+                                                <h4 className="text-lg font-semibold text-foreground">Anuragh Hackathon</h4>
+                                                <span className="text-xs font-semibold text-primary bg-primary/10 px-2 py-1 rounded-full">Salesforce · Einstein AI</span>
+                                            </div>
+                                        </div>
+                                        <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                                            Participated in CarePlus &amp; AgentX challenges powered by Salesforce Einstein AI, building innovative solutions and earning recognition.
+                                        </p>
+                                        <div className="flex flex-col gap-2">
+                                            <a
+                                                href="https://www.linkedin.com/posts/sai-eswar-b04240286_hackathonsuccess-careplus-salesforce-activity-7413887253925785600-8VdQ"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center gap-2 text-sm text-primary hover:underline"
+                                            >
+                                                <ExternalLink className="w-4 h-4" /> CarePlus Challenge Post
+                                            </a>
+                                            <a
+                                                href="https://www.linkedin.com/posts/sai-eswar-b04240286_agentx-salesforce-einsteinai-activity-7412828820652609536-HkOp"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center gap-2 text-sm text-primary hover:underline"
+                                            >
+                                                <ExternalLink className="w-4 h-4" /> AgentX Challenge Post
+                                            </a>
+                                        </div>
+                                    </motion.div>
+
+                                    {/* IIIT */}
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.6 }}
+                                        className="portfolio-card relative"
+                                    >
+                                        <button
+                                            onClick={() => { setHackathonGallery("iiit"); setHackathonImageIndex(0); }}
+                                            className="absolute top-4 right-4 p-1.5 rounded-full bg-primary/10 hover:bg-primary/20 text-primary transition-colors"
+                                            title="View Gallery"
+                                        >
+                                            <Eye className="w-4 h-4" />
+                                        </button>
+                                        <div className="flex items-center gap-3 mb-4">
+                                            <div className="p-2 bg-primary/10 rounded-lg shrink-0">
+                                                <Brain className="w-6 h-6 text-primary" />
+                                            </div>
+                                            <div>
+                                                <h4 className="text-lg font-semibold text-foreground">IIIT – TechZite 2025</h4>
+                                                <span className="text-xs font-semibold text-primary bg-primary/10 px-2 py-1 rounded-full">AI &amp; ML · Healthcare Innovation</span>
+                                            </div>
+                                        </div>
+                                        <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                                            Built an AI/ML-powered healthcare solution at TechZite 2025 hosted by IIIT, focusing on real-world medical problem-solving.
+                                        </p>
+                                        <div className="flex flex-col gap-2">
+                                            <a
+                                                href="https://www.linkedin.com/posts/potturi-shanmukha-b7b13638b_aiandml-techzite2025-healthcareinnovation-ugcPost-7413245908148006912-2uD7"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center gap-2 text-sm text-primary hover:underline"
+                                            >
+                                                <ExternalLink className="w-4 h-4" /> Team Post
+                                            </a>
+                                            <a
+                                                href="https://www.linkedin.com/posts/sai-eswar-b04240286_aiandml-techzite2025-healthcareinnovation-activity-7410994092085579776-rHWB"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center gap-2 text-sm text-primary hover:underline"
+                                            >
+                                                <ExternalLink className="w-4 h-4" /> My Post
+                                            </a>
+                                        </div>
+                                    </motion.div>
+
+                                    {/* PSCMR */}
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.7 }}
+                                        className="portfolio-card relative"
+                                    >
+                                        <button
+                                            onClick={() => { setHackathonGallery("pscmr"); setHackathonImageIndex(0); }}
+                                            className="absolute top-4 right-4 p-1.5 rounded-full bg-primary/10 hover:bg-primary/20 text-primary transition-colors"
+                                            title="View Gallery"
+                                        >
+                                            <Eye className="w-4 h-4" />
+                                        </button>
+                                        <div className="flex items-center gap-3 mb-4">
+                                            <div className="p-2 bg-primary/10 rounded-lg shrink-0">
+                                                <GraduationCap className="w-6 h-6 text-primary" />
+                                            </div>
+                                            <div>
+                                                <h4 className="text-lg font-semibold text-foreground">PSCMR Hackathon</h4>
+                                                <span className="text-xs font-semibold text-primary bg-primary/10 px-2 py-1 rounded-full">EdTech · Student Innovation</span>
+                                            </div>
+                                        </div>
+                                        <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                                            Competed in an EdTech-focused hackathon at PSCMR College, exploring innovative solutions for educational technology challenges.
+                                        </p>
+                                        <div className="flex flex-col gap-2">
+                                            <a
+                                                href="https://www.linkedin.com/posts/sai-eswar-b04240286_studentlife-edtech-hackathon-activity-7409453170680295424-y90_"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center gap-2 text-sm text-primary hover:underline"
+                                            >
+                                                <ExternalLink className="w-4 h-4" /> LinkedIn Post
+                                            </a>
+                                        </div>
+                                    </motion.div>
+                                </div>
+                            </motion.div>
                         </motion.div>
                     ) : !selectedSubExperience ? (
                         // Selected Experience - Centered with Sub-Experiences
@@ -437,7 +651,9 @@ const Experience = () => {
                                                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
 
                                                     <div className="relative z-10">
-                                                        <div className="text-5xl mb-4">{subExp.emoji}</div>
+                                                        <div className="mb-5 p-3 bg-white/20 rounded-xl w-fit">
+                                                            <subExp.Icon className="w-8 h-8 text-white" />
+                                                        </div>
                                                         <h4 className="text-2xl font-bold text-white mb-4">
                                                             {subExp.title}
                                                         </h4>
@@ -484,10 +700,14 @@ const Experience = () => {
                                     <X className="w-5 h-5" />
                                 </Button>
 
-                                <div className="text-5xl mb-4">{currentSubExp?.emoji}</div>
-                                <h3 className="text-3xl font-bold text-white">
-                                    {currentSubExp?.title}
-                                </h3>
+                                <div className="flex items-center gap-4 mb-2">
+                                    <div className="p-3 bg-white/20 rounded-xl">
+                                        {currentSubExp && <currentSubExp.Icon className="w-8 h-8 text-white" />}
+                                    </div>
+                                    <h3 className="text-3xl font-bold text-white">
+                                        {currentSubExp?.title}
+                                    </h3>
+                                </div>
                             </motion.div>
 
                             {/* Detail Content */}
@@ -502,8 +722,8 @@ const Experience = () => {
                                 {/* Image Gallery */}
                                 {currentSubExp && currentSubExp.images.length > 0 && (
                                     <div className="mt-12">
-                                        <h3 className="text-2xl font-bold text-white mb-6 text-center">
-                                            📸 Gallery
+                                        <h3 className="text-2xl font-bold text-white mb-6 text-center flex items-center justify-center gap-2">
+                                            <ImageIcon className="w-6 h-6 text-primary" /> Gallery
                                         </h3>
 
                                         <div className="relative bg-black/30 rounded-xl overflow-hidden">
@@ -559,6 +779,98 @@ const Experience = () => {
                     )}
                 </AnimatePresence>
             </div>
+
+            {/* Hackathon Gallery Modal */}
+            <AnimatePresence>
+                {hackathonGallery && (() => {
+                    const imgs = hackathonGalleries[hackathonGallery];
+                    const total = imgs.length;
+                    return (
+                        <motion.div
+                            key="hackathon-gallery-modal"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm p-4"
+                            onClick={() => setHackathonGallery(null)}
+                        >
+                            <motion.div
+                                initial={{ scale: 0.9, y: 40 }}
+                                animate={{ scale: 1, y: 0 }}
+                                exit={{ scale: 0.9, y: 40 }}
+                                transition={{ type: "spring", damping: 22, stiffness: 140 }}
+                                className="relative bg-slate-900 rounded-2xl shadow-2xl w-full max-w-3xl overflow-hidden"
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                {/* Modal header */}
+                                <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
+                                    <h3 className="text-white font-bold text-lg flex items-center gap-2">
+                                        📸 Gallery
+                                        <span className="text-sm font-normal text-gray-400">
+                                            {hackathonImageIndex + 1} / {total}
+                                        </span>
+                                    </h3>
+                                    <button
+                                        onClick={() => setHackathonGallery(null)}
+                                        className="p-1.5 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+                                    >
+                                        <X className="w-5 h-5" />
+                                    </button>
+                                </div>
+
+                                {/* Image */}
+                                <div className="relative bg-black">
+                                    <motion.img
+                                        key={hackathonImageIndex}
+                                        src={imgs[hackathonImageIndex].src}
+                                        alt={imgs[hackathonImageIndex].caption}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="w-full h-[420px] object-contain"
+                                    />
+
+                                    {/* Prev */}
+                                    <button
+                                        onClick={() => setHackathonImageIndex((p) => (p - 1 + total) % total)}
+                                        className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 hover:bg-black/80 text-white transition-colors"
+                                    >
+                                        <ChevronLeft className="w-5 h-5" />
+                                    </button>
+
+                                    {/* Next */}
+                                    <button
+                                        onClick={() => setHackathonImageIndex((p) => (p + 1) % total)}
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 hover:bg-black/80 text-white transition-colors"
+                                    >
+                                        <ChevronRight className="w-5 h-5" />
+                                    </button>
+
+                                    {/* Caption */}
+                                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent py-3 text-center">
+                                        <p className="text-white text-sm font-medium">{imgs[hackathonImageIndex].caption}</p>
+                                    </div>
+                                </div>
+
+                                {/* Dot indicators */}
+                                <div className="flex justify-center gap-1.5 py-4">
+                                    {imgs.map((_, i) => (
+                                        <button
+                                            key={i}
+                                            onClick={() => setHackathonImageIndex(i)}
+                                            className={`h-2 rounded-full transition-all ${
+                                                i === hackathonImageIndex
+                                                    ? "w-6 bg-primary"
+                                                    : "w-2 bg-gray-600 hover:bg-gray-400"
+                                            }`}
+                                        />
+                                    ))}
+                                </div>
+                            </motion.div>
+                        </motion.div>
+                    );
+                })()}
+            </AnimatePresence>
         </section>
     );
 };

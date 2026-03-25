@@ -8,16 +8,16 @@ const Projects = () => {
       description: "An innovative hands-free computer control system using computer vision and gesture recognition.",
       techStack: ["Python", "Mediapipe", "OpenCV", "Computer Vision"],
       category: "Diploma Final Year Project",
-      link: "#",
-      github: "#"
+      link: "https://github.com/SaiEswar002/NTTF-Final-Project",
+      github: "https://github.com/SaiEswar002/NTTF-Final-Project"
     },
     {
       title: "Hospital Management System",
       description: "A comprehensive web application for managing hospital operations, patient records, and administrative tasks.",
       techStack: ["React.js", "Node.js", "MongoDB", "CSS"],
       category: "B.Tech Hackathon Project",
-      link: "#",
-      github: "#"
+      link: "https://github.com/SaiEswar002/cicd-hms-docker/tree/main",
+      github: "https://github.com/SaiEswar002/cicd-hms-docker/tree/main"
     },
     {
       title: "Browser-use AI Agent",
