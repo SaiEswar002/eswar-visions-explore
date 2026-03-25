@@ -111,6 +111,8 @@ const Experience = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [hackathonGallery, setHackathonGallery] = useState<keyof typeof hackathonGalleries | null>(null);
     const [hackathonImageIndex, setHackathonImageIndex] = useState(0);
+    const [expGalleryOpen, setExpGalleryOpen] = useState(false);
+    const [expGalleryIdx, setExpGalleryIdx] = useState(0);
 
     const experiences = [
         {
@@ -704,9 +706,18 @@ const Experience = () => {
                                     <div className="p-3 bg-white/20 rounded-xl">
                                         {currentSubExp && <currentSubExp.Icon className="w-8 h-8 text-white" />}
                                     </div>
-                                    <h3 className="text-3xl font-bold text-white">
+                                    <h3 className="text-3xl font-bold text-white flex-1">
                                         {currentSubExp?.title}
                                     </h3>
+                                    {currentSubExp && currentSubExp.images.length > 0 && (
+                                        <button
+                                            onClick={() => { setExpGalleryOpen(true); setExpGalleryIdx(0); }}
+                                            className="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors flex items-center gap-2 text-sm font-medium pr-4"
+                                            title="View Gallery"
+                                        >
+                                            <Eye className="w-5 h-5" /> Gallery
+                                        </button>
+                                    )}
                                 </div>
                             </motion.div>
 
@@ -718,67 +729,100 @@ const Experience = () => {
                                 className="bg-slate-800/50 backdrop-blur-lg rounded-2xl p-8 md:p-12 shadow-2xl border border-primary/20 max-w-4xl mx-auto"
                             >
                                 {currentSubExp?.content}
-
-                                {/* Image Gallery */}
-                                {currentSubExp && currentSubExp.images.length > 0 && (
-                                    <div className="mt-12">
-                                        <h3 className="text-2xl font-bold text-white mb-6 text-center flex items-center justify-center gap-2">
-                                            <ImageIcon className="w-6 h-6 text-primary" /> Gallery
-                                        </h3>
-
-                                        <div className="relative bg-black/30 rounded-xl overflow-hidden">
-                                            <motion.img
-                                                key={currentImageIndex}
-                                                src={currentSubExp.images[currentImageIndex].src}
-                                                alt={currentSubExp.images[currentImageIndex].caption}
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 1 }}
-                                                transition={{ duration: 0.5 }}
-                                                className="w-full h-[400px] md:h-[500px] object-contain"
-                                            />
-
-                                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                                                <p className="text-white text-center font-semibold">
-                                                    {currentSubExp.images[currentImageIndex].caption}
-                                                </p>
-                                            </div>
-
-                                            <Button
-                                                onClick={prevImage}
-                                                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white border-2 border-white/50 backdrop-blur-sm"
-                                                size="icon"
-                                            >
-                                                <ChevronLeft className="w-6 h-6" />
-                                            </Button>
-
-                                            <Button
-                                                onClick={nextImage}
-                                                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white border-2 border-white/50 backdrop-blur-sm"
-                                                size="icon"
-                                            >
-                                                <ChevronRight className="w-6 h-6" />
-                                            </Button>
-                                        </div>
-
-                                        <div className="flex justify-center gap-2 mt-4">
-                                            {currentSubExp.images.map((_, index) => (
-                                                <button
-                                                    key={index}
-                                                    onClick={() => setCurrentImageIndex(index)}
-                                                    className={`w-2 h-2 rounded-full transition-all ${index === currentImageIndex
-                                                        ? "bg-primary w-8"
-                                                        : "bg-gray-500 hover:bg-gray-400"
-                                                        }`}
-                                                />
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
                             </motion.div>
                         </motion.div>
                     )}
                 </AnimatePresence>
             </div>
+
+            {/* Experience Sub-section Gallery Modal */}
+            <AnimatePresence>
+                {expGalleryOpen && currentSubExp && currentSubExp.images.length > 0 && (() => {
+                    const imgs = currentSubExp.images;
+                    const total = imgs.length;
+                    return (
+                        <motion.div
+                            key="exp-gallery-modal"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm p-4"
+                            onClick={() => setExpGalleryOpen(false)}
+                        >
+                            <motion.div
+                                initial={{ scale: 0.9, y: 40 }}
+                                animate={{ scale: 1, y: 0 }}
+                                exit={{ scale: 0.9, y: 40 }}
+                                transition={{ type: "spring", damping: 22, stiffness: 140 }}
+                                className="relative bg-slate-900 rounded-2xl shadow-2xl w-full max-w-3xl overflow-hidden"
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                {/* Modal header */}
+                                <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
+                                    <h3 className="text-white font-bold text-lg flex items-center gap-2">
+                                        <ImageIcon className="w-5 h-5 text-primary" /> Gallery
+                                        <span className="text-sm font-normal text-gray-400">
+                                            {expGalleryIdx + 1} / {total}
+                                        </span>
+                                    </h3>
+                                    <button
+                                        onClick={() => setExpGalleryOpen(false)}
+                                        className="p-1.5 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+                                    >
+                                        <X className="w-5 h-5" />
+                                    </button>
+                                </div>
+
+                                {/* Image */}
+                                <div className="relative bg-black">
+                                    <motion.img
+                                        key={expGalleryIdx}
+                                        src={imgs[expGalleryIdx].src}
+                                        alt={imgs[expGalleryIdx].caption}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="w-full h-[420px] object-contain"
+                                    />
+
+                                    <button
+                                        onClick={() => setExpGalleryIdx((p) => (p - 1 + total) % total)}
+                                        className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 hover:bg-black/80 text-white transition-colors"
+                                    >
+                                        <ChevronLeft className="w-5 h-5" />
+                                    </button>
+
+                                    <button
+                                        onClick={() => setExpGalleryIdx((p) => (p + 1) % total)}
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 hover:bg-black/80 text-white transition-colors"
+                                    >
+                                        <ChevronRight className="w-5 h-5" />
+                                    </button>
+
+                                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent py-3 text-center">
+                                        <p className="text-white text-sm font-medium">{imgs[expGalleryIdx].caption}</p>
+                                    </div>
+                                </div>
+
+                                {/* Dots */}
+                                <div className="flex justify-center gap-1.5 py-4">
+                                    {imgs.map((_, i) => (
+                                        <button
+                                            key={i}
+                                            onClick={() => setExpGalleryIdx(i)}
+                                            className={`h-2 rounded-full transition-all ${
+                                                i === expGalleryIdx
+                                                    ? "w-6 bg-primary"
+                                                    : "w-2 bg-gray-600 hover:bg-gray-400"
+                                            }`}
+                                        />
+                                    ))}
+                                </div>
+                            </motion.div>
+                        </motion.div>
+                    );
+                })()}
+            </AnimatePresence>
 
             {/* Hackathon Gallery Modal */}
             <AnimatePresence>
