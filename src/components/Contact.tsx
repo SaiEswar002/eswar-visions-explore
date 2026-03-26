@@ -1,35 +1,47 @@
 import { useState, useEffect } from "react";
-import { Mail, Github, Linkedin, Instagram, Download, Send } from "lucide-react";
+import { Mail, Github, Linkedin, Instagram, Download, Send, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
 import emailjs from '@emailjs/browser';
 
-const Contact = () => {
-  const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: ""
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+const MAX_MESSAGE_LENGTH = 500;
 
-  // Initialize EmailJS once when component mounts
+const Contact = () => {
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
   useEffect(() => {
     emailjs.init('tKQGIweSmVXzZbzKj');
   }, []);
 
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+    if (!formData.name.trim()) newErrors.name = "Name is required.";
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Enter a valid email address.";
+    }
+    if (!formData.subject.trim()) newErrors.subject = "Subject is required.";
+    if (!formData.message.trim()) newErrors.message = "Message is required.";
+    return newErrors;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+    setErrors({});
     setIsSubmitting(true);
 
     try {
-      console.log('Sending email with EmailJS...');
-
-      // Send email using EmailJS
-      const response = await emailjs.send(
+      await emailjs.send(
         'service_zrd6rue',
         'template_jo3q4uc',
         {
@@ -39,62 +51,50 @@ const Contact = () => {
           message: formData.message,
         }
       );
-
-      console.log('EmailJS Response:', response);
-
-      toast({
-        title: "Message Sent!",
-        description: "Thank you for reaching out. I'll get back to you soon.",
-      });
-
+      setIsSuccess(true);
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error: any) {
-      console.error('EmailJS Error:', error);
-      console.error('Error details:', error.text || error.message);
-
-      toast({
-        title: "Error",
-        description: error.text || "Failed to send message. Please try again or email me directly.",
-        variant: "destructive",
-      });
+      setErrors({ submit: error.text || "Failed to send message. Please try again or email me directly." });
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (errors[e.target.name]) {
+      setErrors({ ...errors, [e.target.name]: "" });
+    }
   };
 
   const socialLinks = [
-    {
-      name: "Portfolio Website",
-      icon: Mail,
-      url: "mailto:saieswar2k5@gmail.com",
-      label: "saieswar2k5@gmail.com"
-    },
-    {
-      name: "GitHub",
-      icon: Github,
-      url: "https://github.com/SaiEswar002",
-      label: "GitHub Profile"
-    },
-    {
-      name: "LinkedIn",
-      icon: Linkedin,
-      url: "https://www.linkedin.com/in/sai-eswar-b04240286/",
-      label: "LinkedIn Profile"
-    },
-    {
-      name: "Instagram",
-      icon: Instagram,
-      url: "https://www.instagram.com/sai._.eswar/",
-      label: "Instagram Profile"
-    }
+    { name: "Email", icon: Mail, url: "mailto:saieswar2k5@gmail.com" },
+    { name: "GitHub", icon: Github, url: "https://github.com/SaiEswar002" },
+    { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/in/sai-eswar-b04240286/" },
+    { name: "Instagram", icon: Instagram, url: "https://www.instagram.com/sai._.eswar/" },
   ];
+
+  if (isSuccess) {
+    return (
+      <section id="contact" className="red-section py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-[50vh] text-center">
+          <div className="mb-6 animate-bounce-in">
+            <CheckCircle2 className="w-24 h-24 text-green-300 mx-auto mb-4 animate-[scaleIn_0.6s_ease-out]" style={{ filter: "drop-shadow(0 0 16px rgba(134,239,172,0.7))" }} />
+          </div>
+          <h2 className="text-3xl font-bold mb-4">Message Sent! 🎉</h2>
+          <p className="text-primary-foreground/80 text-lg mb-8 max-w-md">
+            Thank you for reaching out! I'll get back to you as soon as possible.
+          </p>
+          <Button
+            onClick={() => setIsSuccess(false)}
+            className="bg-secondary text-secondary-foreground hover:bg-secondary/90 px-8 py-3 text-lg font-semibold rounded-lg"
+          >
+            Send Another Message
+          </Button>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="contact" className="red-section py-20">
@@ -116,7 +116,6 @@ const Contact = () => {
           {/* Contact Info */}
           <div className="animate-slide-in-left">
             <h3 className="text-2xl font-semibold mb-8">Contact Me</h3>
-
             <div className="space-y-6 mb-8">
               <div>
                 <h4 className="font-semibold mb-2">Email</h4>
@@ -128,7 +127,6 @@ const Contact = () => {
                 </a>
               </div>
             </div>
-
             <div className="grid grid-cols-2 gap-4">
               {socialLinks.map((link) => (
                 <a
@@ -147,7 +145,7 @@ const Contact = () => {
 
           {/* Contact Form */}
           <div className="animate-slide-in-right">
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6" noValidate>
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <Input
@@ -156,9 +154,9 @@ const Contact = () => {
                     placeholder="Your Name"
                     value={formData.name}
                     onChange={handleChange}
-                    required
-                    className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60"
+                    className={`bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60 ${errors.name ? "border-red-500 ring-1 ring-red-500" : ""}`}
                   />
+                  {errors.name && <p className="text-red-300 text-xs mt-1">{errors.name}</p>}
                 </div>
                 <div>
                   <Input
@@ -167,9 +165,9 @@ const Contact = () => {
                     placeholder="Email"
                     value={formData.email}
                     onChange={handleChange}
-                    required
-                    className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60"
+                    className={`bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60 ${errors.email ? "border-red-500 ring-1 ring-red-500" : ""}`}
                   />
+                  {errors.email && <p className="text-red-300 text-xs mt-1">{errors.email}</p>}
                 </div>
               </div>
 
@@ -180,9 +178,9 @@ const Contact = () => {
                   placeholder="Subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  required
-                  className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60"
+                  className={`bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60 ${errors.subject ? "border-red-500 ring-1 ring-red-500" : ""}`}
                 />
+                {errors.subject && <p className="text-red-300 text-xs mt-1">{errors.subject}</p>}
               </div>
 
               <div>
@@ -191,11 +189,23 @@ const Contact = () => {
                   placeholder="Message"
                   value={formData.message}
                   onChange={handleChange}
-                  required
+                  maxLength={MAX_MESSAGE_LENGTH}
                   rows={6}
-                  className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60 resize-none"
+                  className={`bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60 resize-none ${errors.message ? "border-red-500 ring-1 ring-red-500" : ""}`}
                 />
+                <div className="flex justify-between items-center mt-1">
+                  {errors.message
+                    ? <p className="text-red-300 text-xs">{errors.message}</p>
+                    : <span />}
+                  <span className={`text-xs ml-auto ${formData.message.length > MAX_MESSAGE_LENGTH * 0.9 ? "text-red-300" : "text-primary-foreground/50"}`}>
+                    {formData.message.length} / {MAX_MESSAGE_LENGTH}
+                  </span>
+                </div>
               </div>
+
+              {errors.submit && (
+                <p className="text-red-300 text-sm text-center">{errors.submit}</p>
+              )}
 
               <Button
                 type="submit"

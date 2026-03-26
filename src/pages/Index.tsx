@@ -1,13 +1,20 @@
+import { lazy, Suspense } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Skills from "@/components/Skills";
-import Projects from "@/components/Projects";
-import Experience from "@/components/Experience";
+import Certificates from "@/components/Certificates";
 import Hobbies from "@/components/Hobbies";
-import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import BackToTop from "@/components/BackToTop";
+
+// Lazily loaded heavy components
+const Projects = lazy(() => import("@/components/Projects"));
+const Experience = lazy(() => import("@/components/Experience"));
+const Contact = lazy(() => import("@/components/Contact"));
+
+const LoadingFallback = () => (
+  <div className="py-20 text-center text-muted-foreground animate-pulse">Loading…</div>
+);
 
 const Index = () => {
   return (
@@ -16,12 +23,18 @@ const Index = () => {
       <Hero />
       <About />
       <Skills />
-      <Projects />
-      <Experience />
+      <Suspense fallback={<LoadingFallback />}>
+        <Projects />
+      </Suspense>
+      <Suspense fallback={<LoadingFallback />}>
+        <Experience />
+      </Suspense>
+      <Certificates />
       <Hobbies />
-      <Contact />
+      <Suspense fallback={<LoadingFallback />}>
+        <Contact />
+      </Suspense>
       <Footer />
-      <BackToTop />
     </div>
   );
 };

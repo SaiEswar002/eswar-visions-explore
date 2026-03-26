@@ -386,4 +386,26 @@ All colors MUST be HSL.
   .animate-pulse {
     animation: pulse 2s ease-in-out infinite;
   }
+
+  /* Float animation for Hero tech badge pills */
+  @keyframes floatBadge {
+    0%, 100% {
+      transform: translate(-50%, -50%) translateY(0px);
+    }
+    50% {
+      transform: translate(-50%, -50%) translateY(-10px);
+    }
+  }
+
+  /* Scale-in animation for Contact success checkmark */
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 }

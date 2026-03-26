@@ -7,11 +7,11 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { useAnimations } from "./hooks/useAnimations";
 import { useState } from "react";
+import Intro from "./components/Intro";
 
 const queryClient = new QueryClient();
 
 const App = () => {
-  // Initialize animations
   useAnimations();
   const [showIntro, setShowIntro] = useState(true);
 
@@ -25,11 +25,16 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          {/* Show intro overlay first; once complete, show the main site */}
+          {showIntro ? (
+            <Intro onComplete={handleIntroComplete} />
+          ) : (
+            <Routes>
+              <Route path="/" element={<Index />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          )}
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>

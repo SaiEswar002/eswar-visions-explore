@@ -6,7 +6,7 @@ const Intro = ({ onComplete }: { onComplete: () => void }) => {
 
   useEffect(() => {
     // Check if intro has been shown before
-    const hasSeenIntro = localStorage.getItem('hasSeenIntro');
+    const hasSeenIntro = sessionStorage.getItem('hasSeenIntro');
     
     if (hasSeenIntro === 'true') {
       onComplete();
@@ -20,7 +20,7 @@ const Intro = ({ onComplete }: { onComplete: () => void }) => {
     const timer4 = setTimeout(() => setAnimationPhase(4), 3500); // Start fade out
     const timer5 = setTimeout(() => {
       setShowIntro(false);
-      localStorage.setItem('hasSeenIntro', 'true');
+      sessionStorage.setItem('hasSeenIntro', 'true');
       onComplete();
     }, 4000); // Complete fade out and cleanup
 

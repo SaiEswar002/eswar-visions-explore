@@ -31,11 +31,11 @@ const Hobbies = () => {
           {hobbies.map((hobby, index) => (
             <div
               key={hobby.name}
-              className="portfolio-card text-center group animate-fade-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="portfolio-card text-center group"
+              data-aos="fade-up"
+              data-aos-delay={index * 150}
             >
               <div className="mb-6">
-                <div className="text-4xl mb-4">{hobby.emoji}</div>
                 <hobby.icon className="skill-icon group-hover:scale-110 transition-transform" />
                 <h3 className="text-xl font-semibold mb-3 text-foreground">
                   {hobby.name}

@@ -3,105 +3,40 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Briefcase, Award, Users, X, ChevronLeft, ChevronRight, Calendar, Lightbulb, Palette, Trophy, ExternalLink, Eye, Zap, Brain, GraduationCap, Gamepad2, PartyPopper, BookOpen, Image as ImageIcon, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// Import IGDC images
-import igdcGroup from "@/assets/Mayavi/IGDC/IGDC_GROUP.jpeg";
-import igdc1 from "@/assets/Mayavi/IGDC/igdc.jpg";
-import igdc2 from "@/assets/Mayavi/IGDC/igdc2.jpg";
-import vrExperience from "@/assets/Mayavi/IGDC/VR.jpg";
-import vrGun from "@/assets/Mayavi/IGDC/VR-with_VR_GUN.jpg";
-import vrCinematic from "@/assets/Mayavi/IGDC/VR-with_VR_CINEMATIC_EXPERIENCE.jpg";
-import krafton from "@/assets/Mayavi/IGDC/krafton.jpg";
-import realCricket1 from "@/assets/Mayavi/IGDC/Real-cricket-app-team.jpg";
-import realCricket2 from "@/assets/Mayavi/IGDC/Real-cricket-app-team2.jpg";
-import meAtIGDC from "@/assets/Mayavi/IGDC/me.jpg";
-import gamesOnPC from "@/assets/Mayavi/IGDC/experienced_games_onPC.jpg";
-
-// Import Samyak images
-import samyak1 from "@/assets/Mayavi/Samyak/e1.png";
-import samyak2 from "@/assets/Mayavi/Samyak/e2.png";
-import samyak3 from "@/assets/Mayavi/Samyak/e3.png";
-import samyak4 from "@/assets/Mayavi/Samyak/e4.png";
-import samyak5 from "@/assets/Mayavi/Samyak/e5.png";
-import samyak6 from "@/assets/Mayavi/Samyak/e6.png";
-import samyak7 from "@/assets/Mayavi/Samyak/e7.png";
-import samyak8 from "@/assets/Mayavi/Samyak/e8.png";
-
-// Import VGS book cover images
-import botany1 from "@/assets/VGS/Botony coverpage sample-1.png";
-import chemistry1 from "@/assets/VGS/Chemistry coverpage sample -1.png";
-import chemistry2 from "@/assets/VGS/Chemistry Coverpage sample - 2.png";
-import chemistry3 from "@/assets/VGS/Chemistry coverpage sample - 3.png";
-import civics1 from "@/assets/VGS/Civics coverpage sample -1.png";
-import civics2 from "@/assets/VGS/civics coverpages sample -2.png";
-import math1 from "@/assets/VGS/Mathematics coverpage samplepage - 1.png";
-import physics1 from "@/assets/VGS/Physics Coverpage Sample - 1.png";
-import physics2 from "@/assets/VGS/Physics Coverpage sample - 2.png";
-import physics3 from "@/assets/VGS/Physics coverpage sample - 3.png";
-import physics4 from "@/assets/VGS/Physics coverpage sample - 4.png";
-import social1 from "@/assets/VGS/SocialStudies coverpage sample -1].png";
-
-// Import Hackathon images – PSCMR
-import pscmr1 from "@/assets/Hackathons/H_1-PSCMR/1766551286827.jpg";
-import pscmr2 from "@/assets/Hackathons/H_1-PSCMR/1766551287146.jpg";
-import pscmr3 from "@/assets/Hackathons/H_1-PSCMR/1766551287271.jpg";
-import pscmr4 from "@/assets/Hackathons/H_1-PSCMR/1766551287820.jpg";
-import pscmr5 from "@/assets/Hackathons/H_1-PSCMR/1766551287916.jpg";
-import pscmr6 from "@/assets/Hackathons/H_1-PSCMR/1766551287967.jpg";
-import pscmrCert from "@/assets/Hackathons/H_1-PSCMR/certificate.jpg";
-
-// Import Hackathon images – IIIT
-import iiit1 from "@/assets/Hackathons/H_2-IIIT/1766918664227.jpg";
-import iiit2 from "@/assets/Hackathons/H_2-IIIT/1766918664235.jpg";
-import iiit3 from "@/assets/Hackathons/H_2-IIIT/1766918669087.jpg";
-import iiit4 from "@/assets/Hackathons/H_2-IIIT/1767455548345.jpg";
-import iiit5 from "@/assets/Hackathons/H_2-IIIT/1767455552880.jpg";
-import iiit6 from "@/assets/Hackathons/H_2-IIIT/1767455554746.jpg";
-
-// Import Hackathon images – Anuragh
-import anuragh1 from "@/assets/Hackathons/H_3-Anuragh/1767356107404.jpg";
-import anuragh2 from "@/assets/Hackathons/H_3-Anuragh/1767356109037.jpg";
-import anuragh3 from "@/assets/Hackathons/H_3-Anuragh/1767356110730.jpg";
-import anuragh4 from "@/assets/Hackathons/H_3-Anuragh/1767608461127.jpg";
-import anuragh5 from "@/assets/Hackathons/H_3-Anuragh/1767608461133.jpg";
-import anuragh6 from "@/assets/Hackathons/H_3-Anuragh/1767608461240.jpg";
-import anuragh7 from "@/assets/Hackathons/H_3-Anuragh/1767608461298.jpg";
-import anuragh8 from "@/assets/Hackathons/H_3-Anuragh/1767608461568.jpg";
-import anuragh9 from "@/assets/Hackathons/H_3-Anuragh/1767608461671.jpg";
-import anuragh10 from "@/assets/Hackathons/H_3-Anuragh/1767608461728.jpg";
-import anuragh11 from "@/assets/Hackathons/H_3-Anuragh/1767608462004.jpg";
-import anuraghCert from "@/assets/Hackathons/H_3-Anuragh/certificate.jpg";
+// ── Image paths via Vite's URL pattern (no eager static imports) ──
+const img = (path: string) => new URL(`../assets/${path}`, import.meta.url).href;
 
 const hackathonGalleries = {
     anuragh: [
-        { src: anuragh1, caption: "Anuragh Hackathon" },
-        { src: anuragh2, caption: "Anuragh Hackathon" },
-        { src: anuragh3, caption: "Anuragh Hackathon" },
-        { src: anuragh4, caption: "Anuragh Hackathon" },
-        { src: anuragh5, caption: "Anuragh Hackathon" },
-        { src: anuragh6, caption: "Anuragh Hackathon" },
-        { src: anuragh7, caption: "Anuragh Hackathon" },
-        { src: anuragh8, caption: "Anuragh Hackathon" },
-        { src: anuragh9, caption: "Anuragh Hackathon" },
-        { src: anuragh10, caption: "Anuragh Hackathon" },
-        { src: anuragh11, caption: "Anuragh Hackathon" },
-        { src: anuraghCert, caption: "Certificate – Anuragh" },
+        { src: img("Hackathons/H_3-Anuragh/1767356107404.jpg"), caption: "Anuragh Hackathon" },
+        { src: img("Hackathons/H_3-Anuragh/1767356109037.jpg"), caption: "Anuragh Hackathon" },
+        { src: img("Hackathons/H_3-Anuragh/1767356110730.jpg"), caption: "Anuragh Hackathon" },
+        { src: img("Hackathons/H_3-Anuragh/1767608461127.jpg"), caption: "Anuragh Hackathon" },
+        { src: img("Hackathons/H_3-Anuragh/1767608461133.jpg"), caption: "Anuragh Hackathon" },
+        { src: img("Hackathons/H_3-Anuragh/1767608461240.jpg"), caption: "Anuragh Hackathon" },
+        { src: img("Hackathons/H_3-Anuragh/1767608461298.jpg"), caption: "Anuragh Hackathon" },
+        { src: img("Hackathons/H_3-Anuragh/1767608461568.jpg"), caption: "Anuragh Hackathon" },
+        { src: img("Hackathons/H_3-Anuragh/1767608461671.jpg"), caption: "Anuragh Hackathon" },
+        { src: img("Hackathons/H_3-Anuragh/1767608461728.jpg"), caption: "Anuragh Hackathon" },
+        { src: img("Hackathons/H_3-Anuragh/1767608462004.jpg"), caption: "Anuragh Hackathon" },
+        { src: img("Hackathons/H_3-Anuragh/certificate.jpg"), caption: "Certificate – Anuragh" },
     ],
     iiit: [
-        { src: iiit1, caption: "IIIT TechZite 2025" },
-        { src: iiit2, caption: "IIIT TechZite 2025" },
-        { src: iiit3, caption: "IIIT TechZite 2025" },
-        { src: iiit4, caption: "IIIT TechZite 2025" },
-        { src: iiit5, caption: "IIIT TechZite 2025" },
-        { src: iiit6, caption: "IIIT TechZite 2025" },
+        { src: img("Hackathons/H_2-IIIT/1766918664227.jpg"), caption: "IIIT TechZite 2025" },
+        { src: img("Hackathons/H_2-IIIT/1766918664235.jpg"), caption: "IIIT TechZite 2025" },
+        { src: img("Hackathons/H_2-IIIT/1766918669087.jpg"), caption: "IIIT TechZite 2025" },
+        { src: img("Hackathons/H_2-IIIT/1767455548345.jpg"), caption: "IIIT TechZite 2025" },
+        { src: img("Hackathons/H_2-IIIT/1767455552880.jpg"), caption: "IIIT TechZite 2025" },
+        { src: img("Hackathons/H_2-IIIT/1767455554746.jpg"), caption: "IIIT TechZite 2025" },
     ],
     pscmr: [
-        { src: pscmr1, caption: "PSCMR Hackathon" },
-        { src: pscmr2, caption: "PSCMR Hackathon" },
-        { src: pscmr3, caption: "PSCMR Hackathon" },
-        { src: pscmr4, caption: "PSCMR Hackathon" },
-        { src: pscmr5, caption: "PSCMR Hackathon" },
-        { src: pscmr6, caption: "PSCMR Hackathon" },
-        { src: pscmrCert, caption: "Certificate – PSCMR" },
+        { src: img("Hackathons/H_1-PSCMR/1766551286827.jpg"), caption: "PSCMR Hackathon" },
+        { src: img("Hackathons/H_1-PSCMR/1766551287146.jpg"), caption: "PSCMR Hackathon" },
+        { src: img("Hackathons/H_1-PSCMR/1766551287271.jpg"), caption: "PSCMR Hackathon" },
+        { src: img("Hackathons/H_1-PSCMR/1766551287820.jpg"), caption: "PSCMR Hackathon" },
+        { src: img("Hackathons/H_1-PSCMR/1766551287916.jpg"), caption: "PSCMR Hackathon" },
+        { src: img("Hackathons/H_1-PSCMR/1766551287967.jpg"), caption: "PSCMR Hackathon" },
+        { src: img("Hackathons/H_1-PSCMR/certificate.jpg"), caption: "Certificate – PSCMR" },
     ],
 };
 
@@ -154,17 +89,17 @@ const Experience = () => {
             summary: "An incredible 3-day immersion into India's gaming ecosystem from November 5-7, 2025 in Hyderabad.",
             gradient: "from-[#6b0f0f] to-[#9B1C1C]",
             images: [
-                { src: igdcGroup, caption: "IGDC 2025 Group Photo" },
-                { src: igdc1, caption: "IGDC Conference" },
-                { src: igdc2, caption: "Event Highlights" },
-                { src: vrExperience, caption: "VR Experience" },
-                { src: vrGun, caption: "VR Gaming with Gun Controller" },
-                { src: vrCinematic, caption: "VR Cinematic Experience" },
-                { src: krafton, caption: "Krafton Booth" },
-                { src: realCricket1, caption: "Real Cricket Team" },
-                { src: realCricket2, caption: "Real Cricket App Demo" },
-                { src: meAtIGDC, caption: "At IGDC 2025" },
-                { src: gamesOnPC, caption: "Gaming on PC" }
+                { src: img("Mayavi/IGDC/IGDC_GROUP.jpeg"), caption: "IGDC 2025 Group Photo" },
+                { src: img("Mayavi/IGDC/igdc.jpg"), caption: "IGDC Conference" },
+                { src: img("Mayavi/IGDC/igdc2.jpg"), caption: "Event Highlights" },
+                { src: img("Mayavi/IGDC/VR.jpg"), caption: "VR Experience" },
+                { src: img("Mayavi/IGDC/VR-with_VR_GUN.jpg"), caption: "VR Gaming with Gun Controller" },
+                { src: img("Mayavi/IGDC/VR-with_VR_CINEMATIC_EXPERIENCE.jpg"), caption: "VR Cinematic Experience" },
+                { src: img("Mayavi/IGDC/krafton.jpg"), caption: "Krafton Booth" },
+                { src: img("Mayavi/IGDC/Real-cricket-app-team.jpg"), caption: "Real Cricket Team" },
+                { src: img("Mayavi/IGDC/Real-cricket-app-team2.jpg"), caption: "Real Cricket App Demo" },
+                { src: img("Mayavi/IGDC/me.jpg"), caption: "At IGDC 2025" },
+                { src: img("Mayavi/IGDC/experienced_games_onPC.jpg"), caption: "Gaming on PC" }
             ],
             content: (
                 <div className="prose prose-invert prose-lg max-w-none text-gray-200 space-y-6">
@@ -235,14 +170,14 @@ const Experience = () => {
             summary: "Organized and conducted innovative AR/VR and 3D modeling events for our college fest.",
             gradient: "from-[#7a1010] to-[#c0392b]",
             images: [
-                { src: samyak1, caption: "Samyak Event 1" },
-                { src: samyak2, caption: "Samyak Event 2" },
-                { src: samyak3, caption: "Samyak Event 3" },
-                { src: samyak4, caption: "Samyak Event 4" },
-                { src: samyak5, caption: "Samyak Event 5" },
-                { src: samyak6, caption: "Samyak Event 6" },
-                { src: samyak7, caption: "Samyak Event 7" },
-                { src: samyak8, caption: "Samyak Event 8" }
+                { src: img("Mayavi/Samyak/e1.png"), caption: "Samyak Event 1" },
+                { src: img("Mayavi/Samyak/e2.png"), caption: "Samyak Event 2" },
+                { src: img("Mayavi/Samyak/e3.png"), caption: "Samyak Event 3" },
+                { src: img("Mayavi/Samyak/e4.png"), caption: "Samyak Event 4" },
+                { src: img("Mayavi/Samyak/e5.png"), caption: "Samyak Event 5" },
+                { src: img("Mayavi/Samyak/e6.png"), caption: "Samyak Event 6" },
+                { src: img("Mayavi/Samyak/e7.png"), caption: "Samyak Event 7" },
+                { src: img("Mayavi/Samyak/e8.png"), caption: "Samyak Event 8" }
             ],
             content: (
                 <div className="prose prose-invert prose-lg max-w-none text-gray-200 space-y-6">
@@ -278,18 +213,18 @@ const Experience = () => {
             summary: "Educational book cover designs for VGS Publishers across multiple subjects including Physics, Chemistry, Mathematics, and more.",
             gradient: "from-[#3d0a0a] to-[#7a1010]",
             images: [
-                { src: botany1, caption: "Botany Cover Design" },
-                { src: chemistry1, caption: "Chemistry Cover - Design 1" },
-                { src: chemistry2, caption: "Chemistry Cover - Design 2" },
-                { src: chemistry3, caption: "Chemistry Cover - Design 3" },
-                { src: civics1, caption: "Civics Cover - Design 1" },
-                { src: civics2, caption: "Civics Cover - Design 2" },
-                { src: math1, caption: "Mathematics Cover Design" },
-                { src: physics1, caption: "Physics Cover - Design 1" },
-                { src: physics2, caption: "Physics Cover - Design 2" },
-                { src: physics3, caption: "Physics Cover - Design 3" },
-                { src: physics4, caption: "Physics Cover - Design 4" },
-                { src: social1, caption: "Social Studies Cover Design" }
+                { src: img("VGS/Botony coverpage sample-1.png"), caption: "Botany Cover Design" },
+                { src: img("VGS/Chemistry coverpage sample -1.png"), caption: "Chemistry Cover - Design 1" },
+                { src: img("VGS/Chemistry Coverpage sample - 2.png"), caption: "Chemistry Cover - Design 2" },
+                { src: img("VGS/Chemistry coverpage sample - 3.png"), caption: "Chemistry Cover - Design 3" },
+                { src: img("VGS/Civics coverpage sample -1.png"), caption: "Civics Cover - Design 1" },
+                { src: img("VGS/civics coverpages sample -2.png"), caption: "Civics Cover - Design 2" },
+                { src: img("VGS/Mathematics coverpage samplepage - 1.png"), caption: "Mathematics Cover Design" },
+                { src: img("VGS/Physics Coverpage Sample - 1.png"), caption: "Physics Cover - Design 1" },
+                { src: img("VGS/Physics Coverpage sample - 2.png"), caption: "Physics Cover - Design 2" },
+                { src: img("VGS/Physics coverpage sample - 3.png"), caption: "Physics Cover - Design 3" },
+                { src: img("VGS/Physics coverpage sample - 4.png"), caption: "Physics Cover - Design 4" },
+                { src: img("VGS/SocialStudies coverpage sample -1].png"), caption: "Social Studies Cover Design" }
             ],
             content: (
                 <div className="prose prose-invert prose-lg max-w-none text-gray-200 space-y-6">
