@@ -1,7 +1,8 @@
-import { Download, Mail, ArrowUpRight } from "lucide-react";
+import { Download, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { heroAnimations } from "@/hooks/useAnimations";
+import profileImage from "@/assets/sai-eswar-photo.jpg";
 
 const techBadges = [
   { label: "HTML", color: "#e34f26" },
@@ -68,7 +69,7 @@ const Hero = () => {
                   style={{ background: "hsl(60 56% 85%)", filter: "blur(8px)" }}
                 />
                 <img
-                  src="/src/assets/sai-eswar-photo.jpg"
+                  src={profileImage}
                   alt="E.N.V.B. Sai Eswar - Frontend Developer"
                   loading="lazy"
                   onLoad={() => setImgLoaded(true)}

@@ -1,6 +1,7 @@
 import { GraduationCap, Award, Users, Brain, MessageCircle, Target } from "lucide-react";
 import { useRef, useState } from "react";
 import { useAboutAnimations } from "@/hooks/useAnimations";
+import profileImage from "@/assets/mydp-2.jpg";
 
 const skills = [
   { name: "Adaptability", icon: Target },
@@ -73,7 +74,7 @@ const About = () => {
                   />
                   <img
                     ref={imageRef}
-                    src="/src/assets/mydp-2.jpg"
+                    src={profileImage}
                     alt="E.N.V.B. Sai Eswar - Frontend Developer"
                     loading="lazy"
                     onLoad={() => setImgLoaded(true)}
