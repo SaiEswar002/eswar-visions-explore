@@ -1,73 +1,77 @@
-# Welcome to your Lovable project
+# Sai Eswar — Personal Portfolio
 
-## Project info
+> "Building fast, beautiful UIs with React & TypeScript — one component at a time."
 
-**URL**: https://lovable.dev/projects/2072fbc2-bb7c-4299-b8f1-c09293da5760
+🌐 Live Site: https://saieswar-portfolio.netlify.app
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 👨💻 About
 
-**Use Lovable**
+Personal portfolio of **E.N.V.B. Sai Eswar**, a Frontend Developer and BTech CSE student at KL University (2024–2027) with a DevOps specialization.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/2072fbc2-bb7c-4299-b8f1-c09293da5760) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## ✨ Features
 
-**Use your preferred IDE**
+- 🌗 Dark / Light mode toggle
+- 🎌 Animated intro screen (こんにちは)
+- 📱 Fully responsive across all devices
+- 🎨 Japanese Red + Beige brand design system
+- 📬 Working contact form powered by Nodemailer (Netlify serverless function)
+- 🖼️ Photo galleries with Framer Motion modals (Experience section)
+- 🏆 Certificates & Achievements section
+- ⚡ Lazy loaded images and React.lazy() for performance
+- 🔍 SEO optimised with Open Graph and Twitter meta tags
+- 🔝 Smooth scroll + Back to top button
+- 🧑💼 Floating tech badge animations on hero section
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+---
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 📂 Sections
 
-Follow these steps:
+| Section | Description |
+|---|---|
+| Hero | Introduction, profile photo, floating tech badges |
+| About | Bio, education timeline, soft skills |
+| Skills | Expertise cards with proficiency bars + Currently Learning |
+| Projects | Featured projects with tech stack and GitHub links |
+| Experience | Internship, freelance, club activities, hackathons with photo galleries |
+| Certificates | Hackathon and internship certificates |
+| Hobbies | Video editing, PC gaming, podcasts |
+| Contact | Working contact form with validation |
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+---
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## 🛠️ Tech Stack
 
-# Step 3: Install the necessary dependencies.
-npm i
+| Category | Technologies |
+|---|---|
+| Frontend | React, TypeScript, Vite, Tailwind CSS |
+| UI Components | shadcn/ui, Framer Motion, Lucide Icons |
+| Contact Backend | Nodemailer, Netlify Serverless Functions |
+| Animations | AOS (Animate on Scroll), Custom CSS keyframes |
+| Deployment | Netlify (CD from GitHub) |
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+---
+
+## 🚀 Run Locally
+```bash
+git clone https://github.com/SaiEswar002/eswar-visions-explore.git
+cd eswar-visions-explore
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 📬 Contact
 
-**Use GitHub Codespaces**
+- 📧 Email: saieswar2k5@gmail.com
+- 💼 LinkedIn: https://www.linkedin.com/in/sai-eswar-b04240286/
+- 🐙 GitHub: https://github.com/SaiEswar002
+- 📸 Instagram: https://www.instagram.com/sai._.eswar/
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+---
 
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/2072fbc2-bb7c-4299-b8f1-c09293da5760) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+© 2026 E.N.V.B. Sai Eswar. All rights reserved.
