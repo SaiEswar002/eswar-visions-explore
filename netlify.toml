@@ -5,12 +5,12 @@
 [functions]
   directory = "netlify/functions"
 
-  [build]
+[build]
   command = "npm run build"
   publish = "dist"
 
-[build.environment]
-  SECRETS_SCAN_ENABLED = "false"
-
 [functions]
   directory = "netlify/functions"
+
+[build.environment]
+  SECRETS_SCAN_ENABLED = "false"
