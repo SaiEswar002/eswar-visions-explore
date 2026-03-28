@@ -714,6 +714,7 @@ const Experience = () => {
                                         key={expGalleryIdx}
                                         src={imgs[expGalleryIdx].src}
                                         alt={imgs[expGalleryIdx].caption}
+                                        loading="lazy"
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
                                         transition={{ duration: 0.3 }}
@@ -803,6 +804,7 @@ const Experience = () => {
                                         key={hackathonImageIndex}
                                         src={imgs[hackathonImageIndex].src}
                                         alt={imgs[hackathonImageIndex].caption}
+                                        loading="lazy"
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
                                         transition={{ duration: 0.3 }}

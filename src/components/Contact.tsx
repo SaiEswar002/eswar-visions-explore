@@ -1,60 +1,56 @@
-import { useState, useEffect } from "react";
-import { Mail, Github, Linkedin, Instagram, Download, Send, CheckCircle2 } from "lucide-react";
+import { useState } from "react";
+import { Mail, Github, Linkedin, Instagram, Download, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import emailjs from '@emailjs/browser';
-
-const MAX_MESSAGE_LENGTH = 500;
+import { useToast } from "@/components/ui/use-toast";
 
 const Contact = () => {
+  const { toast } = useToast();
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState({ name: "", email: "", subject: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-
-  useEffect(() => {
-    emailjs.init('tKQGIweSmVXzZbzKj');
-  }, []);
+  const [submitted, setSubmitted] = useState(false);
 
   const validate = () => {
-    const newErrors: Record<string, string> = {};
+    const newErrors = { name: "", email: "", subject: "", message: "" };
     if (!formData.name.trim()) newErrors.name = "Name is required.";
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required.";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Enter a valid email address.";
-    }
+    if (!formData.email.trim()) newErrors.email = "Email is required.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = "Enter a valid email.";
     if (!formData.subject.trim()) newErrors.subject = "Subject is required.";
     if (!formData.message.trim()) newErrors.message = "Message is required.";
+    else if (formData.message.trim().length < 10) newErrors.message = "Message must be at least 10 characters.";
     return newErrors;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const validationErrors = validate();
-    if (Object.keys(validationErrors).length > 0) {
+    if (Object.values(validationErrors).some((err) => err !== "")) {
       setErrors(validationErrors);
       return;
     }
-    setErrors({});
+    setErrors({ name: "", email: "", subject: "", message: "" });
     setIsSubmitting(true);
-
     try {
-      await emailjs.send(
-        'service_zrd6rue',
-        'template_jo3q4uc',
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-        }
-      );
-      setIsSuccess(true);
-      setFormData({ name: "", email: "", subject: "", message: "" });
+      const response = await fetch("/.netlify/functions/sendEmail", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setSubmitted(true);
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        throw new Error(data.error);
+      }
     } catch (error: any) {
-      setErrors({ submit: error.text || "Failed to send message. Please try again or email me directly." });
+      toast({
+        title: "Error",
+        description: error.message || "Failed to send. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -62,7 +58,7 @@ const Contact = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    if (errors[e.target.name]) {
+    if (errors[e.target.name as keyof typeof errors]) {
       setErrors({ ...errors, [e.target.name]: "" });
     }
   };
@@ -73,28 +69,6 @@ const Contact = () => {
     { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/in/sai-eswar-b04240286/" },
     { name: "Instagram", icon: Instagram, url: "https://www.instagram.com/sai._.eswar/" },
   ];
-
-  if (isSuccess) {
-    return (
-      <section id="contact" className="red-section py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-[50vh] text-center">
-          <div className="mb-6 animate-bounce-in">
-            <CheckCircle2 className="w-24 h-24 text-green-300 mx-auto mb-4 animate-[scaleIn_0.6s_ease-out]" style={{ filter: "drop-shadow(0 0 16px rgba(134,239,172,0.7))" }} />
-          </div>
-          <h2 className="text-3xl font-bold mb-4">Message Sent! 🎉</h2>
-          <p className="text-primary-foreground/80 text-lg mb-8 max-w-md">
-            Thank you for reaching out! I'll get back to you as soon as possible.
-          </p>
-          <Button
-            onClick={() => setIsSuccess(false)}
-            className="bg-secondary text-secondary-foreground hover:bg-secondary/90 px-8 py-3 text-lg font-semibold rounded-lg"
-          >
-            Send Another Message
-          </Button>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section id="contact" className="red-section py-20">
@@ -145,77 +119,91 @@ const Contact = () => {
 
           {/* Contact Form */}
           <div className="animate-slide-in-right">
-            <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-              <div className="grid md:grid-cols-2 gap-4">
+            {submitted ? (
+              <div className="flex flex-col items-center justify-center py-16 gap-4 animate-fade-up">
+                <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center">
+                  <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-primary-foreground">Message Sent!</h3>
+                <p className="text-primary-foreground/70 text-center">Thanks for reaching out. I'll get back to you soon.</p>
+                <button
+                  onClick={() => setSubmitted(false)}
+                  className="text-sm text-primary-foreground/60 underline hover:text-primary-foreground transition-colors mt-2"
+                >
+                  Send another message
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <Input
+                      type="text"
+                      name="name"
+                      placeholder="Your Name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className={`bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60 ${errors.name ? "border-red-500 ring-1 ring-red-500" : ""}`}
+                    />
+                    {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
+                  </div>
+                  <div>
+                    <Input
+                      type="email"
+                      name="email"
+                      placeholder="Email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className={`bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60 ${errors.email ? "border-red-500 ring-1 ring-red-500" : ""}`}
+                    />
+                    {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
+                  </div>
+                </div>
+
                 <div>
                   <Input
                     type="text"
-                    name="name"
-                    placeholder="Your Name"
-                    value={formData.name}
+                    name="subject"
+                    placeholder="Subject"
+                    value={formData.subject}
                     onChange={handleChange}
-                    className={`bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60 ${errors.name ? "border-red-500 ring-1 ring-red-500" : ""}`}
+                    className={`bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60 ${errors.subject ? "border-red-500 ring-1 ring-red-500" : ""}`}
                   />
-                  {errors.name && <p className="text-red-300 text-xs mt-1">{errors.name}</p>}
+                  {errors.subject && <p className="text-red-400 text-xs mt-1">{errors.subject}</p>}
                 </div>
+
                 <div>
-                  <Input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={formData.email}
+                  <Textarea
+                    name="message"
+                    placeholder="Message"
+                    value={formData.message}
                     onChange={handleChange}
-                    className={`bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60 ${errors.email ? "border-red-500 ring-1 ring-red-500" : ""}`}
+                    maxLength={500}
+                    rows={6}
+                    className={`bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60 resize-none ${errors.message ? "border-red-500 ring-1 ring-red-500" : ""}`}
                   />
-                  {errors.email && <p className="text-red-300 text-xs mt-1">{errors.email}</p>}
+                  <div className="flex justify-between items-center mt-1">
+                    {errors.message
+                      ? <p className="text-red-400 text-xs">{errors.message}</p>
+                      : <span />}
+                    <p className="text-xs text-right text-primary-foreground/50 mt-1">
+                      {formData.message.length} / 500
+                    </p>
+                  </div>
                 </div>
-              </div>
 
-              <div>
-                <Input
-                  type="text"
-                  name="subject"
-                  placeholder="Subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  className={`bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60 ${errors.subject ? "border-red-500 ring-1 ring-red-500" : ""}`}
-                />
-                {errors.subject && <p className="text-red-300 text-xs mt-1">{errors.subject}</p>}
-              </div>
-
-              <div>
-                <Textarea
-                  name="message"
-                  placeholder="Message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  maxLength={MAX_MESSAGE_LENGTH}
-                  rows={6}
-                  className={`bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60 resize-none ${errors.message ? "border-red-500 ring-1 ring-red-500" : ""}`}
-                />
-                <div className="flex justify-between items-center mt-1">
-                  {errors.message
-                    ? <p className="text-red-300 text-xs">{errors.message}</p>
-                    : <span />}
-                  <span className={`text-xs ml-auto ${formData.message.length > MAX_MESSAGE_LENGTH * 0.9 ? "text-red-300" : "text-primary-foreground/50"}`}>
-                    {formData.message.length} / {MAX_MESSAGE_LENGTH}
-                  </span>
-                </div>
-              </div>
-
-              {errors.submit && (
-                <p className="text-red-300 text-sm text-center">{errors.submit}</p>
-              )}
-
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90 py-3 text-lg font-semibold rounded-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <Send className="w-5 h-5" />
-                {isSubmitting ? "Sending..." : "Send Message"}
-              </Button>
-            </form>
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90 py-3 text-lg font-semibold rounded-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <Send className="w-5 h-5" />
+                  {isSubmitting ? "Sending..." : "Send Message"}
+                </Button>
+              </form>
+            )}
           </div>
         </div>
       </div>
