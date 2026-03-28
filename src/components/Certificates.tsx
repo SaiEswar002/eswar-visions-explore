@@ -1,117 +1,295 @@
-import { Award, FileText, ExternalLink } from "lucide-react";
+import { useState } from "react";
+import { Info, ExternalLink } from "lucide-react";
 
-const pscmrCert = new URL("../assets/Hackathons/H_1-PSCMR/certificate.jpg", import.meta.url).href;
-const anuraghCert = new URL("../assets/Hackathons/H_3-Anuragh/certificate.jpg", import.meta.url).href;
-const aicteCert = new URL("../assets/AICTE Certificate_page-0001.pdf", import.meta.url).href;
-
-type CertBase = {
-  id: string;
-  title: string;
-  event: string;
-  organization: string;
-  date: string;
-  gradient: string;
-  tag: string;
-};
-
-type ImageCert = CertBase & { type: "image"; image: string };
-type PdfCert   = CertBase & { type: "pdf";   pdf: string };
-type Cert = ImageCert | PdfCert;
-
-const certificates: Cert[] = [
+const certificatesData = [
   {
-    id: "aicte",
-    type: "pdf",
-    title: "Google Android Developer Virtual Internship",
-    event: "Android Development Virtual Internship Program",
-    organization: "AICTE (EduSkills) & Google",
-    date: "Apr – Jun 2025",
-    pdf: aicteCert,
-    gradient: "from-[#1a6b3a] to-[#16a34a]",
-    tag: "Internship · Android",
+    id: 1,
+    title: "Microsoft Azure Fundamentals",
+    issuer: "Microsoft",
+    category: "Cloud",
+    grade: null,
+    file: "/certifications/Azure-AZ-900.pdf",
+    description: "Foundational cloud concepts, Azure services, security, privacy, compliance, and pricing. Covers core Azure architecture and services.",
+    color: "bg-blue-500"
   },
   {
-    id: "pscmr",
-    type: "image",
-    title: "PSCMR Hackathon Certificate",
-    event: "EdTech Student Innovation Hackathon",
-    organization: "PSCMR College of Engineering & Technology",
-    date: "March 2025",
-    image: pscmrCert,
-    gradient: "from-[#1a3a6b] to-[#2563eb]",
-    tag: "EdTech · Innovation",
+    id: 2,
+    title: "Build a CI/CD Pipeline with Docker",
+    issuer: "Coursera",
+    category: "DevOps",
+    grade: "100%",
+    file: "/certifications/Build a CI-CD Pipeline with Docker From Code to Deployment.pdf",
+    description: "Hands-on pipeline creation using Docker containers, from source code to automated deployment in production environments.",
+    color: "bg-orange-500"
   },
   {
-    id: "anuragh",
-    type: "image",
-    title: "Anuragh Hackathon Certificate",
-    event: "Salesforce Einstein AI Challenge (CarePlus & AgentX)",
-    organization: "Anurag University",
-    date: "October 2025",
-    image: anuraghCert,
-    gradient: "from-[#9B1C1C] to-[#c0392b]",
-    tag: "Salesforce · Einstein AI",
+    id: 3,
+    title: "CCNAv7: Enterprise Networking, Security & Automation",
+    issuer: "Cisco",
+    category: "Networking",
+    grade: null,
+    file: "/certifications/CCNAv7_Enterprise Networking, Security, and Automation.pdf",
+    description: "Advanced enterprise networking concepts including WAN technologies, network security, and automation using Python and Ansible.",
+    color: "bg-teal-500"
   },
+  {
+    id: 4,
+    title: "CCNAv7: Introduction to Networks",
+    issuer: "Cisco",
+    category: "Networking",
+    grade: null,
+    file: "/certifications/CCNAv7_Introduction to Networks.pdf",
+    description: "Fundamentals of networking including network protocols, IP addressing, Ethernet, and basic router and switch configuration.",
+    color: "bg-teal-500"
+  },
+  {
+    id: 5,
+    title: "CCNAv7: Switching, Routing & Wireless Essentials",
+    issuer: "Cisco",
+    category: "Networking",
+    grade: null,
+    file: "/certifications/CCNAv7_Switching, Routing, and Wireless Essentials.pdf",
+    description: "VLANs, inter-VLAN routing, STP, EtherChannel, DHCPv4/v6, HSRP, and wireless LAN configuration and troubleshooting.",
+    color: "bg-teal-500"
+  },
+  {
+    id: 6,
+    title: "CI/CD with Jenkins",
+    issuer: "LearnKartS",
+    category: "DevOps",
+    grade: "100%",
+    file: "/certifications/Continuous Integration & Continuous Deployment with Jenkins.pdf",
+    description: "Complete Jenkins pipeline setup, automated builds, testing integration, and continuous deployment workflows.",
+    color: "bg-red-500"
+  },
+  {
+    id: 7,
+    title: "Continuous Monitoring with Jenkins",
+    issuer: "LearnKartS",
+    category: "DevOps",
+    grade: "83.33%",
+    file: "/certifications/Continuous Monitoring with Jenkins & Best Practices.pdf",
+    description: "Jenkins monitoring strategies, build health tracking, alerting, log management, and DevOps best practices.",
+    color: "bg-red-500"
+  },
+  {
+    id: 8,
+    title: "DevOps and Jenkins Fundamentals",
+    issuer: "LearnKartS",
+    category: "DevOps",
+    grade: "100%",
+    file: "/certifications/DevOps and Jenkins Fundamentals.pdf",
+    description: "Core DevOps principles, culture, and practices combined with Jenkins fundamentals for automated software delivery.",
+    color: "bg-red-500"
+  },
+  {
+    id: 9,
+    title: "Dynamic Programming & Greedy Algorithms",
+    issuer: "University of Colorado Boulder",
+    category: "DSA",
+    grade: "99.37%",
+    file: "/certifications/Dynamic Programming, Greedy Algorithm.pdf",
+    description: "Advanced algorithm design techniques including memoization, tabulation, greedy strategies, and complexity analysis.",
+    color: "bg-purple-500"
+  },
+  {
+    id: 10,
+    title: "Developing Front-End Apps with React",
+    issuer: "IBM",
+    category: "Frontend",
+    grade: "92.50%",
+    file: "/certifications/Front-End Apps with React.pdf",
+    description: "React fundamentals, hooks, state management, component lifecycle, Redux, and building production-ready web applications.",
+    color: "bg-cyan-500"
+  },
+  {
+    id: 11,
+    title: "Introduction to Artificial Intelligence",
+    issuer: "IBM",
+    category: "AI/ML",
+    grade: "98%",
+    file: "/certifications/Introduction to Artificial Intelligence (AI).pdf",
+    description: "AI concepts, machine learning fundamentals, neural networks, natural language processing, and real-world AI applications.",
+    color: "bg-yellow-500"
+  },
+  {
+    id: 12,
+    title: "Jenkins - From Zero to Hero",
+    issuer: "LearnKartS",
+    category: "DevOps",
+    grade: null,
+    file: "/certifications/Jenkins - From Zero to Hero.pdf",
+    description: "Complete Jenkins mastery from installation to advanced pipeline creation, plugins, and enterprise-grade CI/CD setup.",
+    color: "bg-red-500"
+  },
+  {
+    id: 13,
+    title: "Oracle Cloud Infrastructure 2025",
+    issuer: "Oracle",
+    category: "Cloud",
+    grade: null,
+    file: "/certifications/OCI25CAA.jpg",
+    description: "Oracle Cloud Infrastructure fundamentals, compute, storage, networking, security, and cloud-native services.",
+    color: "bg-red-600"
+  },
+  {
+    id: 14,
+    title: "Oracle Associate",
+    issuer: "Oracle",
+    category: "Cloud",
+    grade: null,
+    file: "/certifications/Oracle Associate.pdf",
+    description: "Oracle technology fundamentals covering database concepts, cloud services, and Oracle ecosystem architecture.",
+    color: "bg-red-600"
+  },
+  {
+    id: 15,
+    title: "Spring - Ecosystem and Core",
+    issuer: "LearnQuest",
+    category: "Backend",
+    grade: "86.60%",
+    file: "/certifications/Spring - Ecosystem and Core.pdf",
+    description: "Spring Framework core concepts, dependency injection, Spring Boot, Spring MVC, REST APIs, and enterprise Java development.",
+    color: "bg-green-500"
+  }
 ];
 
+const categories = ["All", "Cloud", "DevOps", "Networking", "Frontend", "Backend", "AI/ML", "DSA"];
+
 const Certificates = () => {
+  const [filter, setFilter] = useState("All");
+  const [activeTooltip, setActiveTooltip] = useState<number | null>(null);
+  const [hoverId, setHoverId] = useState<number | null>(null);
+
+  const filteredCerts = filter === "All" 
+    ? certificatesData 
+    : certificatesData.filter(c => c.category === filter);
+
   return (
-    <section id="certificates" className="py-20 bg-background">
+    <section id="certificates" className="py-20 bg-background relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="section-title" data-aos="fade-up">
-          Certificates &amp; Achievements
-        </h2>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {certificates.map((cert, index) => {
-            const openTarget = cert.type === "pdf" ? cert.pdf : cert.image;
-            return (
-              <div
-                key={cert.id}
-                className="group portfolio-card overflow-hidden flex flex-col transform transition-all duration-500 hover:scale-105 hover:shadow-2xl cursor-pointer"
-                data-aos="zoom-in-up"
-                data-aos-delay={index * 150}
-                onClick={() => window.open(openTarget, "_blank")}
+        
+        {/* Header Section */}
+        <div className="flex flex-col items-center mb-12">
+          <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground m-0" data-aos="fade-up">
+              Certificates & Achievements
+            </h2>
+            <span 
+              className="bg-primary/10 text-primary text-sm font-bold px-4 py-1.5 rounded-full shadow-sm whitespace-nowrap"
+              data-aos="fade-up" 
+              data-aos-delay="100"
+            >
+              15 Certifications & Counting 🚀
+            </span>
+          </div>
+          
+          {/* Filters */}
+          <div 
+            className="flex flex-wrap justify-center gap-2 sm:gap-3 mt-8"
+            data-aos="fade-up" 
+            data-aos-delay="200"
+          >
+            {categories.map(category => (
+              <button
+                key={category}
+                onClick={() => setFilter(category)}
+                className={`px-4 sm:px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 border ${
+                  filter === category
+                    ? "bg-primary text-white border-primary shadow-md scale-105"
+                    : "bg-secondary text-foreground hover:bg-secondary/80 border-transparent hover:scale-105"
+                }`}
               >
-                {/* Gradient header */}
-                <div className={`bg-gradient-to-br ${cert.gradient} -mx-6 -mt-6 mb-5 px-5 py-5 flex items-center gap-3`}>
-                  <div className="p-2 bg-white/20 rounded-lg">
-                    <Award className="w-6 h-6 text-white" />
-                  </div>
-                  <span className="text-xs font-bold text-white/80 bg-white/15 px-2 py-0.5 rounded-full">
-                    {cert.tag}
-                  </span>
+                {category}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Grid Container */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredCerts.map((cert, index) => (
+            <div 
+              key={cert.id}
+              className="group relative z-10 hover:z-50 h-full flex flex-col"
+              data-aos="zoom-in-up"
+              data-aos-delay={(index % 3) * 100}
+              onMouseEnter={() => setHoverId(cert.id)}
+              onMouseLeave={() => setHoverId(null)}
+            >
+              
+              {/* Tooltip Hover/Click Popover */}
+              <div 
+                className={`absolute bottom-[calc(100%+12px)] left-0 right-0 z-50 transition-all duration-300 origin-bottom pointer-events-none
+                  ${(hoverId === cert.id || activeTooltip === cert.id) ? "opacity-100 scale-100 visible" : "opacity-0 scale-95 invisible"}
+                `}
+              >
+                <div className="bg-slate-900 dark:bg-slate-800 text-slate-100 p-4 rounded-xl shadow-2xl text-sm leading-relaxed border border-slate-700/50">
+                  {cert.description}
+                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-slate-900 dark:bg-slate-800 border-b border-r border-slate-700/50 rotate-45"></div>
                 </div>
-
-                {/* Preview area */}
-                <div className="relative overflow-hidden rounded-xl mb-4 h-52 bg-secondary flex items-center justify-center">
-                  {/* Shimmer overlay on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 z-10 pointer-events-none" />
-
-                  {cert.type === "image" ? (
-                    <img
-                      src={(cert as ImageCert).image}
-                      alt={cert.title}
-                      loading="lazy"
-                      className="w-full h-full object-cover rounded-xl transform transition-transform duration-500 group-hover:scale-105"
-                    />
-                  ) : (
-                    /* PDF placeholder */
-                    <div className="flex flex-col items-center gap-3 text-muted-foreground group-hover:text-primary transition-colors duration-300">
-                      <FileText className="w-16 h-16" />
-                      <span className="text-sm font-semibold">View Certificate PDF</span>
-                      <ExternalLink className="w-4 h-4 opacity-60" />
-                    </div>
-                  )}
-                </div>
-
-                <h3 className="text-lg font-semibold text-foreground mb-1">{cert.title}</h3>
-                <p className="text-sm text-primary font-medium mb-1">{cert.event}</p>
-                <p className="text-xs text-muted-foreground mb-1">{cert.organization}</p>
-                <p className="text-xs text-muted-foreground/70 mt-auto pt-2 border-t border-border">📅 {cert.date}</p>
               </div>
-            );
-          })}
+
+              {/* Card Surface */}
+              <div className="portfolio-card flex flex-col bg-card rounded-2xl border border-border shadow-md hover:shadow-2xl transition-all duration-300 h-full overflow-hidden shrink-0">
+                
+                {/* Colored Top Banner */}
+                <div className={`relative h-28 ${cert.color} p-5 flex justify-between items-start shrink-0 overflow-hidden`}>
+                  
+                  {/* Glowing/Decorative overlay */}
+                  <div className="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+                  <div className="absolute -left-4 -bottom-4 w-20 h-20 bg-black/10 rounded-full blur-xl"></div>
+                  
+                  {/* Category Badge */}
+                  <span className="bg-white/20 text-white backdrop-blur-md px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider shadow-sm z-10 border border-white/10">
+                    {cert.category}
+                  </span>
+                  
+                  {/* Grade Badge */}
+                  {cert.grade && (
+                    <span className="bg-green-500/90 text-white backdrop-blur-md px-3 py-1 rounded-md text-xs font-bold shadow-sm z-10 border border-green-400/20">
+                      Grade: {cert.grade}
+                    </span>
+                  )}
+                  
+                  {/* Info Icon */}
+                  <button 
+                    className="absolute bottom-3 right-3 text-white/90 hover:text-white bg-black/10 hover:bg-black/30 p-2 rounded-full transition-all duration-300 backdrop-blur-md z-10 active:scale-95"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setActiveTooltip(activeTooltip === cert.id ? null : cert.id);
+                    }}
+                    aria-label="Show description"
+                  >
+                    <Info className="w-5 h-5 pointer-events-none" />
+                  </button>
+                </div>
+                
+                {/* Card Content details */}
+                <div className="p-6 flex flex-col flex-grow bg-card z-10">
+                  <h3 className="text-[1.1rem] font-bold text-foreground mb-2 leading-tight group-hover:text-primary transition-colors">
+                    {cert.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground font-medium mb-6">
+                    {cert.issuer}
+                  </p>
+                  
+                  {/* Action Area */}
+                  <div className="mt-auto pt-5 border-t border-border/80">
+                    <a 
+                      href={cert.file}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 bg-primary/10 hover:bg-primary text-primary hover:text-white text-sm font-bold rounded-xl transition-all duration-300 w-full justify-center group/btn shadow-sm hover:shadow-md"
+                    >
+                      View Certificate 
+                      <ExternalLink className="w-4 h-4 transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
