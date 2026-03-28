@@ -8,7 +8,7 @@ const certificatesData = [
     issuer: "Microsoft",
     category: "Cloud",
     grade: null,
-    file: "/certifications/Azure-AZ-900.pdf",
+    file: new URL("../assets/Certfications/Azure-AZ-900.pdf", import.meta.url).href,
     description: "Foundational cloud concepts, Azure services, security, privacy, compliance, and pricing. Covers core Azure architecture and services.",
     color: "bg-blue-500"
   },
@@ -18,7 +18,7 @@ const certificatesData = [
     issuer: "Coursera",
     category: "DevOps",
     grade: "100%",
-    file: "/certifications/Build a CI-CD Pipeline with Docker From Code to Deployment.pdf",
+    file: new URL("../assets/Certfications/Build a CI-CD Pipeline with Docker From Code to Deployment.pdf", import.meta.url).href,
     description: "Hands-on pipeline creation using Docker containers, from source code to automated deployment in production environments.",
     color: "bg-orange-500"
   },
@@ -28,7 +28,7 @@ const certificatesData = [
     issuer: "Cisco",
     category: "Networking",
     grade: null,
-    file: "/certifications/CCNAv7_Enterprise Networking, Security, and Automation.pdf",
+    file: new URL("../assets/Certfications/CCNAv7_Enterprise Networking, Security, and Automation.pdf", import.meta.url).href,
     description: "Advanced enterprise networking concepts including WAN technologies, network security, and automation using Python and Ansible.",
     color: "bg-teal-500"
   },
@@ -38,7 +38,7 @@ const certificatesData = [
     issuer: "Cisco",
     category: "Networking",
     grade: null,
-    file: "/certifications/CCNAv7_Introduction to Networks.pdf",
+    file: new URL("../assets/Certfications/CCNAv7_Introduction to Networks.pdf", import.meta.url).href,
     description: "Fundamentals of networking including network protocols, IP addressing, Ethernet, and basic router and switch configuration.",
     color: "bg-teal-500"
   },
@@ -48,7 +48,7 @@ const certificatesData = [
     issuer: "Cisco",
     category: "Networking",
     grade: null,
-    file: "/certifications/CCNAv7_Switching, Routing, and Wireless Essentials.pdf",
+    file: new URL("../assets/Certfications/CCNAv7_Switching, Routing, and Wireless Essentials.pdf", import.meta.url).href,
     description: "VLANs, inter-VLAN routing, STP, EtherChannel, DHCPv4/v6, HSRP, and wireless LAN configuration and troubleshooting.",
     color: "bg-teal-500"
   },
@@ -58,7 +58,7 @@ const certificatesData = [
     issuer: "LearnKartS",
     category: "DevOps",
     grade: "100%",
-    file: "/certifications/Continuous Integration & Continuous Deployment with Jenkins.pdf",
+    file: new URL("../assets/Certfications/Continuous Integration & Continuous Deployment with Jenkins.pdf", import.meta.url).href,
     description: "Complete Jenkins pipeline setup, automated builds, testing integration, and continuous deployment workflows.",
     color: "bg-red-500"
   },
@@ -68,7 +68,7 @@ const certificatesData = [
     issuer: "LearnKartS",
     category: "DevOps",
     grade: "83.33%",
-    file: "/certifications/Continuous Monitoring with Jenkins & Best Practices.pdf",
+    file: new URL("../assets/Certfications/Continuous Monitoring with Jenkins & Best Practices.pdf", import.meta.url).href,
     description: "Jenkins monitoring strategies, build health tracking, alerting, log management, and DevOps best practices.",
     color: "bg-red-500"
   },
@@ -78,7 +78,7 @@ const certificatesData = [
     issuer: "LearnKartS",
     category: "DevOps",
     grade: "100%",
-    file: "/certifications/DevOps and Jenkins Fundamentals.pdf",
+    file: new URL("../assets/Certfications/DevOps and Jenkins Fundamentals.pdf", import.meta.url).href,
     description: "Core DevOps principles, culture, and practices combined with Jenkins fundamentals for automated software delivery.",
     color: "bg-red-500"
   },
@@ -88,7 +88,7 @@ const certificatesData = [
     issuer: "University of Colorado Boulder",
     category: "DSA",
     grade: "99.37%",
-    file: "/certifications/Dynamic Programming, Greedy Algorithm.pdf",
+    file: new URL("../assets/Certfications/Dynamic Programming, Greedy Algorithm.pdf", import.meta.url).href,
     description: "Advanced algorithm design techniques including memoization, tabulation, greedy strategies, and complexity analysis.",
     color: "bg-purple-500"
   },
@@ -98,7 +98,7 @@ const certificatesData = [
     issuer: "IBM",
     category: "Frontend",
     grade: "92.50%",
-    file: "/certifications/Front-End Apps with React.pdf",
+    file: new URL("../assets/Certfications/Front-End Apps with React.pdf", import.meta.url).href,
     description: "React fundamentals, hooks, state management, component lifecycle, Redux, and building production-ready web applications.",
     color: "bg-cyan-500"
   },
@@ -108,7 +108,7 @@ const certificatesData = [
     issuer: "IBM",
     category: "AI/ML",
     grade: "98%",
-    file: "/certifications/Introduction to Artificial Intelligence (AI).pdf",
+    file: new URL("../assets/Certfications/Introduction to Artificial Intelligence (AI).pdf", import.meta.url).href,
     description: "AI concepts, machine learning fundamentals, neural networks, natural language processing, and real-world AI applications.",
     color: "bg-yellow-500"
   },
@@ -118,7 +118,7 @@ const certificatesData = [
     issuer: "LearnKartS",
     category: "DevOps",
     grade: null,
-    file: "/certifications/Jenkins - From Zero to Hero.pdf",
+    file: new URL("../assets/Certfications/Jenkins - From Zero to Hero.pdf", import.meta.url).href,
     description: "Complete Jenkins mastery from installation to advanced pipeline creation, plugins, and enterprise-grade CI/CD setup.",
     color: "bg-red-500"
   },
@@ -128,7 +128,7 @@ const certificatesData = [
     issuer: "Oracle",
     category: "Cloud",
     grade: null,
-    file: "/certifications/OCI25CAA.jpg",
+    file: new URL("../assets/Certfications/OCI25CAA.jpg", import.meta.url).href,
     description: "Oracle Cloud Infrastructure fundamentals, compute, storage, networking, security, and cloud-native services.",
     color: "bg-red-600"
   },
@@ -138,7 +138,7 @@ const certificatesData = [
     issuer: "Oracle",
     category: "Cloud",
     grade: null,
-    file: "/certifications/Oracle Associate.pdf",
+    file: new URL("../assets/Certfications/Oracle Associate.pdf", import.meta.url).href,
     description: "Oracle technology fundamentals covering database concepts, cloud services, and Oracle ecosystem architecture.",
     color: "bg-red-600"
   },
@@ -148,7 +148,7 @@ const certificatesData = [
     issuer: "LearnQuest",
     category: "Backend",
     grade: "86.60%",
-    file: "/certifications/Spring - Ecosystem and Core.pdf",
+    file: new URL("../assets/Certfications/Spring - Ecosystem and Core.pdf", import.meta.url).href,
     description: "Spring Framework core concepts, dependency injection, Spring Boot, Spring MVC, REST APIs, and enterprise Java development.",
     color: "bg-green-500"
   }
@@ -180,7 +180,7 @@ const Certificates = () => {
               data-aos="fade-up" 
               data-aos-delay="100"
             >
-              15 Certifications & Counting 🚀
+              15 Certifications & Counting
             </span>
           </div>
           
