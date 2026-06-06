@@ -1,171 +1,202 @@
 import { useState, useEffect, useRef } from "react";
 import { Info, ExternalLink, SearchX, Award, ChevronLeft, ChevronRight } from "lucide-react";
 
+// Certificate thumbnail images
+const imgAzure = new URL("../assets/Certfications/certificate-imgs/Azure-AZ-900.jpg", import.meta.url).href;
+const imgDockerCICD = new URL("../assets/Certfications/certificate-imgs/Build a CI-CD Pipeline with Docker From Code to Deployment.jpg", import.meta.url).href;
+const imgCCNAEnterprise = new URL("../assets/Certfications/certificate-imgs/CCNAv7_Enterprise Networking, Security, and Automation.jpg", import.meta.url).href;
+const imgCCNAIntro = new URL("../assets/Certfications/certificate-imgs/CCNAv7_Introduction to Networks.jpg", import.meta.url).href;
+const imgCCNASwitching = new URL("../assets/Certfications/certificate-imgs/CCNAv7_Switching, Routing, and Wireless Essentials.jpg", import.meta.url).href;
+const imgJenkinsCICD = new URL("../assets/Certfications/certificate-imgs/Continuous Integration & Continuous Deployment with Jenkins.jpg", import.meta.url).href;
+const imgJenkinsMonitoring = new URL("../assets/Certfications/certificate-imgs/Continuous Monitoring with Jenkins & Best Practices.jpg", import.meta.url).href;
+const imgDevOpsJenkins = new URL("../assets/Certfications/certificate-imgs/DevOps and Jenkins Fundamentals.jpg", import.meta.url).href;
+const imgDynamicProgramming = new URL("../assets/Certfications/certificate-imgs/Dynamic Programming, Greedy Algorithm.jpg", import.meta.url).href;
+const imgReact = new URL("../assets/Certfications/certificate-imgs/Front-End Apps with React.jpg", import.meta.url).href;
+const imgAI = new URL("../assets/Certfications/certificate-imgs/Introduction to Artificial Intelligence (AI).jpg", import.meta.url).href;
+const imgJenkinsHero = new URL("../assets/Certfications/certificate-imgs/Jenkins - From Zero to Hero.jpg", import.meta.url).href;
+const imgOracleAssociate = new URL("../assets/Certfications/certificate-imgs/Oracle Associate.jpg", import.meta.url).href;
+const imgSpring = new URL("../assets/Certfications/certificate-imgs/Spring - Ecosystem and Core.jpg", import.meta.url).href;
+
 const certificatesData = [
   {
     id: 1,
     title: "Microsoft Azure Fundamentals",
     issuer: "Microsoft",
     category: "Cloud",
-    grade: null,
+    grade: null as string | null,
     file: new URL("../assets/Certfications/Azure-AZ-900.pdf", import.meta.url).href,
     description: "Foundational cloud concepts, Azure services, security, privacy, compliance, and pricing. Covers core Azure architecture and services.",
     gradient: "from-blue-500 to-blue-700",
     accentColor: "#3b82f6",
+    image: imgAzure as string | null,
   },
   {
     id: 2,
     title: "Build a CI/CD Pipeline with Docker",
     issuer: "Coursera",
     category: "DevOps",
-    grade: "100%",
+    grade: "100%" as string | null,
     file: new URL("../assets/Certfications/Build a CI-CD Pipeline with Docker From Code to Deployment.pdf", import.meta.url).href,
     description: "Hands-on pipeline creation using Docker containers, from source code to automated deployment in production environments.",
     gradient: "from-orange-500 to-orange-700",
     accentColor: "#f97316",
+    image: imgDockerCICD as string | null,
   },
   {
     id: 3,
     title: "CCNAv7: Enterprise Networking, Security & Automation",
     issuer: "Cisco",
     category: "Networking",
-    grade: null,
+    grade: null as string | null,
     file: new URL("../assets/Certfications/CCNAv7_Enterprise Networking, Security, and Automation.pdf", import.meta.url).href,
     description: "Advanced enterprise networking concepts including WAN technologies, network security, and automation using Python and Ansible.",
     gradient: "from-teal-500 to-teal-700",
     accentColor: "#14b8a6",
+    image: imgCCNAEnterprise as string | null,
   },
   {
     id: 4,
     title: "CCNAv7: Introduction to Networks",
     issuer: "Cisco",
     category: "Networking",
-    grade: null,
+    grade: null as string | null,
     file: new URL("../assets/Certfications/CCNAv7_Introduction to Networks.pdf", import.meta.url).href,
     description: "Fundamentals of networking including network protocols, IP addressing, Ethernet, and basic router and switch configuration.",
     gradient: "from-teal-500 to-teal-700",
     accentColor: "#14b8a6",
+    image: imgCCNAIntro as string | null,
   },
   {
     id: 5,
     title: "CCNAv7: Switching, Routing & Wireless Essentials",
     issuer: "Cisco",
     category: "Networking",
-    grade: null,
+    grade: null as string | null,
     file: new URL("../assets/Certfications/CCNAv7_Switching, Routing, and Wireless Essentials.pdf", import.meta.url).href,
     description: "VLANs, inter-VLAN routing, STP, EtherChannel, DHCPv4/v6, HSRP, and wireless LAN configuration and troubleshooting.",
     gradient: "from-teal-500 to-teal-700",
     accentColor: "#14b8a6",
+    image: imgCCNASwitching as string | null,
   },
   {
     id: 6,
     title: "CI/CD with Jenkins",
     issuer: "LearnKartS",
     category: "DevOps",
-    grade: "100%",
+    grade: "100%" as string | null,
     file: new URL("../assets/Certfications/Continuous Integration & Continuous Deployment with Jenkins.pdf", import.meta.url).href,
     description: "Complete Jenkins pipeline setup, automated builds, testing integration, and continuous deployment workflows.",
     gradient: "from-red-500 to-red-700",
     accentColor: "#ef4444",
+    image: imgJenkinsCICD as string | null,
   },
   {
     id: 7,
     title: "Continuous Monitoring with Jenkins",
     issuer: "LearnKartS",
     category: "DevOps",
-    grade: "83.33%",
+    grade: "83.33%" as string | null,
     file: new URL("../assets/Certfications/Continuous Monitoring with Jenkins & Best Practices.pdf", import.meta.url).href,
     description: "Jenkins monitoring strategies, build health tracking, alerting, log management, and DevOps best practices.",
     gradient: "from-red-500 to-red-700",
     accentColor: "#ef4444",
+    image: imgJenkinsMonitoring as string | null,
   },
   {
     id: 8,
     title: "DevOps and Jenkins Fundamentals",
     issuer: "LearnKartS",
     category: "DevOps",
-    grade: "100%",
+    grade: "100%" as string | null,
     file: new URL("../assets/Certfications/DevOps and Jenkins Fundamentals.pdf", import.meta.url).href,
     description: "Core DevOps principles, culture, and practices combined with Jenkins fundamentals for automated software delivery.",
     gradient: "from-red-500 to-red-700",
     accentColor: "#ef4444",
+    image: imgDevOpsJenkins as string | null,
   },
   {
     id: 9,
     title: "Dynamic Programming & Greedy Algorithms",
     issuer: "University of Colorado Boulder",
     category: "DSA",
-    grade: "99.37%",
+    grade: "99.37%" as string | null,
     file: new URL("../assets/Certfications/Dynamic Programming, Greedy Algorithm.pdf", import.meta.url).href,
     description: "Advanced algorithm design techniques including memoization, tabulation, greedy strategies, and complexity analysis.",
     gradient: "from-purple-500 to-purple-700",
     accentColor: "#a855f7",
+    image: imgDynamicProgramming as string | null,
   },
   {
     id: 10,
     title: "Developing Front-End Apps with React",
     issuer: "IBM",
     category: "Frontend",
-    grade: "92.50%",
+    grade: "92.50%" as string | null,
     file: new URL("../assets/Certfications/Front-End Apps with React.pdf", import.meta.url).href,
     description: "React fundamentals, hooks, state management, component lifecycle, Redux, and building production-ready web applications.",
     gradient: "from-cyan-500 to-cyan-700",
     accentColor: "#06b6d4",
+    image: imgReact as string | null,
   },
   {
     id: 11,
     title: "Introduction to Artificial Intelligence",
     issuer: "IBM",
     category: "AI/ML",
-    grade: "98%",
+    grade: "98%" as string | null,
     file: new URL("../assets/Certfications/Introduction to Artificial Intelligence (AI).pdf", import.meta.url).href,
     description: "AI concepts, machine learning fundamentals, neural networks, natural language processing, and real-world AI applications.",
     gradient: "from-yellow-500 to-yellow-600",
     accentColor: "#eab308",
+    image: imgAI as string | null,
   },
   {
     id: 12,
     title: "Jenkins - From Zero to Hero",
     issuer: "LearnKartS",
     category: "DevOps",
-    grade: null,
+    grade: null as string | null,
     file: new URL("../assets/Certfications/Jenkins - From Zero to Hero.pdf", import.meta.url).href,
     description: "Complete Jenkins mastery from installation to advanced pipeline creation, plugins, and enterprise-grade CI/CD setup.",
     gradient: "from-red-500 to-red-700",
     accentColor: "#ef4444",
+    image: imgJenkinsHero as string | null,
   },
   {
     id: 13,
     title: "Oracle Cloud Infrastructure 2025",
     issuer: "Oracle",
     category: "Cloud",
-    grade: null,
+    grade: null as string | null,
     file: new URL("../assets/Certfications/OCI25CAA.jpg", import.meta.url).href,
     description: "Oracle Cloud Infrastructure fundamentals, compute, storage, networking, security, and cloud-native services.",
     gradient: "from-rose-600 to-rose-800",
     accentColor: "#e11d48",
+    image: null as string | null,
   },
   {
     id: 14,
     title: "Oracle Associate",
     issuer: "Oracle",
     category: "Cloud",
-    grade: null,
+    grade: null as string | null,
     file: new URL("../assets/Certfications/Oracle Associate.pdf", import.meta.url).href,
     description: "Oracle technology fundamentals covering database concepts, cloud services, and Oracle ecosystem architecture.",
     gradient: "from-rose-600 to-rose-800",
     accentColor: "#e11d48",
+    image: imgOracleAssociate as string | null,
   },
   {
     id: 15,
     title: "Spring - Ecosystem and Core",
     issuer: "LearnQuest",
     category: "Backend",
-    grade: "86.60%",
+    grade: "86.60%" as string | null,
     file: new URL("../assets/Certfications/Spring - Ecosystem and Core.pdf", import.meta.url).href,
     description: "Spring Framework core concepts, dependency injection, Spring Boot, Spring MVC, REST APIs, and enterprise Java development.",
     gradient: "from-green-500 to-green-700",
     accentColor: "#22c55e",
+    image: imgSpring as string | null,
   }
 ];
 
@@ -228,7 +259,25 @@ const CertCard = ({
       }}
     >
       {/* ── Banner ── */}
-      <div className={`relative h-24 bg-gradient-to-br ${cert.gradient} rounded-t-2xl p-4 flex justify-between items-start overflow-hidden shrink-0`}>
+      <div className={`relative h-24 rounded-t-2xl overflow-hidden shrink-0`}>
+        {/* Image or gradient fallback */}
+        {cert.image ? (
+          <>
+            <img
+              src={cert.image}
+              alt={cert.title}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            {/* Category-colored tinted overlay */}
+            <div
+              className="absolute inset-0"
+              style={{ background: cert.accentColor + "33" }}
+            />
+          </>
+        ) : (
+          <div className={`absolute inset-0 bg-gradient-to-br ${cert.gradient}`} />
+        )}
+
         {/* Shine sweep */}
         <div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -237,14 +286,14 @@ const CertCard = ({
         <div className="absolute -right-4 -top-4 w-24 h-24 rounded-full bg-white/10 blur-2xl" />
 
         {/* Category badge */}
-        <span className="relative z-10 bg-black/25 backdrop-blur-sm text-white px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-white/15">
+        <span className="absolute top-3 left-3 z-10 bg-black/40 backdrop-blur-sm text-white px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-white/15">
           {cert.category}
         </span>
 
         {/* Grade badge */}
         {cert.grade && (
           <span
-            className="relative z-10 bg-emerald-500/90 text-white px-2.5 py-1 rounded-full text-[10px] font-bold border border-emerald-400/30"
+            className="absolute top-3 right-10 z-10 bg-emerald-500/90 text-white px-2.5 py-1 rounded-full text-[10px] font-bold border border-emerald-400/30"
             style={{ boxShadow: "0 0 10px rgba(16,185,129,0.4)" }}
           >
             ✦ {cert.grade}
@@ -264,6 +313,7 @@ const CertCard = ({
             e.stopPropagation();
             setOpenTooltip(openTooltip === cert.id ? null : cert.id);
           }}
+          aria-label={`Info about ${cert.title}`}
         >
           <Info className="w-3.5 h-3.5" />
         </button>
@@ -385,6 +435,7 @@ const ScrollRow = ({
       >
         <button
           onClick={() => scroll("left")}
+          aria-label="Scroll left"
           className="pointer-events-auto w-9 h-9 rounded-full border flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
           style={{
             background: "hsl(var(--card))",
@@ -408,6 +459,7 @@ const ScrollRow = ({
       >
         <button
           onClick={() => scroll("right")}
+          aria-label="Scroll right"
           className="pointer-events-auto w-9 h-9 rounded-full border flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
           style={{
             background: "hsl(var(--card))",
@@ -494,15 +546,15 @@ const Certificates = () => {
             }}
           >
             <Award className="w-3.5 h-3.5" />
-            15 Certifications & Counting 🚀
+            15 Certifications &amp; Counting 🚀
           </div>
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-3" style={{ color: "hsl(var(--foreground))" }}>
-            Certificates &{" "}
+            Certificates &amp;{" "}
             <span style={{ color: "hsl(var(--primary))" }}>Achievements</span>
           </h2>
           <div className="w-16 h-1 rounded-full mb-4" style={{ background: "hsl(var(--primary))" }} />
           <p className="text-sm md:text-base max-w-xl" style={{ color: "hsl(var(--muted-foreground))" }}>
-            Verified certifications from Microsoft, IBM, Cisco, Oracle & more
+            Verified certifications from Microsoft, IBM, Cisco, Oracle &amp; more
           </p>
         </div>
 
@@ -518,7 +570,7 @@ const Certificates = () => {
               <button
                 key={cat}
                 onClick={() => handleFilterChange(cat)}
-                className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap shrink-0 border transition-all duration-300"
+                className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap shrink-0 border transition-all duration-300 dark:border-border"
                 style={{
                   background: isActive ? "hsl(var(--primary))" : "transparent",
                   color: isActive ? "#fff" : "hsl(var(--muted-foreground))",

@@ -145,7 +145,7 @@ const Contact = () => {
                       placeholder="Your Name"
                       value={formData.name}
                       onChange={handleChange}
-                      className={`bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60 ${errors.name ? "border-red-500 ring-1 ring-red-500" : ""}`}
+                      className={`bg-primary-foreground/10 dark:bg-white/5 border-primary-foreground/20 dark:border-white/10 text-primary-foreground placeholder:text-primary-foreground/60 ${errors.name ? "border-red-500 ring-1 ring-red-500" : ""}`}
                     />
                     {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
                   </div>
@@ -156,7 +156,7 @@ const Contact = () => {
                       placeholder="Email"
                       value={formData.email}
                       onChange={handleChange}
-                      className={`bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60 ${errors.email ? "border-red-500 ring-1 ring-red-500" : ""}`}
+                      className={`bg-primary-foreground/10 dark:bg-white/5 border-primary-foreground/20 dark:border-white/10 text-primary-foreground placeholder:text-primary-foreground/60 ${errors.email ? "border-red-500 ring-1 ring-red-500" : ""}`}
                     />
                     {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
                   </div>
@@ -169,7 +169,7 @@ const Contact = () => {
                     placeholder="Subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className={`bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60 ${errors.subject ? "border-red-500 ring-1 ring-red-500" : ""}`}
+                    className={`bg-primary-foreground/10 dark:bg-white/5 border-primary-foreground/20 dark:border-white/10 text-primary-foreground placeholder:text-primary-foreground/60 ${errors.subject ? "border-red-500 ring-1 ring-red-500" : ""}`}
                   />
                   {errors.subject && <p className="text-red-400 text-xs mt-1">{errors.subject}</p>}
                 </div>
@@ -182,7 +182,7 @@ const Contact = () => {
                     onChange={handleChange}
                     maxLength={500}
                     rows={6}
-                    className={`bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60 resize-none ${errors.message ? "border-red-500 ring-1 ring-red-500" : ""}`}
+                    className={`bg-primary-foreground/10 dark:bg-white/5 border-primary-foreground/20 dark:border-white/10 text-primary-foreground placeholder:text-primary-foreground/60 resize-none ${errors.message ? "border-red-500 ring-1 ring-red-500" : ""}`}
                   />
                   <div className="flex justify-between items-center mt-1">
                     {errors.message

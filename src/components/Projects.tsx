@@ -11,6 +11,7 @@ const projects = [
     link: "https://github.com/SaiEswar002/NTTF-Final-Project",
     github: "https://github.com/SaiEswar002/NTTF-Final-Project",
     isPrivate: false,
+    badge: null as string | null,
   },
   {
     title: "Hospital Management System",
@@ -21,6 +22,7 @@ const projects = [
     link: "https://github.com/SaiEswar002/cicd-hms-docker/tree/main",
     github: "https://github.com/SaiEswar002/cicd-hms-docker/tree/main",
     isPrivate: false,
+    badge: null as string | null,
   },
   {
     title: "Browser-use AI Agent",
@@ -31,8 +33,32 @@ const projects = [
     link: "#",
     github: "#",
     isPrivate: true,
+    badge: null as string | null,
+  },
+  {
+    title: "Trust Voting System",
+    description: "A cryptographically secured decentralized electronic voting platform demonstrating homomorphic encryption, zero-knowledge proofs, and blockchain consensus for auditable elections.",
+    techStack: ["Python", "Cryptography", "Blockchain", "ZK-Proofs", "Homomorphic Encryption"],
+    category: "Personal Project",
+    gradient: "from-[#1e1040] to-[#3b0764]",
+    link: "https://github.com/SaiEswar002/Trust_Voting_System",
+    github: "https://github.com/SaiEswar002/Trust_Voting_System",
+    isPrivate: false,
+    badge: null as string | null,
+  },
+  {
+    title: "LexAudit",
+    description: "A production-ready OpenEnv AI agent built for the Meta × Scaler Hackathon. Acts as a legal contract auditor — identifying risks, missing sections, contradictions, and rewriting unfair clauses using LLMs.",
+    techStack: ["Python", "FastAPI", "Gradio", "HuggingFace", "LLM", "LangChain"],
+    category: "Hackathon Project",
+    gradient: "from-[#052e16] to-[#166534]",
+    link: "https://github.com/SaiEswar002/lexaudit",
+    github: "https://github.com/SaiEswar002/lexaudit",
+    isPrivate: false,
+    badge: "🏆 Hackathon" as string | null,
   },
 ];
+
 
 const Projects = () => {
   return (
@@ -60,7 +86,7 @@ const Projects = () => {
             >
               {/* Gradient banner header */}
               <div className={`bg-gradient-to-r ${project.gradient} h-28 -mx-6 -mt-6 mb-4 flex items-end px-4 pb-3 relative`}>
-                {/* Badge */}
+                {/* Status Badge */}
                 {project.isPrivate ? (
                   <span className="absolute top-3 right-3 text-xs font-bold bg-yellow-400/90 text-yellow-900 px-2 py-0.5 rounded-full">
                     🔒 Private Repo
@@ -72,6 +98,12 @@ const Projects = () => {
                 ) : (
                   <span className="absolute top-3 right-3 text-xs font-bold bg-gray-400/90 text-gray-900 px-2 py-0.5 rounded-full">
                     🚧 Coming Soon
+                  </span>
+                )}
+                {/* Extra badge (e.g., Hackathon) */}
+                {project.badge && (
+                  <span className="absolute top-3 left-3 text-xs font-bold bg-amber-400/90 text-amber-900 px-2 py-0.5 rounded-full">
+                    {project.badge}
                   </span>
                 )}
                 <span className="text-xs font-semibold text-white/80 bg-white/10 px-2 py-0.5 rounded-full">

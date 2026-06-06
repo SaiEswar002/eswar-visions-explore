@@ -65,41 +65,42 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Japanese Red + Dark Brown palette */
+    --background: 25 25% 8%;
+    --foreground: 60 56% 91%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 25 25% 12%;
+    --card-foreground: 60 56% 91%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 25 25% 12%;
+    --popover-foreground: 60 56% 91%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 0 67% 36%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 25 25% 16%;
+    --secondary-foreground: 60 56% 91%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 25 25% 16%;
+    --muted-foreground: 48 67% 75%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 0 67% 36%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 60 56% 91%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --border: 25 25% 20%;
+    --input: 25 25% 20%;
+    --ring: 0 67% 36%;
+    --sidebar-background: 25 25% 8%;
+    --sidebar-foreground: 60 56% 91%;
+    --sidebar-primary: 0 67% 36%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 25 25% 16%;
+    --sidebar-accent-foreground: 60 56% 91%;
+    --sidebar-border: 25 25% 20%;
+    --sidebar-ring: 0 67% 36%;
   }
 }
 
@@ -120,7 +121,7 @@ All colors MUST be HSL.
 /* Portfolio specific styles */
 @layer components {
   .hero-section {
-    @apply bg-secondary min-h-screen;
+    @apply bg-secondary dark:bg-background min-h-screen;
   }
   
   .red-section {
@@ -128,11 +129,11 @@ All colors MUST be HSL.
   }
   
   .beige-section {
-    @apply bg-secondary text-secondary-foreground;
+    @apply bg-secondary dark:bg-card text-secondary-foreground dark:text-foreground;
   }
   
   .portfolio-card {
-    @apply bg-card rounded-xl p-6 shadow-sm border border-border/50 transition-all duration-300 hover:shadow-lg hover:scale-[1.02];
+    @apply bg-card dark:bg-card rounded-xl p-6 shadow-sm border border-border dark:border-border transition-all duration-300 hover:shadow-lg hover:scale-[1.02];
   }
   
   .skill-icon {
@@ -140,7 +141,7 @@ All colors MUST be HSL.
   }
   
   .section-title {
-    @apply text-3xl font-bold text-center mb-12 text-foreground relative;
+    @apply text-3xl font-bold text-center mb-12 text-foreground dark:text-foreground relative;
   }
   
   .section-title::after {
@@ -149,12 +150,12 @@ All colors MUST be HSL.
   }
   
   .timeline-item {
-    @apply relative pl-8 pb-8 border-l-2 border-border last:border-l-0;
+    @apply relative pl-8 pb-8 border-l-2 border-border dark:border-border last:border-l-0;
   }
   
   .timeline-item::before {
     content: '';
-    @apply absolute -left-2 top-0 w-4 h-4 bg-primary rounded-full border-4 border-background;
+    @apply absolute -left-2 top-0 w-4 h-4 bg-primary rounded-full border-4 border-background dark:border-background;
   }
   
   .btn-primary {
@@ -407,5 +408,49 @@ All colors MUST be HSL.
       opacity: 1;
       transform: scale(1);
     }
+  }
+
+  /* ── Hero radar ring pulses ── */
+  @keyframes heroRingPulse {
+    0% {
+      transform: scale(0.92);
+      opacity: 0.15;
+    }
+    60% {
+      opacity: 0.08;
+    }
+    100% {
+      transform: scale(1.35);
+      opacity: 0;
+    }
+  }
+
+  .hero-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid hsl(0 67% 36%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero-ring-1 {
+    width: min(420px, 88vw);
+    height: min(420px, 88vw);
+    animation: heroRingPulse 3.2s ease-out infinite;
+    animation-delay: 0s;
+  }
+
+  .hero-ring-2 {
+    width: min(520px, 108vw);
+    height: min(520px, 108vw);
+    animation: heroRingPulse 3.2s ease-out infinite;
+    animation-delay: 0.9s;
+  }
+
+  .hero-ring-3 {
+    width: min(620px, 128vw);
+    height: min(620px, 128vw);
+    animation: heroRingPulse 3.2s ease-out infinite;
+    animation-delay: 1.8s;
   }
 }

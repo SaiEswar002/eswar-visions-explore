@@ -35,7 +35,7 @@ const currentlyLearning = [
 
 const Skills = () => {
   return (
-    <section id="skills" className="py-20 bg-background">
+    <section id="skills" className="py-20 bg-background dark:bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="section-title" data-aos="fade-up">My Expertise</h2>
 
@@ -60,7 +60,7 @@ const Skills = () => {
                   <span className="text-xs font-medium text-muted-foreground">Proficiency</span>
                   <span className="text-xs font-bold" style={{ color: category.color }}>{category.proficiency}%</span>
                 </div>
-                <div className="w-full h-2 bg-secondary rounded-full overflow-hidden">
+                <div className="w-full h-2 bg-secondary dark:bg-secondary rounded-full overflow-hidden">
                   <div
                     className="h-full rounded-full transition-all duration-1000"
                     style={{ width: `${category.proficiency}%`, background: category.color }}
@@ -75,7 +75,7 @@ const Skills = () => {
                 {category.skills.map((skill, skillIndex) => (
                   <span
                     key={skill}
-                    className="px-3 py-1 bg-secondary text-secondary-foreground rounded-full text-xs font-medium transform transition-all duration-300 hover:scale-110 hover:bg-primary hover:text-primary-foreground"
+                    className="px-3 py-1 bg-secondary dark:bg-secondary text-secondary-foreground dark:text-secondary-foreground rounded-full text-xs font-medium transform transition-all duration-300 hover:scale-110 hover:bg-primary hover:text-primary-foreground"
                     data-aos="fade-up"
                     data-aos-delay={index * 100 + skillIndex * 50}
                   >

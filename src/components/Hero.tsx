@@ -1,21 +1,22 @@
 import { Download, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { heroAnimations } from "@/hooks/useAnimations";
 import profileImage from "@/assets/sai-eswar-photo.jpg";
+import { AnimatePresence, motion } from "framer-motion";
 
-const techBadges = [
-  { label: "HTML", color: "#e34f26" },
-  { label: "CSS", color: "#264de4" },
-  { label: "React", color: "#61dafb" },
-  { label: "TypeScript", color: "#3178c6" },
-  { label: "Python", color: "#306998" },
-  { label: "Git", color: "#f05032" },
+const roles = [
+  "Frontend Developer",
+  "DevOps Engineer",
+  "Full-Stack Dev",
+  "Linux Enthusiast",
+  "Networking & Cloud",
 ];
 
 const Hero = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const [imgLoaded, setImgLoaded] = useState(false);
+  const [roleIndex, setRoleIndex] = useState(0);
 
   const scrollToContact = () => {
     const element = document.querySelector("#contact");
@@ -26,6 +27,13 @@ const Hero = () => {
 
   heroAnimations(heroRef);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRoleIndex((prev) => (prev + 1) % roles.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section id="home" className="hero-section flex items-center min-h-screen" ref={heroRef}>
       {/* Animated gradient background */}
@@ -33,36 +41,16 @@ const Hero = () => {
 
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen">
-          {/* LEFT — Profile image with floating badges */}
+          {/* LEFT — Profile image with animated rings */}
           <div className="order-2 lg:order-1" data-aos="fade-right" data-aos-delay="300">
             <div className="relative flex items-center justify-center">
-              {/* Floating tech badges */}
-              {techBadges.map((badge, i) => {
-                const angle = (i / techBadges.length) * 2 * Math.PI;
-                const rx = 52; // % from center horizontally
-                const ry = 42; // % from center vertically
-                const left = 50 + rx * Math.cos(angle);
-                const top = 50 + ry * Math.sin(angle);
-                return (
-                  <span
-                    key={badge.label}
-                    className="absolute z-20 px-3 py-1 rounded-full text-white text-xs font-bold shadow-lg select-none"
-                    style={{
-                      left: `${left}%`,
-                      top: `${top}%`,
-                      transform: "translate(-50%, -50%)",
-                      background: badge.color,
-                      animation: `floatBadge ${3 + i * 0.4}s ease-in-out infinite`,
-                      animationDelay: `${i * 0.3}s`,
-                    }}
-                  >
-                    {badge.label}
-                  </span>
-                );
-              })}
+              {/* Animated concentric ring pulses */}
+              <span className="hero-ring hero-ring-1" aria-hidden="true" />
+              <span className="hero-ring hero-ring-2" aria-hidden="true" />
+              <span className="hero-ring hero-ring-3" aria-hidden="true" />
 
               {/* Profile image with blur-placeholder */}
-              <div className="w-full max-w-md mx-auto relative">
+              <div className="w-full max-w-md mx-auto relative z-10">
                 {/* Blurred placeholder shown while image loads */}
                 <div
                   className={`absolute inset-0 rounded-2xl transition-opacity duration-700 ${imgLoaded ? "opacity-0" : "opacity-100"}`}
@@ -87,9 +75,21 @@ const Hero = () => {
               </span>
             </h1>
 
-            <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-muted-foreground" data-aos="fade-up" data-aos-delay="200">
-              Frontend Developer
-            </h2>
+            {/* Animated role cycling */}
+            <div className="h-10 md:h-12 overflow-hidden mb-4" data-aos="fade-up" data-aos-delay="200">
+              <AnimatePresence mode="wait">
+                <motion.h2
+                  key={roleIndex}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                  className="text-2xl md:text-3xl font-semibold text-muted-foreground"
+                >
+                  {roles[roleIndex]}
+                </motion.h2>
+              </AnimatePresence>
+            </div>
 
             <p className="text-lg mb-6 text-muted-foreground max-w-xl" data-aos="fade-up" data-aos-delay="300">
               "Building fast, beautiful UIs with React &amp; TypeScript — one component at a time."
