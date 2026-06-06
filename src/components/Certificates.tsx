@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Info, ExternalLink, SearchX } from "lucide-react";
+import { Info, ExternalLink, SearchX, Award, ChevronLeft, ChevronRight } from "lucide-react";
 
 const certificatesData = [
   {
@@ -11,7 +11,7 @@ const certificatesData = [
     file: new URL("../assets/Certfications/Azure-AZ-900.pdf", import.meta.url).href,
     description: "Foundational cloud concepts, Azure services, security, privacy, compliance, and pricing. Covers core Azure architecture and services.",
     gradient: "from-blue-500 to-blue-700",
-    glow: "hover:shadow-blue-500/30"
+    accentColor: "#3b82f6",
   },
   {
     id: 2,
@@ -22,7 +22,7 @@ const certificatesData = [
     file: new URL("../assets/Certfications/Build a CI-CD Pipeline with Docker From Code to Deployment.pdf", import.meta.url).href,
     description: "Hands-on pipeline creation using Docker containers, from source code to automated deployment in production environments.",
     gradient: "from-orange-500 to-orange-700",
-    glow: "hover:shadow-orange-500/30"
+    accentColor: "#f97316",
   },
   {
     id: 3,
@@ -33,7 +33,7 @@ const certificatesData = [
     file: new URL("../assets/Certfications/CCNAv7_Enterprise Networking, Security, and Automation.pdf", import.meta.url).href,
     description: "Advanced enterprise networking concepts including WAN technologies, network security, and automation using Python and Ansible.",
     gradient: "from-teal-500 to-teal-700",
-    glow: "hover:shadow-teal-500/30"
+    accentColor: "#14b8a6",
   },
   {
     id: 4,
@@ -44,7 +44,7 @@ const certificatesData = [
     file: new URL("../assets/Certfications/CCNAv7_Introduction to Networks.pdf", import.meta.url).href,
     description: "Fundamentals of networking including network protocols, IP addressing, Ethernet, and basic router and switch configuration.",
     gradient: "from-teal-500 to-teal-700",
-    glow: "hover:shadow-teal-500/30"
+    accentColor: "#14b8a6",
   },
   {
     id: 5,
@@ -55,7 +55,7 @@ const certificatesData = [
     file: new URL("../assets/Certfications/CCNAv7_Switching, Routing, and Wireless Essentials.pdf", import.meta.url).href,
     description: "VLANs, inter-VLAN routing, STP, EtherChannel, DHCPv4/v6, HSRP, and wireless LAN configuration and troubleshooting.",
     gradient: "from-teal-500 to-teal-700",
-    glow: "hover:shadow-teal-500/30"
+    accentColor: "#14b8a6",
   },
   {
     id: 6,
@@ -66,7 +66,7 @@ const certificatesData = [
     file: new URL("../assets/Certfications/Continuous Integration & Continuous Deployment with Jenkins.pdf", import.meta.url).href,
     description: "Complete Jenkins pipeline setup, automated builds, testing integration, and continuous deployment workflows.",
     gradient: "from-red-500 to-red-700",
-    glow: "hover:shadow-red-500/30"
+    accentColor: "#ef4444",
   },
   {
     id: 7,
@@ -77,7 +77,7 @@ const certificatesData = [
     file: new URL("../assets/Certfications/Continuous Monitoring with Jenkins & Best Practices.pdf", import.meta.url).href,
     description: "Jenkins monitoring strategies, build health tracking, alerting, log management, and DevOps best practices.",
     gradient: "from-red-500 to-red-700",
-    glow: "hover:shadow-red-500/30"
+    accentColor: "#ef4444",
   },
   {
     id: 8,
@@ -88,7 +88,7 @@ const certificatesData = [
     file: new URL("../assets/Certfications/DevOps and Jenkins Fundamentals.pdf", import.meta.url).href,
     description: "Core DevOps principles, culture, and practices combined with Jenkins fundamentals for automated software delivery.",
     gradient: "from-red-500 to-red-700",
-    glow: "hover:shadow-red-500/30"
+    accentColor: "#ef4444",
   },
   {
     id: 9,
@@ -99,7 +99,7 @@ const certificatesData = [
     file: new URL("../assets/Certfications/Dynamic Programming, Greedy Algorithm.pdf", import.meta.url).href,
     description: "Advanced algorithm design techniques including memoization, tabulation, greedy strategies, and complexity analysis.",
     gradient: "from-purple-500 to-purple-700",
-    glow: "hover:shadow-purple-500/30"
+    accentColor: "#a855f7",
   },
   {
     id: 10,
@@ -110,7 +110,7 @@ const certificatesData = [
     file: new URL("../assets/Certfications/Front-End Apps with React.pdf", import.meta.url).href,
     description: "React fundamentals, hooks, state management, component lifecycle, Redux, and building production-ready web applications.",
     gradient: "from-cyan-500 to-cyan-700",
-    glow: "hover:shadow-cyan-500/30"
+    accentColor: "#06b6d4",
   },
   {
     id: 11,
@@ -120,8 +120,8 @@ const certificatesData = [
     grade: "98%",
     file: new URL("../assets/Certfications/Introduction to Artificial Intelligence (AI).pdf", import.meta.url).href,
     description: "AI concepts, machine learning fundamentals, neural networks, natural language processing, and real-world AI applications.",
-    gradient: "from-yellow-500 to-yellow-700",
-    glow: "hover:shadow-yellow-500/30"
+    gradient: "from-yellow-500 to-yellow-600",
+    accentColor: "#eab308",
   },
   {
     id: 12,
@@ -132,7 +132,7 @@ const certificatesData = [
     file: new URL("../assets/Certfications/Jenkins - From Zero to Hero.pdf", import.meta.url).href,
     description: "Complete Jenkins mastery from installation to advanced pipeline creation, plugins, and enterprise-grade CI/CD setup.",
     gradient: "from-red-500 to-red-700",
-    glow: "hover:shadow-red-500/30"
+    accentColor: "#ef4444",
   },
   {
     id: 13,
@@ -142,8 +142,8 @@ const certificatesData = [
     grade: null,
     file: new URL("../assets/Certfications/OCI25CAA.jpg", import.meta.url).href,
     description: "Oracle Cloud Infrastructure fundamentals, compute, storage, networking, security, and cloud-native services.",
-    gradient: "from-red-600 to-red-800",
-    glow: "hover:shadow-red-600/30"
+    gradient: "from-rose-600 to-rose-800",
+    accentColor: "#e11d48",
   },
   {
     id: 14,
@@ -153,8 +153,8 @@ const certificatesData = [
     grade: null,
     file: new URL("../assets/Certfications/Oracle Associate.pdf", import.meta.url).href,
     description: "Oracle technology fundamentals covering database concepts, cloud services, and Oracle ecosystem architecture.",
-    gradient: "from-red-600 to-red-800",
-    glow: "hover:shadow-red-600/30"
+    gradient: "from-rose-600 to-rose-800",
+    accentColor: "#e11d48",
   },
   {
     id: 15,
@@ -165,220 +165,418 @@ const certificatesData = [
     file: new URL("../assets/Certfications/Spring - Ecosystem and Core.pdf", import.meta.url).href,
     description: "Spring Framework core concepts, dependency injection, Spring Boot, Spring MVC, REST APIs, and enterprise Java development.",
     gradient: "from-green-500 to-green-700",
-    glow: "hover:shadow-green-500/30"
+    accentColor: "#22c55e",
   }
 ];
 
 const categories = ["All", "Cloud", "DevOps", "Networking", "Frontend", "Backend", "AI/ML", "DSA"];
 
-const getCategoryColor = (category: string) => {
-  switch (category) {
-    case "Cloud": return "bg-blue-500";
-    case "DevOps": return "bg-orange-500";
-    case "Networking": return "bg-teal-500";
-    case "Frontend": return "bg-cyan-500";
-    case "Backend": return "bg-green-500";
-    case "AI/ML": return "bg-yellow-500";
-    case "DSA": return "bg-purple-500";
-    default: return "bg-red-500";
-  }
+const getCategoryDot = (category: string) => {
+  const map: Record<string, string> = {
+    Cloud: "bg-blue-500",
+    DevOps: "bg-orange-500",
+    Networking: "bg-teal-500",
+    Frontend: "bg-cyan-500",
+    Backend: "bg-green-500",
+    "AI/ML": "bg-yellow-500",
+    DSA: "bg-purple-500",
+  };
+  return map[category] ?? "bg-red-500";
 };
 
+// ── Single card ──────────────────────────────────────────────
+const CertCard = ({
+  cert,
+  index,
+  openTooltip,
+  setOpenTooltip,
+}: {
+  cert: typeof certificatesData[0];
+  index: number;
+  openTooltip: number | null;
+  setOpenTooltip: (id: number | null) => void;
+}) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setMounted(true), index * 70);
+    return () => clearTimeout(t);
+  }, [index]);
+
+  return (
+    <div
+      className="relative flex flex-col rounded-2xl border shrink-0 overflow-visible group"
+      style={{
+        width: "272px",
+        background: "hsl(var(--card))",
+        borderColor: "hsl(var(--border))",
+        opacity: mounted ? 1 : 0,
+        transform: mounted ? "translateX(0) translateY(0)" : "translateX(20px) translateY(4px)",
+        transition: "opacity 400ms ease, transform 400ms ease, box-shadow 300ms ease, border-color 300ms ease",
+      }}
+      onMouseEnter={e => {
+        const el = e.currentTarget as HTMLElement;
+        el.style.borderColor = cert.accentColor + "55";
+        el.style.transform = "translateY(-6px)";
+        el.style.boxShadow = `0 18px 40px ${cert.accentColor}1a`;
+      }}
+      onMouseLeave={e => {
+        const el = e.currentTarget as HTMLElement;
+        el.style.borderColor = "hsl(var(--border))";
+        el.style.transform = "translateY(0)";
+        el.style.boxShadow = "none";
+      }}
+    >
+      {/* ── Banner ── */}
+      <div className={`relative h-24 bg-gradient-to-br ${cert.gradient} rounded-t-2xl p-4 flex justify-between items-start overflow-hidden shrink-0`}>
+        {/* Shine sweep */}
+        <div
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          style={{ background: "linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.13) 50%, transparent 65%)" }}
+        />
+        <div className="absolute -right-4 -top-4 w-24 h-24 rounded-full bg-white/10 blur-2xl" />
+
+        {/* Category badge */}
+        <span className="relative z-10 bg-black/25 backdrop-blur-sm text-white px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-white/15">
+          {cert.category}
+        </span>
+
+        {/* Grade badge */}
+        {cert.grade && (
+          <span
+            className="relative z-10 bg-emerald-500/90 text-white px-2.5 py-1 rounded-full text-[10px] font-bold border border-emerald-400/30"
+            style={{ boxShadow: "0 0 10px rgba(16,185,129,0.4)" }}
+          >
+            ✦ {cert.grade}
+          </span>
+        )}
+
+        {/* Info button */}
+        <button
+          className="absolute -bottom-4 right-4 z-30 w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
+          style={{
+            background: "hsl(var(--card))",
+            borderColor: "hsl(var(--border))",
+            color: "hsl(var(--muted-foreground))",
+            boxShadow: "0 3px 10px rgba(0,0,0,0.2)",
+          }}
+          onClick={e => {
+            e.stopPropagation();
+            setOpenTooltip(openTooltip === cert.id ? null : cert.id);
+          }}
+        >
+          <Info className="w-3.5 h-3.5" />
+        </button>
+      </div>
+
+      {/* ── Tooltip ── */}
+      <div
+        className="absolute right-3 top-[88px] z-50 w-[90%] pointer-events-none"
+        style={{
+          opacity: openTooltip === cert.id ? 1 : 0,
+          transform: openTooltip === cert.id ? "translateY(0) scale(1)" : "translateY(-5px) scale(0.97)",
+          visibility: openTooltip === cert.id ? "visible" : "hidden",
+          transition: "opacity 200ms ease, transform 200ms ease",
+        }}
+      >
+        <div
+          className="relative rounded-xl p-3 text-[12px] leading-relaxed border"
+          style={{
+            background: "hsl(var(--popover))",
+            borderColor: cert.accentColor + "45",
+            color: "hsl(var(--muted-foreground))",
+            boxShadow: `0 12px 30px rgba(0,0,0,0.4), 0 0 0 1px ${cert.accentColor}18`,
+          }}
+        >
+          <div className="absolute left-0 top-3 bottom-3 w-0.5 rounded-full" style={{ background: cert.accentColor }} />
+          <p className="pl-3">{cert.description}</p>
+          <div
+            className="absolute -top-2 right-4 w-3.5 h-3.5 rotate-45 border-t border-l"
+            style={{ background: "hsl(var(--popover))", borderColor: cert.accentColor + "45" }}
+          />
+        </div>
+      </div>
+
+      {/* ── Card body ── */}
+      <div className="flex flex-col flex-grow p-4 pt-7">
+        <h3 className="font-bold text-[14px] leading-snug mb-1.5" style={{ color: "hsl(var(--foreground))" }}>
+          {cert.title}
+        </h3>
+        <div className="flex items-center gap-1.5 mb-4">
+          <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${getCategoryDot(cert.category)}`} />
+          <p className="text-[12px]" style={{ color: "hsl(var(--muted-foreground))" }}>{cert.issuer}</p>
+        </div>
+        <div className="mt-auto">
+          <button
+            onClick={() => window.open(cert.file, "_blank")}
+            className="w-full flex items-center justify-center gap-1.5 py-2 rounded-xl text-[13px] font-semibold border transition-all duration-300 group/btn"
+            style={{ borderColor: cert.accentColor + "55", color: cert.accentColor, background: "transparent" }}
+            onMouseEnter={e => {
+              const b = e.currentTarget;
+              b.style.background = cert.accentColor;
+              b.style.color = "#fff";
+              b.style.borderColor = cert.accentColor;
+              b.style.boxShadow = `0 0 18px ${cert.accentColor}35`;
+            }}
+            onMouseLeave={e => {
+              const b = e.currentTarget;
+              b.style.background = "transparent";
+              b.style.color = cert.accentColor;
+              b.style.borderColor = cert.accentColor + "55";
+              b.style.boxShadow = "none";
+            }}
+          >
+            View Certificate
+            <ExternalLink className="w-3.5 h-3.5 transition-transform duration-200 group-hover/btn:-translate-y-px group-hover/btn:translate-x-px" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ── Horizontal scroll row with fade edges ────────────────────
+const ScrollRow = ({
+  certs,
+  openTooltip,
+  setOpenTooltip,
+}: {
+  certs: typeof certificatesData;
+  openTooltip: number | null;
+  setOpenTooltip: (id: number | null) => void;
+}) => {
+  const rowRef = useRef<HTMLDivElement>(null);
+  const [canLeft, setCanLeft] = useState(false);
+  const [canRight, setCanRight] = useState(false);
+
+  const updateState = () => {
+    const el = rowRef.current;
+    if (!el) return;
+    setCanLeft(el.scrollLeft > 8);
+    setCanRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 8);
+  };
+
+  useEffect(() => {
+    const el = rowRef.current;
+    if (!el) return;
+    // Small delay so DOM is painted
+    setTimeout(updateState, 100);
+    el.addEventListener("scroll", updateState, { passive: true });
+    window.addEventListener("resize", updateState);
+    return () => {
+      el.removeEventListener("scroll", updateState);
+      window.removeEventListener("resize", updateState);
+    };
+  }, [certs]);
+
+  const scroll = (dir: "left" | "right") =>
+    rowRef.current?.scrollBy({ left: dir === "left" ? -300 : 300, behavior: "smooth" });
+
+  return (
+    <div className="relative">
+      {/* Left fade */}
+      <div
+        className="absolute left-0 top-0 bottom-4 w-24 z-20 pointer-events-none flex items-center justify-start pl-2"
+        style={{
+          opacity: canLeft ? 1 : 0,
+          transition: "opacity 300ms ease",
+          background: "linear-gradient(to right, hsl(var(--background)) 0%, hsl(var(--background) / 0.7) 50%, transparent 100%)",
+        }}
+      >
+        <button
+          onClick={() => scroll("left")}
+          className="pointer-events-auto w-9 h-9 rounded-full border flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
+          style={{
+            background: "hsl(var(--card))",
+            borderColor: "hsl(var(--border))",
+            color: "hsl(var(--foreground))",
+            boxShadow: "0 2px 12px rgba(0,0,0,0.15)",
+          }}
+        >
+          <ChevronLeft className="w-4 h-4" />
+        </button>
+      </div>
+
+      {/* Right fade */}
+      <div
+        className="absolute right-0 top-0 bottom-4 w-24 z-20 pointer-events-none flex items-center justify-end pr-2"
+        style={{
+          opacity: canRight ? 1 : 0,
+          transition: "opacity 300ms ease",
+          background: "linear-gradient(to left, hsl(var(--background)) 0%, hsl(var(--background) / 0.7) 50%, transparent 100%)",
+        }}
+      >
+        <button
+          onClick={() => scroll("right")}
+          className="pointer-events-auto w-9 h-9 rounded-full border flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
+          style={{
+            background: "hsl(var(--card))",
+            borderColor: "hsl(var(--border))",
+            color: "hsl(var(--foreground))",
+            boxShadow: "0 2px 12px rgba(0,0,0,0.15)",
+          }}
+        >
+          <ChevronRight className="w-4 h-4" />
+        </button>
+      </div>
+
+      {/* Track */}
+      <div
+        ref={rowRef}
+        className="flex gap-5 overflow-x-auto pb-5 px-3"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
+        {certs.map((cert, i) => (
+          <CertCard
+            key={cert.id}
+            cert={cert}
+            index={i}
+            openTooltip={openTooltip}
+            setOpenTooltip={setOpenTooltip}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// ── Main section ─────────────────────────────────────────────
 const Certificates = () => {
   const [activeFilter, setActiveFilter] = useState("All");
   const [openTooltip, setOpenTooltip] = useState<number | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const [displayedCerts, setDisplayedCerts] = useState(certificatesData);
-  const sectionRef = useRef<HTMLElement>(null);
 
-  // Close tooltip on outside click
   useEffect(() => {
-    const handleClickOutside = () => setOpenTooltip(null);
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
+    const close = () => setOpenTooltip(null);
+    document.addEventListener("click", close);
+    return () => document.removeEventListener("click", close);
   }, []);
 
   const handleFilterChange = (category: string) => {
     if (category === activeFilter) return;
     setIsAnimating(true);
-    
     setTimeout(() => {
       setActiveFilter(category);
       setDisplayedCerts(
-        category === "All" 
-          ? certificatesData 
-          : certificatesData.filter(c => c.category === category)
+        category === "All" ? certificatesData : certificatesData.filter(c => c.category === category)
       );
-      // Small delay for clean DOM insertion before animating opacity back
       setTimeout(() => setIsAnimating(false), 50);
-    }, 300);
+    }, 250);
   };
 
-  // Pre-calculate filter counts
   const counts = categories.reduce((acc, cat) => {
-    acc[cat] = cat === "All" 
-      ? certificatesData.length 
-      : certificatesData.filter(c => c.category === cat).length;
+    acc[cat] = cat === "All" ? certificatesData.length : certificatesData.filter(c => c.category === cat).length;
     return acc;
   }, {} as Record<string, number>);
 
   return (
-    <section id="certificates" ref={sectionRef} className="py-24 bg-background relative z-10 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* SECTION HEADER */}
-        <div className="flex flex-col items-center mb-14 text-center" data-aos="fade-up">
-          <div className="inline-flex items-center justify-center space-x-2 bg-red-500/10 border border-red-500/20 px-4 py-1.5 rounded-full mb-6 shadow-[0_0_15px_rgba(239,68,68,0.2)]">
-            <span className="text-red-500 font-bold text-[13px] tracking-wide uppercase">
-              15 Certifications & Counting 🚀
-            </span>
+    <section id="certificates" className="py-24 relative overflow-hidden" style={{ background: "hsl(var(--background))" }}>
+      {/* Ambient blobs */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-20 left-1/4 w-96 h-96 rounded-full opacity-[0.04] blur-3xl"
+          style={{ background: "radial-gradient(circle, #9b1c1c, transparent)" }} />
+        <div className="absolute bottom-10 right-1/4 w-72 h-72 rounded-full opacity-[0.03] blur-3xl"
+          style={{ background: "radial-gradient(circle, #3b82f6, transparent)" }} />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+        {/* Header */}
+        <div className="flex flex-col items-center mb-12 text-center" data-aos="fade-up">
+          <div
+            className="inline-flex items-center gap-2 mb-5 px-4 py-1.5 rounded-full text-[13px] font-semibold tracking-wide border"
+            style={{
+              background: "rgba(155,28,28,0.08)",
+              borderColor: "rgba(155,28,28,0.25)",
+              color: "hsl(var(--primary))",
+              boxShadow: "0 0 20px rgba(155,28,28,0.1)",
+            }}
+          >
+            <Award className="w-3.5 h-3.5" />
+            15 Certifications & Counting 🚀
           </div>
-          <h2 className="text-3xl md:text-5xl font-extrabold text-foreground mb-4 tracking-tight">
-            Certificates & Achievements
+          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-3" style={{ color: "hsl(var(--foreground))" }}>
+            Certificates &{" "}
+            <span style={{ color: "hsl(var(--primary))" }}>Achievements</span>
           </h2>
-          <p className="text-muted-foreground text-sm md:text-base max-w-2xl mx-auto">
+          <div className="w-16 h-1 rounded-full mb-4" style={{ background: "hsl(var(--primary))" }} />
+          <p className="text-sm md:text-base max-w-xl" style={{ color: "hsl(var(--muted-foreground))" }}>
             Verified certifications from Microsoft, IBM, Cisco, Oracle & more
           </p>
         </div>
 
-        {/* CATEGORY FILTER BAR */}
-        <div 
-          className="flex overflow-x-auto hide-scrollbar pb-6 mb-8 -mx-4 px-4 sm:mx-0 sm:px-0 justify-start sm:justify-center gap-2 sm:gap-3" 
-          data-aos="fade-up" 
+        {/* Filter bar */}
+        <div
+          className="flex overflow-x-auto hide-scrollbar pb-4 mb-8 gap-2 justify-start sm:justify-center"
+          data-aos="fade-up"
           data-aos-delay="100"
         >
-          {categories.map(category => {
-            const isActive = activeFilter === category;
+          {categories.map(cat => {
+            const isActive = activeFilter === cat;
             return (
               <button
-                key={category}
-                onClick={() => handleFilterChange(category)}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap shrink-0 border ${
-                  isActive
-                    ? "bg-red-600 text-white border-red-600 shadow-[0_0_20px_rgba(220,38,38,0.4)] scale-[1.03]"
-                    : "bg-transparent text-secondary-foreground border-border hover:border-zinc-500 dark:hover:border-zinc-400 hover:text-foreground"
-                }`}
+                key={cat}
+                onClick={() => handleFilterChange(cat)}
+                className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap shrink-0 border transition-all duration-300"
+                style={{
+                  background: isActive ? "hsl(var(--primary))" : "transparent",
+                  color: isActive ? "#fff" : "hsl(var(--muted-foreground))",
+                  borderColor: isActive ? "hsl(var(--primary))" : "hsl(var(--border))",
+                  boxShadow: isActive ? "0 0 18px rgba(155,28,28,0.3)" : "none",
+                  transform: isActive ? "scale(1.04)" : "scale(1)",
+                }}
               >
-                {category}
-                <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold transition-colors ${
-                  isActive ? "bg-white/25 text-white" : "bg-secondary text-secondary-foreground"
-                }`}>
-                  {counts[category]}
+                {cat}
+                <span
+                  className="text-[11px] px-1.5 py-0.5 rounded-full font-bold min-w-[20px] text-center"
+                  style={{
+                    background: isActive ? "rgba(255,255,255,0.2)" : "hsl(var(--secondary))",
+                    color: isActive ? "#fff" : "hsl(var(--secondary-foreground))",
+                  }}
+                >
+                  {counts[cat]}
                 </span>
               </button>
             );
           })}
         </div>
 
-        {/* GRID LAYOUT */}
-        <div 
-          className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-400 transform ease-out ${
-            isAnimating ? "opacity-0 translate-y-8" : "opacity-100 translate-y-0"
-          }`}
+        {/* Horizontal scroll row */}
+        <div
+          style={{
+            opacity: isAnimating ? 0 : 1,
+            transform: isAnimating ? "translateY(8px)" : "translateY(0)",
+            transition: "opacity 250ms ease, transform 250ms ease",
+          }}
         >
           {displayedCerts.length > 0 ? (
-            displayedCerts.map((cert, index) => (
-              <div 
-                key={cert.id}
-                className={`group relative flex flex-col bg-[#0f1117] dark:bg-[#0f1117] rounded-2xl border border-[#1f222e] dark:border-[#1f222e] transition-all duration-300 hover:-translate-y-[6px] hover:shadow-2xl ${cert.glow} z-10 hover:z-40`}
-                data-aos="fade-up"
-                data-aos-delay={Math.min(index * 100, 300)}
-              >
-                
-                {/* TOP BANNER */}
-                <div className={`relative h-28 bg-gradient-to-r ${cert.gradient} p-5 flex justify-between items-start rounded-t-2xl shrink-0 overflow-hidden`}>
-                  {/* Subtle decorative glow inside banner */}
-                  <div className="absolute right-0 top-0 w-32 h-32 bg-white/10 rounded-full blur-3xl"></div>
-                  
-                  {/* Category Badge */}
-                  <span className="bg-black/30 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider border border-white/10 shadow-sm z-10">
-                    {cert.category}
-                  </span>
-                  
-                  {/* Grade Badge */}
-                  {cert.grade && (
-                    <span className="bg-green-500/90 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-[11px] font-bold shadow-[0_0_15px_rgba(34,197,94,0.5)] border border-green-400/30 z-10">
-                      Score: {cert.grade}
-                    </span>
-                  )}
-                  
-                  {/* Info Icon Button */}
-                  <button 
-                    className="absolute -bottom-4 right-5 bg-[#1a1d27] border border-[#2a2d39] text-gray-300 hover:text-white p-2.5 rounded-full transition-all duration-300 shadow-xl active:scale-95 z-20 hover:border-white/20 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setOpenTooltip(openTooltip === cert.id ? null : cert.id);
-                    }}
-                    aria-label="View description"
-                  >
-                    <Info className="w-5 h-5" />
-                  </button>
-                </div>
-                
-                {/* TOOLTIP (Appears below the banner header, overlapping card body) */}
-                <div 
-                  className={`absolute right-4 top-24 z-50 w-[85%] transition-all duration-300 pointer-events-none origin-top-right ${
-                    openTooltip === cert.id ? "opacity-100 scale-100 visible" : "opacity-0 scale-95 invisible"
-                  }`}
-                >
-                  <div className="bg-[#1a1d27]/95 backdrop-blur-xl border border-white/10 text-gray-200 p-4 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.6)] text-sm leading-relaxed">
-                    {cert.description}
-                    {/* Up Arrow tip */}
-                    <div className="absolute -top-2 right-4 w-4 h-4 bg-[#1a1d27]/95 border-t border-l border-white/10 transform rotate-45"></div>
-                  </div>
-                </div>
-
-                {/* CARD BODY */}
-                <div className="p-6 pt-8 flex flex-col flex-grow relative bg-[#0f1117] rounded-b-2xl z-10">
-                  <h3 className="text-white text-[16px] font-bold leading-snug mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all duration-300">
-                    {cert.title}
-                  </h3>
-                  
-                  <div className="flex items-center gap-2 mb-6">
-                    <div className={`w-1.5 h-1.5 rounded-full ${getCategoryColor(cert.category)} shadow-[0_0_8px_currentColor] opacity-80`} />
-                    <p className="text-[#888c99] text-[13px] font-medium">
-                      {cert.issuer}
-                    </p>
-                  </div>
-                  
-                  {/* ACTION BUTTON */}
-                  <div className="mt-auto pt-3">
-                    <button 
-                      onClick={() => window.open(cert.file, "_blank")}
-                      className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-red-600/50 text-red-500 font-semibold text-sm transition-all duration-300 hover:bg-red-600 hover:text-white hover:border-red-600 shadow-sm hover:shadow-[0_0_20px_rgba(220,38,38,0.35)] group/btn"
-                    >
-                      View Certificate
-                      <ExternalLink className="w-4 h-4 transition-transform group-hover/btn:-translate-y-[2px] group-hover/btn:translate-x-[2px]" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))
+            <ScrollRow
+              certs={displayedCerts}
+              openTooltip={openTooltip}
+              setOpenTooltip={setOpenTooltip}
+            />
           ) : (
-            /* EMPTY STATE */
-            <div className="col-span-1 md:col-span-2 lg:col-span-3 flex flex-col items-center justify-center py-24 text-center border-2 border-dashed border-[#1f222e] rounded-3xl bg-[#0f1117]/50" data-aos="fade-in">
-              <div className="w-16 h-16 bg-[#1a1d27] rounded-full flex items-center justify-center mb-5 border border-[#2a2d39] shadow-inner">
-                <SearchX className="w-8 h-8 text-zinc-500" />
+            <div
+              className="flex flex-col items-center justify-center py-20 rounded-3xl border-2 border-dashed"
+              style={{ borderColor: "hsl(var(--border))" }}
+            >
+              <div className="w-14 h-14 rounded-full flex items-center justify-center mb-4 border"
+                style={{ background: "hsl(var(--secondary))", borderColor: "hsl(var(--border))" }}>
+                <SearchX className="w-6 h-6" style={{ color: "hsl(var(--muted-foreground))" }} />
               </div>
-              <h3 className="text-white font-bold text-xl mb-2 tracking-tight">No certificates found</h3>
-              <p className="text-zinc-400 text-sm max-w-sm">
-                There are currently no certificates assigned to the <span className="text-red-400 font-semibold">"{activeFilter}"</span> category.
+              <h3 className="font-bold text-lg mb-1" style={{ color: "hsl(var(--foreground))" }}>No certificates found</h3>
+              <p className="text-sm" style={{ color: "hsl(var(--muted-foreground))" }}>
+                None in the <span style={{ color: "hsl(var(--primary))" }}>"{activeFilter}"</span> category yet.
               </p>
             </div>
           )}
         </div>
-        
       </div>
-      
-      {/* Hide filter scrollbar utility */}
+
       <style>{`
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .hide-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
     </section>
   );
