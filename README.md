@@ -1,6 +1,6 @@
 # Sai Eswar — Personal Portfolio
 
-> "Building fast, beautiful UIs with React & TypeScript — one component at a time."
+> "Full-Stack Developer & DevOps Enthusiast passionate about building modern web applications, automating workflows, and exploring Linux and networking technologies.."
 
 🌐 Live Site: https://saieswar-portfolio.netlify.app
 

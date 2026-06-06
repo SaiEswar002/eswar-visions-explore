@@ -92,7 +92,7 @@ const Hero = () => {
             </div>
 
             <p className="text-lg mb-6 text-muted-foreground max-w-xl" data-aos="fade-up" data-aos-delay="300">
-              "Building fast, beautiful UIs with React &amp; TypeScript — one component at a time."
+              abouFull-Stack Developer & DevOps Enthusiast passionate about building modern web applications, automating workflows, and exploring Linux and networking technologies.
             </p>
 
             <div className="text-sm mb-8 text-muted-foreground" data-aos="fade-up" data-aos-delay="400">
