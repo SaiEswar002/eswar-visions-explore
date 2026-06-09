@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Briefcase, Award, Users, X, ChevronLeft, ChevronRight, Calendar, Lightbulb, Palette, Trophy, ExternalLink, Eye, Zap, Brain, GraduationCap, Gamepad2, PartyPopper, BookOpen, Image as ImageIcon, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -41,6 +41,47 @@ const hackathonGalleries = {
 };
 
 const Experience = () => {
+    const [expCanLeft, setExpCanLeft] = useState(false);
+    const [expCanRight, setExpCanRight] = useState(false);
+    const expScrollRef = useRef<HTMLDivElement>(null);
+    const [hackCanLeft, setHackCanLeft] = useState(false);
+    const [hackCanRight, setHackCanRight] = useState(false);
+    const hackScrollRef = useRef<HTMLDivElement>(null);
+
+    // Update Experience scroll arrows
+    useEffect(() => {
+        const el = expScrollRef.current;
+        if (!el) return;
+        const update = () => {
+            setExpCanLeft(el.scrollLeft > 8);
+            setExpCanRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 8);
+        };
+        setTimeout(update, 150);
+        el.addEventListener("scroll", update, { passive: true });
+        window.addEventListener("resize", update);
+        return () => { el.removeEventListener("scroll", update); window.removeEventListener("resize", update); };
+    }, []);
+
+    // Update Hackathon scroll arrows
+    useEffect(() => {
+        const el = hackScrollRef.current;
+        if (!el) return;
+        const update = () => {
+            setHackCanLeft(el.scrollLeft > 8);
+            setHackCanRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 8);
+        };
+        setTimeout(update, 150);
+        el.addEventListener("scroll", update, { passive: true });
+        window.addEventListener("resize", update);
+        return () => { el.removeEventListener("scroll", update); window.removeEventListener("resize", update); };
+    }, []);
+
+    const scrollExp = (dir: "left" | "right") =>
+        expScrollRef.current?.scrollBy({ left: dir === "left" ? -380 : 380, behavior: "smooth" });
+
+    const scrollHack = (dir: "left" | "right") =>
+        hackScrollRef.current?.scrollBy({ left: dir === "left" ? -380 : 380, behavior: "smooth" });
+
     const [selectedExperience, setSelectedExperience] = useState<string | null>(null);
     const [selectedSubExperience, setSelectedSubExperience] = useState<string | null>(null);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -308,15 +349,54 @@ const Experience = () => {
                         >
                             <h2 className="section-title">Experience & Activities</h2>
 
-                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {/* ── Experience Cards Carousel ── */}
+                            <div className="relative">
+                                {/* Left fade + arrow */}
+                                <div
+                                    className="absolute left-0 top-0 bottom-4 w-20 z-20 pointer-events-none flex items-center justify-start pl-1"
+                                    style={{
+                                        opacity: expCanLeft ? 1 : 0,
+                                        transition: "opacity 300ms ease",
+                                        background: "linear-gradient(to right, hsl(var(--background)) 0%, hsl(var(--background) / 0.7) 50%, transparent 100%)",
+                                    }}
+                                >
+                                    <button
+                                        onClick={() => scrollExp("left")}
+                                        aria-label="Scroll experience left"
+                                        className="pointer-events-auto w-9 h-9 rounded-full border flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
+                                        style={{ background: "hsl(var(--card))", borderColor: "hsl(var(--border))", color: "hsl(var(--foreground))", boxShadow: "0 2px 12px rgba(0,0,0,0.15)" }}
+                                    >
+                                        <ChevronLeft className="w-4 h-4" />
+                                    </button>
+                                </div>
+                                {/* Right fade + arrow */}
+                                <div
+                                    className="absolute right-0 top-0 bottom-4 w-20 z-20 pointer-events-none flex items-center justify-end pr-1"
+                                    style={{
+                                        opacity: expCanRight ? 1 : 0,
+                                        transition: "opacity 300ms ease",
+                                        background: "linear-gradient(to left, hsl(var(--background)) 0%, hsl(var(--background) / 0.7) 50%, transparent 100%)",
+                                    }}
+                                >
+                                    <button
+                                        onClick={() => scrollExp("right")}
+                                        aria-label="Scroll experience right"
+                                        className="pointer-events-auto w-9 h-9 rounded-full border flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
+                                        style={{ background: "hsl(var(--card))", borderColor: "hsl(var(--border))", color: "hsl(var(--foreground))", boxShadow: "0 2px 12px rgba(0,0,0,0.15)" }}
+                                    >
+                                        <ChevronRight className="w-4 h-4" />
+                                    </button>
+                                </div>
+                                {/* Scroll track */}
+                                <div ref={expScrollRef} className="horizontal-scroll-container px-3">
                                 {experiences.map((exp, index) => (
                                     <motion.div
                                         key={exp.id}
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: index * 0.1 }}
-                                        className="portfolio-card animate-fade-up"
-                                        style={{ animationDelay: `${index * 0.1}s` }}
+                                        className="portfolio-card animate-fade-up flex-shrink-0"
+                                        style={{ animationDelay: `${index * 0.1}s`, minWidth: "300px", width: "380px" }}
                                     >
                                         <div className="flex items-start gap-4 mb-4">
                                             <div className="p-2 bg-primary/10 rounded-lg">
@@ -349,10 +429,11 @@ const Experience = () => {
                                             View
                                         </Button>
                                     </motion.div>
-                                ))}
-                            </div>
+                                    ))}
+                                </div>{/* end scroll track */}
+                            </div>{/* end carousel wrapper */}
 
-                            {/* ── Hackathons ── */}
+                            {/* ── Hackathons Carousel ── */}
                             <motion.div
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -366,13 +447,53 @@ const Experience = () => {
                                     <h3 className="text-2xl font-bold text-foreground">Hackathons</h3>
                                 </div>
 
-                                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                {/* Hackathon carousel */}
+                                <div className="relative">
+                                    {/* Left fade + arrow */}
+                                    <div
+                                        className="absolute left-0 top-0 bottom-4 w-20 z-20 pointer-events-none flex items-center justify-start pl-1"
+                                        style={{
+                                            opacity: hackCanLeft ? 1 : 0,
+                                            transition: "opacity 300ms ease",
+                                            background: "linear-gradient(to right, hsl(var(--background)) 0%, hsl(var(--background) / 0.7) 50%, transparent 100%)",
+                                        }}
+                                    >
+                                        <button
+                                            onClick={() => scrollHack("left")}
+                                            aria-label="Scroll hackathons left"
+                                            className="pointer-events-auto w-9 h-9 rounded-full border flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
+                                            style={{ background: "hsl(var(--card))", borderColor: "hsl(var(--border))", color: "hsl(var(--foreground))", boxShadow: "0 2px 12px rgba(0,0,0,0.15)" }}
+                                        >
+                                            <ChevronLeft className="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                    {/* Right fade + arrow */}
+                                    <div
+                                        className="absolute right-0 top-0 bottom-4 w-20 z-20 pointer-events-none flex items-center justify-end pr-1"
+                                        style={{
+                                            opacity: hackCanRight ? 1 : 0,
+                                            transition: "opacity 300ms ease",
+                                            background: "linear-gradient(to left, hsl(var(--background)) 0%, hsl(var(--background) / 0.7) 50%, transparent 100%)",
+                                        }}
+                                    >
+                                        <button
+                                            onClick={() => scrollHack("right")}
+                                            aria-label="Scroll hackathons right"
+                                            className="pointer-events-auto w-9 h-9 rounded-full border flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
+                                            style={{ background: "hsl(var(--card))", borderColor: "hsl(var(--border))", color: "hsl(var(--foreground))", boxShadow: "0 2px 12px rgba(0,0,0,0.15)" }}
+                                        >
+                                            <ChevronRight className="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                    {/* Scroll track */}
+                                    <div ref={hackScrollRef} className="horizontal-scroll-container px-3">
                                     {/* Anuragh */}
                                     <motion.div
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.5 }}
-                                        className="portfolio-card relative"
+                                        className="portfolio-card relative flex-shrink-0"
+                                        style={{ minWidth: "300px", width: "380px" }}
                                     >
                                         <button
                                             onClick={() => { setHackathonGallery("anuragh"); setHackathonImageIndex(0); }}
@@ -418,7 +539,8 @@ const Experience = () => {
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.6 }}
-                                        className="portfolio-card relative"
+                                        className="portfolio-card relative flex-shrink-0"
+                                        style={{ minWidth: "300px", width: "380px" }}
                                     >
                                         <button
                                             onClick={() => { setHackathonGallery("iiit"); setHackathonImageIndex(0); }}
@@ -464,7 +586,8 @@ const Experience = () => {
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.7 }}
-                                        className="portfolio-card relative"
+                                        className="portfolio-card relative flex-shrink-0"
+                                        style={{ minWidth: "300px", width: "380px" }}
                                     >
                                         <button
                                             onClick={() => { setHackathonGallery("pscmr"); setHackathonImageIndex(0); }}
@@ -496,7 +619,8 @@ const Experience = () => {
                                             </a>
                                         </div>
                                     </motion.div>
-                                </div>
+                                    </div>{/* end hackathon scroll track */}
+                                </div>{/* end hackathon carousel wrapper */}
                             </motion.div>
                         </motion.div>
                     ) : !selectedSubExperience ? (

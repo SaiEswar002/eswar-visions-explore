@@ -441,16 +441,31 @@ All colors MUST be HSL.
   }
 
   .hero-ring-2 {
-    width: min(520px, 108vw);
-    height: min(520px, 108vw);
+    width: min(520px, 96vw);
+    height: min(520px, 96vw);
     animation: heroRingPulse 3.2s ease-out infinite;
     animation-delay: 0.9s;
   }
 
   .hero-ring-3 {
-    width: min(620px, 128vw);
-    height: min(620px, 128vw);
+    width: min(620px, 96vw);
+    height: min(620px, 96vw);
     animation: heroRingPulse 3.2s ease-out infinite;
     animation-delay: 1.8s;
+  }
+
+  /* ── Horizontal scroll carousel (Projects, Experience, Hackathons) ── */
+  .horizontal-scroll-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 1rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .horizontal-scroll-container::-webkit-scrollbar {
+    display: none;
   }
 }

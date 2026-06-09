@@ -35,7 +35,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section id="home" className="hero-section flex items-center min-h-screen" ref={heroRef}>
+    <section id="home" className="hero-section flex items-center min-h-screen overflow-hidden" ref={heroRef}>
       {/* Animated gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/30 to-background/50 animate-gradient"></div>
 
