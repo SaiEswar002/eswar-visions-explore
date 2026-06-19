@@ -16,6 +16,8 @@ const imgAI = new URL("../assets/Certfications/certificate-imgs/Introduction to 
 const imgJenkinsHero = new URL("../assets/Certfications/certificate-imgs/Jenkins - From Zero to Hero.jpg", import.meta.url).href;
 const imgOracleAssociate = new URL("../assets/Certfications/certificate-imgs/Oracle Associate.jpg", import.meta.url).href;
 const imgSpring = new URL("../assets/Certfications/certificate-imgs/Spring - Ecosystem and Core.jpg", import.meta.url).href;
+const imgMongoDB = new URL("../assets/Certfications/certificate-imgs/MongoDBAssociateDatabaseAdministrator_Badge.jpg", import.meta.url).href;
+const imgScrum = new URL("../assets/Certfications/certificate-imgs/ScrumFundamentalsCertified.jpg", import.meta.url).href;
 
 const certificatesData = [
   {
@@ -162,18 +164,7 @@ const certificatesData = [
     accentColor: "#ef4444",
     image: imgJenkinsHero as string | null,
   },
-  {
-    id: 13,
-    title: "Oracle Cloud Infrastructure 2025",
-    issuer: "Oracle",
-    category: "Cloud",
-    grade: null as string | null,
-    file: new URL("../assets/Certfications/OCI25CAA.jpg", import.meta.url).href,
-    description: "Oracle Cloud Infrastructure fundamentals, compute, storage, networking, security, and cloud-native services.",
-    gradient: "from-rose-600 to-rose-800",
-    accentColor: "#e11d48",
-    image: null as string | null,
-  },
+
   {
     id: 14,
     title: "Oracle Associate",
@@ -208,7 +199,7 @@ const certificatesData = [
     description: "Demonstrates proficiency in MongoDB database administration, covering configuration, security, diagnostics, and deployment architecture.",
     gradient: "from-emerald-600 to-green-800",
     accentColor: "#10b981",
-    image: null as string | null,
+    image: imgMongoDB as string | null,
   },
   {
     id: 17,
@@ -220,7 +211,7 @@ const certificatesData = [
     description: "Covers the fundamental concepts of Scrum framework, including roles, events, artifacts, and basic agile project delivery workflows.",
     gradient: "from-amber-500 to-orange-700",
     accentColor: "#f59e0b",
-    image: null as string | null,
+    image: imgScrum as string | null,
   }
 ];
 
@@ -570,7 +561,7 @@ const Certificates = () => {
             }}
           >
             <Award className="w-3.5 h-3.5" />
-            17 Certifications &amp; Counting 🚀
+            16 Certifications &amp; Counting 🚀
           </div>
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-3" style={{ color: "hsl(var(--foreground))" }}>
             Certificates &amp;{" "}
