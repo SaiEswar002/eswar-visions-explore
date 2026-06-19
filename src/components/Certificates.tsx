@@ -197,6 +197,30 @@ const certificatesData = [
     gradient: "from-green-500 to-green-700",
     accentColor: "#22c55e",
     image: imgSpring as string | null,
+  },
+  {
+    id: 16,
+    title: "MongoDB Associate Database Administrator",
+    issuer: "MongoDB",
+    category: "Backend",
+    grade: null as string | null,
+    file: new URL("../assets/Certfications/MongoDBAssociateDatabaseAdministrator_Badge.pdf", import.meta.url).href,
+    description: "Demonstrates proficiency in MongoDB database administration, covering configuration, security, diagnostics, and deployment architecture.",
+    gradient: "from-emerald-600 to-green-800",
+    accentColor: "#10b981",
+    image: null as string | null,
+  },
+  {
+    id: 17,
+    title: "Scrum Fundamentals Certified (SFC™)",
+    issuer: "SCRUMstudy",
+    category: "DevOps",
+    grade: null as string | null,
+    file: new URL("../assets/Certfications/ScrumFundamentalsCertified.pdf", import.meta.url).href,
+    description: "Covers the fundamental concepts of Scrum framework, including roles, events, artifacts, and basic agile project delivery workflows.",
+    gradient: "from-amber-500 to-orange-700",
+    accentColor: "#f59e0b",
+    image: null as string | null,
   }
 ];
 
@@ -546,7 +570,7 @@ const Certificates = () => {
             }}
           >
             <Award className="w-3.5 h-3.5" />
-            15 Certifications &amp; Counting 🚀
+            17 Certifications &amp; Counting 🚀
           </div>
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-3" style={{ color: "hsl(var(--foreground))" }}>
             Certificates &amp;{" "}
