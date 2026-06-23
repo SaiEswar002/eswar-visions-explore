@@ -32,23 +32,72 @@ const Contact = () => {
     }
     setErrors({ name: "", email: "", subject: "", message: "" });
     setIsSubmitting(true);
+
+    // 1️⃣ Try Netlify serverless function first (works on production)
+    const netlifyEndpoint = "/.netlify/functions/sendEmail";
+    // 2️⃣ Formspree fallback (works locally — set VITE_FORMSPREE_ENDPOINT in .env)
+    const formspreeEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT as string | undefined;
+
     try {
-      const response = await fetch("/.netlify/functions/sendEmail", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      const data = await response.json();
-      if (response.ok) {
+      let success = false;
+
+      // --- Netlify function attempt ---
+      try {
+        const res = await fetch(netlifyEndpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+        if (res.ok) {
+          success = true;
+        } else if (res.status !== 404) {
+          // 404 means function not found (local dev) — try Formspree
+          const data = await res.json().catch(() => ({}));
+          throw new Error((data as { error?: string }).error || "Failed to send email");
+        }
+      } catch (netlifyErr: unknown) {
+        // If it's a network error or 404, try Formspree; otherwise rethrow
+        const isNetworkOrNotFound =
+          netlifyErr instanceof TypeError ||
+          (netlifyErr instanceof Error && netlifyErr.message === "Failed to fetch");
+        if (!isNetworkOrNotFound) throw netlifyErr;
+      }
+
+      // --- Formspree fallback (local dev) ---
+      if (!success && formspreeEndpoint) {
+        const res = await fetch(formspreeEndpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            subject: formData.subject,
+            message: formData.message,
+          }),
+        });
+        if (res.ok) {
+          success = true;
+        } else {
+          const data = await res.json().catch(() => ({}));
+          throw new Error((data as { error?: string }).error || "Formspree failed");
+        }
+      }
+
+      if (success) {
         setSubmitted(true);
         setFormData({ name: "", email: "", subject: "", message: "" });
       } else {
-        throw new Error(data.error);
+        throw new Error(
+          "Email service unavailable locally. Please set VITE_FORMSPREE_ENDPOINT in your .env file, or test on the live Netlify deployment."
+        );
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         title: "Error",
-        description: error.message || "Failed to send. Please try again.",
+        description:
+          error instanceof Error
+            ? error.message
+            : "Failed to send. Please try again.",
         variant: "destructive",
       });
     } finally {

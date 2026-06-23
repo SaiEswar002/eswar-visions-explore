@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Skills from "@/components/Skills";
+import CodingActivity from "@/components/CodingActivity";
 import Certificates from "@/components/Certificates";
 import Hobbies from "@/components/Hobbies";
 import Footer from "@/components/Footer";
@@ -23,6 +24,7 @@ const Index = () => {
       <Hero />
       <About />
       <Skills />
+      <CodingActivity />
       <Suspense fallback={<LoadingFallback />}>
         <Projects />
       </Suspense>

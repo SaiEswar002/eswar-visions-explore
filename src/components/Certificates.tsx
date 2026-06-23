@@ -261,65 +261,66 @@ const CertCard = ({
         opacity: mounted ? 1 : 0,
         transform: mounted ? "translateX(0) translateY(0)" : "translateX(20px) translateY(4px)",
         transition: "opacity 400ms ease, transform 400ms ease, box-shadow 300ms ease, border-color 300ms ease",
+        zIndex: 1,
       }}
       onMouseEnter={e => {
         const el = e.currentTarget as HTMLElement;
         el.style.borderColor = cert.accentColor + "55";
         el.style.transform = "translateY(-6px)";
         el.style.boxShadow = `0 18px 40px ${cert.accentColor}1a`;
+        el.style.zIndex = "20";
       }}
       onMouseLeave={e => {
         const el = e.currentTarget as HTMLElement;
         el.style.borderColor = "hsl(var(--border))";
         el.style.transform = "translateY(0)";
         el.style.boxShadow = "none";
+        el.style.zIndex = "1";
       }}
     >
-      {/* ── Banner ── */}
-      <div className={`relative h-24 rounded-t-2xl overflow-hidden shrink-0`}>
-        {/* Image or gradient fallback */}
-        {cert.image ? (
-          <>
-            <img
-              src={cert.image}
-              alt={cert.title}
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-            {/* Category-colored tinted overlay */}
-            <div
-              className="absolute inset-0"
-              style={{ background: cert.accentColor + "33" }}
-            />
-          </>
-        ) : (
-          <div className={`absolute inset-0 bg-gradient-to-br ${cert.gradient}`} />
-        )}
-
-        {/* Shine sweep */}
-        <div
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-          style={{ background: "linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.13) 50%, transparent 65%)" }}
-        />
-        <div className="absolute -right-4 -top-4 w-24 h-24 rounded-full bg-white/10 blur-2xl" />
-
-        {/* Category badge */}
-        <span className="absolute top-3 left-3 z-10 bg-black/40 backdrop-blur-sm text-white px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-white/15">
-          {cert.category}
-        </span>
-
-        {/* Grade badge */}
-        {cert.grade && (
-          <span
-            className="absolute top-3 right-10 z-10 bg-emerald-500/90 text-white px-2.5 py-1 rounded-full text-[10px] font-bold border border-emerald-400/30"
-            style={{ boxShadow: "0 0 10px rgba(16,185,129,0.4)" }}
-          >
-            ✦ {cert.grade}
+      {/* ── Banner (overflow-hidden clips image only, NOT the info button) ── */}
+      <div className="relative h-24 rounded-t-2xl shrink-0">
+        {/* Inner clip wrapper for image/gradient only */}
+        <div className="absolute inset-0 rounded-t-2xl overflow-hidden">
+          {cert.image ? (
+            <>
+              <img
+                src={cert.image}
+                alt={cert.title}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div
+                className="absolute inset-0"
+                style={{ background: cert.accentColor + "33" }}
+              />
+            </>
+          ) : (
+            <div className={`absolute inset-0 bg-gradient-to-br ${cert.gradient}`} />
+          )}
+          {/* Shine sweep */}
+          <div
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            style={{ background: "linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.13) 50%, transparent 65%)" }}
+          />
+          <div className="absolute -right-4 -top-4 w-24 h-24 rounded-full bg-white/10 blur-2xl" />
+          {/* Category badge */}
+          <span className="absolute top-3 left-3 z-10 bg-black/40 backdrop-blur-sm text-white px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-white/15">
+            {cert.category}
           </span>
-        )}
+          {/* Grade badge */}
+          {cert.grade && (
+            <span
+              className="absolute top-3 right-10 z-10 bg-emerald-500/90 text-white px-2.5 py-1 rounded-full text-[10px] font-bold border border-emerald-400/30"
+              style={{ boxShadow: "0 0 10px rgba(16,185,129,0.4)" }}
+            >
+              ✦ {cert.grade}
+            </span>
+          )}
+        </div>
 
-        {/* Info button */}
+        {/* Info button — lives OUTSIDE the overflow-hidden div so it's never clipped */}
         <button
-          className="absolute -bottom-4 right-4 z-30 w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
+          className="absolute -bottom-4 right-4 z-40 w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
           style={{
             background: "hsl(var(--card))",
             borderColor: "hsl(var(--border))",
@@ -489,11 +490,15 @@ const ScrollRow = ({
         </button>
       </div>
 
-      {/* Track */}
+      {/* Track — overflow-x scrolls, overflow-y visible so tooltip is never clipped */}
       <div
         ref={rowRef}
-        className="flex gap-5 overflow-x-auto pb-5 px-3"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        className="flex gap-5 overflow-x-auto pb-8 px-3"
+        style={{
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+          overflowY: "visible",
+        }}
       >
         {certs.map((cert, i) => (
           <CertCard

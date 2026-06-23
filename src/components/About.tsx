@@ -106,7 +106,8 @@ const About = () => {
           <div className="space-y-8">
             <div>
               <p ref={descriptionRef} className="text-lg leading-relaxed text-muted-foreground mb-8">
-             I'm a passionate technology enthusiast who enjoys working across the entire software development lifecycle—from designing user-friendly interfaces to managing servers and deployment pipelines. My interests span Full-Stack Development, DevOps, Linux, Networking, and Cloud Computing. I love learning new technologies, building projects, and transforming ideas into practical solutions that make a difference. </p>
+                I'm a passionate technology enthusiast who enjoys working across the entire software development lifecycle—from designing user-friendly interfaces to managing servers and deployment pipelines. My interests span Full-Stack Development, DevOps, Linux, Networking, and Cloud Computing. I love learning new technologies, building projects, and transforming ideas into practical solutions that make a difference.
+              </p>
             </div>
 
             {/* Education Timeline */}

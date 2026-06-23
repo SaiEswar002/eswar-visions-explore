@@ -33,6 +33,28 @@ const currentlyLearning = [
   { label: "Android Development", color: "bg-green-500/20 text-green-600 dark:text-green-400" },
 ];
 
+/* Tech icon grid using devicon CDN */
+const techStack = [
+  { name: "HTML5",       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+  { name: "CSS3",        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
+  { name: "JavaScript",  icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+  { name: "TypeScript",  icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
+  { name: "React",       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+  { name: "Java",        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
+  { name: "C",           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" },
+  { name: "Python",      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+  { name: "Spring Boot", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" },
+  { name: "Docker",      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+  { name: "Git",         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+  { name: "GitHub",      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
+  { name: "Linux",       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" },
+  { name: "VS Code",     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" },
+  { name: "Figma",       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+  { name: "MySQL",       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
+  { name: "Postman",     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" },
+  { name: "Blender",     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/blender/blender-original.svg" },
+];
+
 const Skills = () => {
   return (
     <section id="skills" className="py-20 bg-background dark:bg-background">
@@ -85,6 +107,35 @@ const Skills = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* ── Tech Stack Icon Grid ── */}
+        <div className="mt-20" data-aos="fade-up" data-aos-delay="100">
+          <h3 className="text-2xl font-bold text-center mb-3 text-foreground">Tech Stack</h3>
+          <p className="text-center text-muted-foreground text-sm mb-10">Technologies I work with</p>
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-6 justify-items-center">
+            {techStack.map((tech, i) => (
+              <div
+                key={tech.name}
+                className="group flex flex-col items-center gap-2 cursor-default"
+                data-aos="zoom-in"
+                data-aos-delay={i * 40}
+              >
+                <div className="w-14 h-14 rounded-2xl bg-secondary dark:bg-secondary flex items-center justify-center shadow-sm border border-border group-hover:shadow-md group-hover:scale-110 transition-all duration-300 group-hover:border-primary/40">
+                  <img
+                    src={tech.icon}
+                    alt={tech.name}
+                    className="w-8 h-8 object-contain"
+                    loading="lazy"
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                  />
+                </div>
+                <span className="text-[10px] font-medium text-muted-foreground group-hover:text-primary transition-colors duration-200 text-center leading-tight">
+                  {tech.name}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Currently Learning */}
