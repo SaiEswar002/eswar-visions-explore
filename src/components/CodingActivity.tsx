@@ -1,187 +1,176 @@
 import { useState } from "react";
 import { ExternalLink } from "lucide-react";
 
-/* ── Snake URLs — generated in SaiEswar002/SaiEswar002 profile repo ── */
-const PROFILE_REPO   = "SaiEswar002/SaiEswar002";
+/* ── Constants ── */
+const GITHUB_USER = "SaiEswar002";
+const snakeLight = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_USER}/output/github-contribution-grid-snake.svg`;
+const snakeDark = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_USER}/output/github-contribution-grid-snake-dark.svg`;
 
-const makeSnakeUrl = (repo: string, dark: boolean) =>
-  `https://raw.githubusercontent.com/${repo}/output/github-contribution-grid-snake${dark ? "-dark" : ""}.svg`;
+const GITHUB_URL = `https://github.com/${GITHUB_USER}`;
+const CODECHEF_URL = "https://www.codechef.com/users/sai_eswar_123";
+const HACKERRANK_URL = "https://www.hackerrank.com/profile/h2300039123";
 
-const GITHUB_URL    = "https://github.com/SaiEswar002";
-const CODECHEF_URL  = "https://www.codechef.com/users/sai_eswar_123";
-const HACKERRANK_URL= "https://www.hackerrank.com/profile/h2300039123";
-
-/* ── Live snake with multi-URL fallback chain ── */
-const SnakeContribution = () => {
+/* ── GitHub card content ── */
+const GitHubContent = () => {
   const isDark = typeof window !== "undefined" && document.documentElement.classList.contains("dark");
+  const [snakeLoaded, setSnakeLoaded] = useState(false);
+  const [snakeSrc, setSnakeSrc] = useState(isDark ? snakeDark : snakeLight);
 
-  // Try dark theme first, then light theme fallback
-  const urls = [
-    makeSnakeUrl(PROFILE_REPO, isDark),
-    makeSnakeUrl(PROFILE_REPO, !isDark),
+  // Exact data from your screenshot
+  const languages = [
+    { name: "Python", pct: "39.29%", color: "bg-sky-600" },
+    { name: "JavaScript", pct: "32.28%", color: "bg-yellow-400" },
+    { name: "TypeScript", pct: "19.40%", color: "bg-blue-500" },
+    { name: "CSS", pct: "5.56%", color: "bg-purple-600" },
+    { name: "HTML", pct: "3.46%", color: "bg-orange-500" },
   ];
 
-  const [idx, setIdx] = useState(0);
-  const [loaded, setLoaded] = useState(false);
-  const failed = idx >= urls.length;
-
   return (
-    <div
-      className="w-full rounded-xl overflow-hidden p-2"
-      style={{
-        background: "hsl(var(--secondary))",
-        border: "1px solid hsl(var(--border))",
-      }}
-    >
-      {!failed ? (
-        <>
-          {!loaded && (
-            <div className="flex items-center justify-center gap-1 py-4">
-              {[...Array(5)].map((_, i) => (
-                <div
-                  key={i}
-                  className="w-2 rounded-sm bg-primary/30 animate-pulse"
-                  style={{ height: `${10 + i * 4}px`, animationDelay: `${i * 0.12}s` }}
-                />
-              ))}
-            </div>
-          )}
-          <img
-            key={urls[idx]}
-            src={urls[idx]}
-            alt="GitHub contribution snake animation"
-            className={`w-full h-auto transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0 h-0"}`}
-            loading="lazy"
-            onLoad={() => setLoaded(true)}
-            onError={() => { setLoaded(false); setIdx(i => i + 1); }}
-          />
-        </>
-      ) : (
-        /* All URLs failed — show contribution grid placeholder */
-        <div className="flex flex-col items-center gap-2 py-3">
-          <div className="flex gap-0.5 flex-wrap justify-center" style={{ maxWidth: 240 }}>
-            {Array.from({ length: 35 * 5 }).map((_, i) => {
-              const v = Math.random();
-              const c =
-                v > 0.85 ? "hsl(0 67% 36%)" :
-                v > 0.65 ? "hsl(0 67% 46%)" :
-                v > 0.45 ? "hsl(0 67% 56%)" :
-                v > 0.25 ? "hsl(60 56% 85%)" :
-                           "hsl(60 56% 93%)";
-              return (
-                <div
-                  key={i}
-                  style={{ width: 8, height: 8, background: c, borderRadius: 2, flexShrink: 0, margin: "0.5px" }}
-                />
-              );
-            })}
-          </div>
-          <p className="text-xs text-muted-foreground text-center mt-1">
-            Run the snake workflow in GitHub Actions to show live data
-          </p>
-        </div>
-      )}
-    </div>
-  );
-};
-
-/* ── CodeChef panel ── */
-const CodeChefPanel = () => {
-  const bars = [65, 80, 50, 90, 70, 85, 60, 75, 88, 55, 92, 78];
-  return (
-    <div className="w-full flex flex-col gap-2.5">
+    <div className="flex flex-col gap-3 w-full">
+      {/* Snake Wrapper */}
       <div
-        className="rounded-xl p-3 flex items-center gap-3"
-        style={{ background: "hsl(var(--secondary))", border: "1px solid hsl(var(--border))" }}
+        className="w-full rounded-xl flex flex-col items-center justify-center overflow-hidden p-2"
+        style={{ background: "hsl(var(--secondary))", border: "1px solid hsl(var(--border))", minHeight: 110 }}
       >
-        <div className="flex flex-col items-center shrink-0">
-          <div className="text-2xl font-black text-primary">3★</div>
-          <div className="text-[9px] text-muted-foreground uppercase tracking-widest">Rating</div>
-        </div>
-        <div className="w-px h-8 bg-border" />
-        <div className="flex-1 min-w-0">
-          <p className="text-primary font-bold text-sm truncate">sai_eswar_123</p>
-          <p className="text-muted-foreground text-xs">Competitive Programmer</p>
-          <div className="flex gap-1 mt-1 flex-wrap">
-            {["Algorithms", "DSA"].map(t => (
-              <span key={t} className="text-[9px] px-1.5 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">{t}</span>
+        {!snakeLoaded && (
+          <div className="flex justify-center items-end gap-1 py-4">
+            {[...Array(6)].map((_, i) => (
+              <div
+                key={i}
+                className="w-1.5 rounded-sm bg-primary/25 animate-pulse"
+                style={{ height: `${8 + i * 3}px`, animationDelay: `${i * 0.1}s` }}
+              />
             ))}
           </div>
-        </div>
+        )}
+        <img
+          src={snakeSrc}
+          alt="GitHub contribution snake"
+          className={`w-full h-auto ${snakeLoaded ? "block" : "hidden"}`}
+          loading="lazy"
+          onLoad={() => setSnakeLoaded(true)}
+          onError={() => setSnakeSrc(isDark ? snakeLight : snakeDark)}
+        />
       </div>
-      <div
-        className="rounded-xl p-3"
+
+      {/* Top Languages Pure UI (Replaces the broken image/signal) */}
+      <div 
+        className="rounded-xl p-4 flex flex-col gap-3" 
         style={{ background: "hsl(var(--secondary))", border: "1px solid hsl(var(--border))" }}
       >
-        <p className="text-[10px] text-muted-foreground mb-2 uppercase tracking-widest">Contest Activity</p>
-        <div className="flex items-end gap-0.5 h-8">
-          {bars.map((h, i) => (
-            <div
-              key={i}
-              className="flex-1 rounded-t transition-all duration-700"
-              style={{
-                height: `${h}%`,
-                background: `hsl(0 67% ${36 + (h / 100) * 20}%)`,
-                opacity: 0.6 + (h / 100) * 0.4,
-                transitionDelay: `${i * 50}ms`,
-              }}
+        <p className="text-sm font-bold text-red-800 dark:text-red-400">Most Used Languages</p>
+        
+        {/* Full multi-colored progress bar line */}
+        <div className="w-full h-2 rounded-full overflow-hidden flex bg-muted">
+          {languages.map((lang) => (
+            <div 
+              key={lang.name} 
+              style={{ width: lang.pct }} 
+              className={`${lang.color} h-full`}
             />
           ))}
         </div>
-      </div>
-    </div>
-  );
-};
 
-/* ── HackerRank panel ── */
-const HackerRankPanel = () => {
-  const skills = [
-    { name: "Problem Solving", pct: 85 },
-    { name: "Python",          pct: 72 },
-    { name: "SQL",             pct: 68 },
-    { name: "Java",            pct: 60 },
-  ];
-  const badges = ["Problem Solving", "Python", "SQL", "30 Days of Code"];
-
-  return (
-    <div className="w-full flex flex-col gap-2.5">
-      <div
-        className="rounded-xl p-3"
-        style={{ background: "hsl(var(--secondary))", border: "1px solid hsl(var(--border))" }}
-      >
-        <p className="text-[10px] text-muted-foreground mb-2.5 uppercase tracking-widest">Skill Proficiency</p>
-        <div className="flex flex-col gap-2">
-          {skills.map(s => (
-            <div key={s.name}>
-              <div className="flex justify-between mb-0.5">
-                <span className="text-[11px] text-foreground">{s.name}</span>
-                <span className="text-[11px] font-bold text-primary">{s.pct}%</span>
-              </div>
-              <div className="h-1.5 rounded-full bg-border overflow-hidden">
-                <div
-                  className="h-full rounded-full bg-primary transition-all duration-1000"
-                  style={{ width: `${s.pct}%` }}
-                />
-              </div>
+        {/* Legend Grid */}
+        <div className="grid grid-cols-2 gap-x-4 gap-y-2 mt-1">
+          {languages.map((lang) => (
+            <div key={lang.name} className="flex items-center gap-2 text-xs">
+              <span className={`w-3 h-3 rounded-full ${lang.color} shrink-0`} />
+              <span className="text-muted-foreground font-medium">{lang.name}</span>
+              <span className="text-foreground/70 ml-auto">{lang.pct}</span>
             </div>
           ))}
         </div>
       </div>
-      <div className="flex flex-wrap gap-1.5">
-        {badges.map(b => (
-          <span
-            key={b}
-            className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold bg-primary/10 text-primary border border-primary/25"
-          >
-            ⭐ {b}
-          </span>
-        ))}
-      </div>
     </div>
   );
 };
 
-/* ── Icons ── */
+/* ── CodeChef card content ── */
+const CodeChefContent = () => (
+  <div className="flex flex-col gap-3 w-full">
+    <div className="rounded-xl p-4 flex flex-col gap-3" style={{ background: "hsl(var(--secondary))", border: "1px solid hsl(var(--border))" }}>
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-black text-sm shrink-0">SE</div>
+        <div>
+          <p className="font-bold text-sm text-foreground">sai_eswar_123</p>
+          <p className="text-xs text-muted-foreground">Competitive Programmer</p>
+        </div>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {["Algorithms", "Data Structures", "Problem Solving", "DSA"].map(t => (
+          <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">{t}</span>
+        ))}
+      </div>
+    </div>
+
+    <div className="rounded-xl p-4 flex flex-col gap-2.5" style={{ background: "hsl(var(--secondary))", border: "1px solid hsl(var(--border))" }}>
+      <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold">Focus Areas</p>
+      {[
+        { label: "Long Challenge Contests", icon: "🏆" },
+        { label: "Cook-Off & Lunchtime Rounds", icon: "⚡" },
+        { label: "Greedy & DP Problems", icon: "🧩" },
+        { label: "Graph Algorithms", icon: "🌐" },
+      ].map(item => (
+        <div key={item.label} className="flex items-center gap-2">
+          <span className="text-sm">{item.icon}</span>
+          <span className="text-xs text-foreground">{item.label}</span>
+        </div>
+      ))}
+    </div>
+
+    <div className="rounded-xl overflow-hidden flex justify-center py-2" style={{ background: "hsl(var(--secondary))", border: "1px solid hsl(var(--border))" }}>
+      <img
+        src="https://img.shields.io/badge/CodeChef-sai__eswar__123-5B4638?style=for-the-badge&logo=codechef&logoColor=white"
+        alt="CodeChef badge"
+        loading="lazy"
+        className="h-7"
+      />
+    </div>
+  </div>
+);
+
+/* ── HackerRank card content ── */
+const HackerRankContent = () => (
+  <div className="flex flex-col gap-3 w-full">
+    <div className="rounded-xl p-4 flex flex-col gap-3" style={{ background: "hsl(var(--secondary))", border: "1px solid hsl(var(--border))" }}>
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-black text-sm shrink-0">SE</div>
+        <div>
+          <p className="font-bold text-sm text-foreground">h2300039123</p>
+          <p className="text-xs text-muted-foreground">Problem Solver</p>
+        </div>
+      </div>
+    </div>
+
+    <div className="rounded-xl p-4 flex flex-col gap-2.5" style={{ background: "hsl(var(--secondary))", border: "1px solid hsl(var(--border))" }}>
+      <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold">Practice Domains</p>
+      {[
+        { label: "Problem Solving (Basic → Adv)", icon: "🧠" },
+        { label: "Python & Java Challenges", icon: "🐍" },
+        { label: "SQL Queries", icon: "🗃️" },
+        { label: "30 Days of Code", icon: "📅" },
+        { label: "10 Days of Statistics", icon: "📊" },
+      ].map(item => (
+        <div key={item.label} className="flex items-center gap-2">
+          <span className="text-sm">{item.icon}</span>
+          <span className="text-xs text-foreground">{item.label}</span>
+        </div>
+      ))}
+    </div>
+
+    <div className="rounded-xl overflow-hidden flex justify-center py-2" style={{ background: "hsl(var(--secondary))", border: "1px solid hsl(var(--border))" }}>
+      <img
+        src="https://img.shields.io/badge/HackerRank-h2300039123-00EA64?style=for-the-badge&logo=hackerrank&logoColor=white"
+        alt="HackerRank badge"
+        loading="lazy"
+        className="h-7"
+      />
+    </div>
+  </div>
+);
+
+/* ── SVGs ── */
 const GithubIcon = () => (
   <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current">
     <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12" />
@@ -189,7 +178,7 @@ const GithubIcon = () => (
 );
 const CodeChefIcon = () => (
   <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current">
-    <path d="M11.257.004C5.055.193.194 5.239.004 11.44c-.193 6.202 4.854 11.363 11.056 11.556 6.203.192 11.364-4.854 11.556-11.056C22.809 5.737 17.46.003 11.257.004zm-.534 3.99c.178 0 .35.013.516.034L9.74 7.952a2.42 2.42 0 0 0-.483 1.446c0 1.345 1.09 2.436 2.436 2.436a2.43 2.43 0 0 0 2.304-1.66l1.013-3.197a7.662 7.662 0 0 1 3.194 4.61H5.583a7.674 7.674 0 0 1 5.14-7.594zm.534 14.012a7.692 7.692 0 0 1-7.674-7.23h15.348a7.692 7.692 0 0 1-7.674 7.23z"/>
+    <path d="M11.257.004C5.055.193.194 5.239.004 11.44c-.193 6.202 4.854 11.363 11.056 11.556 6.203.192 11.364-4.854 11.556-11.056C22.809 5.737 17.46.003 11.257.004zm-.534 3.99c.178 0 .35.013.516.034L9.74 7.952a2.42 2.42 0 0 0-.483 1.446c0 1.345 1.09 2.436 2.436 2.436a2.43 2.43 0 0 0 2.304-1.66l1.013-3.197a7.662 7.662 0 0 1 3.194 4.61H5.583a7.674 7.674 0 0 1 5.14-7.594zm.534 14.012a7.692 7.692 0 0 1-7.674-7.23h15.348a7.692 7.692 0 0 1-7.674 7.23z" />
   </svg>
 );
 const HackerRankIcon = () => (
@@ -198,7 +187,7 @@ const HackerRankIcon = () => (
   </svg>
 );
 
-/* ── Platform card ── */
+/* ── Platform card wrapper ── */
 interface PlatformCardProps {
   icon: React.ReactNode;
   title: string;
@@ -210,12 +199,7 @@ interface PlatformCardProps {
 }
 
 const PlatformCard = ({ icon, title, subtitle, href, btnLabel, delay = 0, children }: PlatformCardProps) => (
-  <div
-    className="portfolio-card flex flex-col gap-4"
-    data-aos="fade-up"
-    data-aos-delay={delay}
-  >
-    {/* Header row */}
+  <div className="portfolio-card flex flex-col gap-4" data-aos="fade-up" data-aos-delay={delay}>
     <div className="flex items-center gap-3">
       <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shrink-0">
         {icon}
@@ -225,33 +209,22 @@ const PlatformCard = ({ icon, title, subtitle, href, btnLabel, delay = 0, childr
         <p className="text-xs text-muted-foreground leading-snug mt-0.5">{subtitle}</p>
       </div>
     </div>
-
-    {/* Content slot */}
     <div className="flex-1">{children}</div>
-
-    {/* CTA */}
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center justify-center gap-2 w-full py-2 rounded-lg text-sm font-semibold border border-primary/30 text-primary bg-primary/8 hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-[1.02] hover:shadow-md"
+      className="inline-flex items-center justify-center gap-2 w-full py-2 rounded-lg text-sm font-semibold border border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-[1.02] hover:shadow-md"
     >
-      {btnLabel}
-      <ExternalLink className="w-3.5 h-3.5" />
+      {btnLabel} <ExternalLink className="w-3.5 h-3.5" />
     </a>
   </div>
 );
 
-/* ══════════════════════════════════════════
-   Main Section — themed to portfolio palette
-   ══════════════════════════════════════════ */
+/* ── Main Component ── */
 const CodingActivity = () => (
-  <section
-    id="coding-activity"
-    className="py-16 bg-background dark:bg-background"
-  >
+  <section id="coding-activity" className="py-16 bg-background dark:bg-background">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* Section header */}
       <div className="text-center mb-10" data-aos="fade-up">
         <h2 className="section-title">Coding Activity</h2>
         <p className="text-muted-foreground max-w-lg mx-auto text-sm mt-4">
@@ -259,39 +232,17 @@ const CodingActivity = () => (
         </p>
       </div>
 
-      {/* Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <PlatformCard
-          icon={<GithubIcon />}
-          title="GitHub Contributions"
-          subtitle="Open-source projects & live contribution snake"
-          href={GITHUB_URL}
-          btnLabel="View GitHub Profile"
-          delay={0}
-        >
-          <SnakeContribution />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+        <PlatformCard icon={<GithubIcon />} title="GitHub Contributions" subtitle="Live stats & contribution snake" href={GITHUB_URL} btnLabel="View GitHub Profile" delay={0}>
+          <GitHubContent />
         </PlatformCard>
 
-        <PlatformCard
-          icon={<CodeChefIcon />}
-          title="CodeChef Activity"
-          subtitle="Competitive programming & algorithmic contests"
-          href={CODECHEF_URL}
-          btnLabel="View CodeChef Profile"
-          delay={120}
-        >
-          <CodeChefPanel />
+        <PlatformCard icon={<CodeChefIcon />} title="CodeChef Activity" subtitle="Competitive programming & contests" href={CODECHEF_URL} btnLabel="View CodeChef Profile" delay={120}>
+          <CodeChefContent />
         </PlatformCard>
 
-        <PlatformCard
-          icon={<HackerRankIcon />}
-          title="HackerRank Progress"
-          subtitle="Skill badges & problem-solving across domains"
-          href={HACKERRANK_URL}
-          btnLabel="View HackerRank Profile"
-          delay={240}
-        >
-          <HackerRankPanel />
+        <PlatformCard icon={<HackerRankIcon />} title="HackerRank Progress" subtitle="Problem solving & skill domains" href={HACKERRANK_URL} btnLabel="View HackerRank Profile" delay={240}>
+          <HackerRankContent />
         </PlatformCard>
       </div>
     </div>
