@@ -1,4 +1,5 @@
 import { Code, Wrench, Palette, Terminal, Workflow, Smartphone } from "lucide-react";
+import TiltedCard from "./TiltedCard";
 
 const skillCategories = [
   {
@@ -61,50 +62,61 @@ const Skills = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="section-title" data-aos="fade-up">My Expertise</h2>
 
-        {/* Skill Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skillCategories.map((category, index) => (
-            <div
-              key={category.title}
-              className="portfolio-card text-center skill-card transform transition-all duration-500 hover:scale-105 hover:shadow-xl"
-              data-aos="zoom-in-up"
-              data-aos-delay={index * 150}
-            >
-              <div className="mb-4">
-                <category.icon className="skill-icon transform transition-transform duration-300 hover:scale-110" />
-                <h3 className="text-xl font-semibold mb-3 text-foreground">{category.title}</h3>
-                <p className="text-muted-foreground text-sm mb-4">{category.description}</p>
-              </div>
+            <div data-aos="zoom-in-up" data-aos-delay={index * 150} key={category.title} className="h-full">
+              <TiltedCard
+                containerHeight="100%"
+                containerWidth="100%"
+                imageHeight="100%"
+                imageWidth="100%"
+                rotateAmplitude={8}
+                scaleOnHover={1.05}
+                showMobileWarning={false}
+                showTooltip={false}
+              >
+                <div
+                  className="portfolio-card text-center skill-card h-full w-full flex flex-col justify-between transition-shadow duration-500 hover:shadow-xl"
+                >
+                  <div className="mb-4">
+                    <category.icon className="skill-icon transform transition-transform duration-300 hover:scale-110" />
+                    <h3 className="text-xl font-semibold mb-3 text-foreground">{category.title}</h3>
+                    <p className="text-muted-foreground text-sm mb-4">{category.description}</p>
+                  </div>
 
-              {/* Proficiency bar */}
-              <div className="mb-4 text-left">
-                <div className="flex justify-between items-center mb-1">
-                  <span className="text-xs font-medium text-muted-foreground">Proficiency</span>
-                  <span className="text-xs font-bold" style={{ color: category.color }}>{category.proficiency}%</span>
-                </div>
-                <div className="w-full h-2 bg-secondary dark:bg-secondary rounded-full overflow-hidden">
-                  <div
-                    className="h-full rounded-full transition-all duration-1000"
-                    style={{ width: `${category.proficiency}%`, background: category.color }}
-                    data-aos="slide-right"
-                    data-aos-delay={index * 150 + 200}
-                  />
-                </div>
-              </div>
+                  <div className="mt-auto">
+                    {/* Proficiency bar */}
+                    <div className="mb-4 text-left">
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="text-xs font-medium text-muted-foreground">Proficiency</span>
+                        <span className="text-xs font-bold" style={{ color: category.color }}>{category.proficiency}%</span>
+                      </div>
+                      <div className="w-full h-2 bg-secondary dark:bg-secondary rounded-full overflow-hidden">
+                        <div
+                          className="h-full rounded-full transition-all duration-1000"
+                          style={{ width: `${category.proficiency}%`, background: category.color }}
+                          data-aos="slide-right"
+                          data-aos-delay={index * 150 + 200}
+                        />
+                      </div>
+                    </div>
 
-              {/* Skill pills */}
-              <div className="flex flex-wrap gap-2 justify-center">
-                {category.skills.map((skill, skillIndex) => (
-                  <span
-                    key={skill}
-                    className="px-3 py-1 bg-secondary dark:bg-secondary text-secondary-foreground dark:text-secondary-foreground rounded-full text-xs font-medium transform transition-all duration-300 hover:scale-110 hover:bg-primary hover:text-primary-foreground"
-                    data-aos="fade-up"
-                    data-aos-delay={index * 100 + skillIndex * 50}
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
+                    {/* Skill pills */}
+                    <div className="flex flex-wrap gap-2 justify-center">
+                      {category.skills.map((skill, skillIndex) => (
+                        <span
+                          key={skill}
+                          className="px-3 py-1 bg-secondary dark:bg-secondary text-secondary-foreground dark:text-secondary-foreground rounded-full text-xs font-medium transform transition-all duration-300 hover:scale-110 hover:bg-primary hover:text-primary-foreground"
+                          data-aos="fade-up"
+                          data-aos-delay={index * 100 + skillIndex * 50}
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </TiltedCard>
             </div>
           ))}
         </div>

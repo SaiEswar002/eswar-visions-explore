@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ExternalLink } from "lucide-react";
+import TiltedCard from "./TiltedCard";
 
 /* ── Constants ── */
 const GITHUB_USER = "SaiEswar002";
@@ -199,25 +200,38 @@ interface PlatformCardProps {
 }
 
 const PlatformCard = ({ icon, title, subtitle, href, btnLabel, delay = 0, children }: PlatformCardProps) => (
-  <div className="portfolio-card flex flex-col gap-4" data-aos="fade-up" data-aos-delay={delay}>
-    <div className="flex items-center gap-3">
-      <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shrink-0">
-        {icon}
-      </div>
-      <div className="min-w-0">
-        <h3 className="font-bold text-base text-foreground leading-tight">{title}</h3>
-        <p className="text-xs text-muted-foreground leading-snug mt-0.5">{subtitle}</p>
-      </div>
-    </div>
-    <div className="flex-1">{children}</div>
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center justify-center gap-2 w-full py-2 rounded-lg text-sm font-semibold border border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-[1.02] hover:shadow-md"
+  <div className="h-full" data-aos="fade-up" data-aos-delay={delay}>
+    <TiltedCard
+      containerHeight="100%"
+      containerWidth="100%"
+      imageHeight="100%"
+      imageWidth="100%"
+      rotateAmplitude={8}
+      scaleOnHover={1.05}
+      showMobileWarning={false}
+      showTooltip={false}
     >
-      {btnLabel} <ExternalLink className="w-3.5 h-3.5" />
-    </a>
+      <div className="portfolio-card flex flex-col gap-4 h-full w-full hover:shadow-xl transition-shadow duration-500">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shrink-0">
+            {icon}
+          </div>
+          <div className="min-w-0 text-left">
+            <h3 className="font-bold text-base text-foreground leading-tight">{title}</h3>
+            <p className="text-xs text-muted-foreground leading-snug mt-0.5">{subtitle}</p>
+          </div>
+        </div>
+        <div className="flex-1 text-left">{children}</div>
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center gap-2 w-full py-2 rounded-lg text-sm font-semibold border border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-[1.02] hover:shadow-md"
+        >
+          {btnLabel} <ExternalLink className="w-3.5 h-3.5" />
+        </a>
+      </div>
+    </TiltedCard>
   </div>
 );
 

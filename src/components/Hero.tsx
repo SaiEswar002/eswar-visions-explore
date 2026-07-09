@@ -42,7 +42,7 @@ const Hero = () => {
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen">
           {/* LEFT — Profile image with animated rings */}
-          <div className="order-2 lg:order-1" data-aos="fade-right" data-aos-delay="300">
+          <div className="order-2 lg:order-1" data-aos="zoom-in" data-aos-delay="100">
             <div className="relative flex items-center justify-center">
               {/* Animated concentric ring pulses */}
               <span className="hero-ring hero-ring-1" aria-hidden="true" />
@@ -59,7 +59,7 @@ const Hero = () => {
                 <img
                   src={profileImage}
                   alt="E.N.V.B. Sai Eswar - Frontend Developer"
-                  loading="lazy"
+                  fetchPriority="high"
                   onLoad={() => setImgLoaded(true)}
                   className={`w-full h-auto rounded-2xl shadow-2xl object-cover hero-image transform transition-all duration-700 hover:scale-105 ${imgLoaded ? "opacity-100" : "opacity-0"}`}
                 />
@@ -70,7 +70,7 @@ const Hero = () => {
           {/* RIGHT — Content */}
           <div className="order-1 lg:order-2 text-center lg:text-left hero-content">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-wider hero-heading">
-              <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+              <span className="text-primary">
                 SAI ESWAR
               </span>
             </h1>
