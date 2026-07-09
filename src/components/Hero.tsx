@@ -70,7 +70,7 @@ const Hero = () => {
           {/* RIGHT — Content */}
           <div className="order-1 lg:order-2 text-center lg:text-left hero-content">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-wider hero-heading">
-              <span className="text-primary bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
                 SAI ESWAR
               </span>
             </h1>

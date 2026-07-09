@@ -1,4 +1,4 @@
-import { Code, Wrench, Palette } from "lucide-react";
+import { Code, Wrench, Palette, Terminal, Workflow, Smartphone } from "lucide-react";
 
 const skillCategories = [
   {
@@ -28,9 +28,9 @@ const skillCategories = [
 ];
 
 const currentlyLearning = [
-  { label: "Docker", color: "bg-blue-500/20 text-blue-600 dark:text-blue-400" },
-  { label: "DevOps Pipelines", color: "bg-orange-500/20 text-orange-600 dark:text-orange-400" },
-  { label: "Android Development", color: "bg-green-500/20 text-green-600 dark:text-green-400" },
+  { label: "Docker", icon: Terminal, color: "bg-blue-500/10 border-blue-500/20 text-blue-700 dark:text-blue-400 hover:border-blue-500/40 hover:bg-blue-500/20" },
+  { label: "DevOps Pipelines", icon: Workflow, color: "bg-orange-500/10 border-orange-500/20 text-orange-700 dark:text-orange-400 hover:border-orange-500/40 hover:bg-orange-500/20" },
+  { label: "Android Development", icon: Smartphone, color: "bg-green-500/10 border-green-500/20 text-green-700 dark:text-green-400 hover:border-green-500/40 hover:bg-green-500/20" },
 ];
 
 /* Tech icon grid using devicon CDN */
@@ -147,15 +147,11 @@ const Skills = () => {
             {currentlyLearning.map((item, i) => (
               <span
                 key={item.label}
-                className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold border border-current/20 ${item.color}`}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-md ${item.color}`}
                 data-aos="zoom-in"
                 data-aos-delay={i * 100}
               >
-                {/* Pulsing dot */}
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-current" />
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-current" />
-                </span>
+                <item.icon className="w-4 h-4 animate-pulse" />
                 {item.label}
               </span>
             ))}

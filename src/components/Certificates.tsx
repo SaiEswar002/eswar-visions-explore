@@ -559,16 +559,15 @@ const Certificates = () => {
         {/* Header */}
         <div className="flex flex-col items-center mb-12 text-center" data-aos="fade-up">
           <div
-            className="inline-flex items-center gap-2 mb-5 px-4 py-1.5 rounded-full text-[13px] font-semibold tracking-wide border"
+            className="inline-flex items-center gap-2 mb-5 px-5 py-2.5 rounded-xl text-[13px] font-semibold tracking-wide border backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-md"
             style={{
               background: "rgba(155,28,28,0.08)",
               borderColor: "rgba(155,28,28,0.25)",
               color: "hsl(var(--primary))",
-              boxShadow: "0 0 20px rgba(155,28,28,0.1)",
             }}
           >
-            <Award className="w-3.5 h-3.5" />
-            16 Certifications &amp; Counting 🚀
+            <Award className="w-4 h-4 animate-pulse" />
+            16 Certifications &amp; Counting
           </div>
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-3" style={{ color: "hsl(var(--foreground))" }}>
             Certificates &amp;{" "}
